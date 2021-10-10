@@ -2,6 +2,7 @@ import Link from 'next/Link'
 import SiteButton from "../SiteButton"
 
 import { useState } from 'react'
+import { useToggle } from '../../context/sideBarContext'
 
 const data = [
     {

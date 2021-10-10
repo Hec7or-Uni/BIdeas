@@ -81,7 +81,7 @@ export default function Navbar({ username }) {
                         type="button"
                         onClick={() => console.log("Click")}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setActive(!isActive)} className={`h-5 w-5 transition duration-500 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setActive(!isActive)} className={`h-5 w-5 mt-1.5 transition duration-500 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
@@ -100,7 +100,6 @@ export default function Navbar({ username }) {
                             })}
                         </div>
                     )}
-
                 </div>
             </div>
         </nav>
