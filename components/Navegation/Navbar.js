@@ -53,7 +53,7 @@ export default function Navbar({ username }) {
 
             {/* Profile */}
             <div className="flex items-center h-12 absolute right-0 mr-8">
-                <div className="w-12 max-h-12 rounded-full">
+                <div className="w-12 h-12 rounded-full">
                     <img src="/personas/HectorToralPallas.jpg" className="w-12 max-h-12 rounded-full object-cover center" />
                 </div>
                 <p className="mx-2.5 text-xl font-semibold text-black">
