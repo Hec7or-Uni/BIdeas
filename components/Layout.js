@@ -8,8 +8,8 @@ export default function Layout({ children }) {
             <Meta />
             <Navbar />
             <div 
-                className="flex mt-16"
-                style={{minHeight: "calc(100vh - 4rem)"}}
+                className="flex mt-14"
+                style={{minHeight: "calc(100vh - 3.5rem)"}}
             >
                 <Sidebar />
                 <main className="px-10 py-6">

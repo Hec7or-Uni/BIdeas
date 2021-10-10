@@ -41,7 +41,7 @@ const data = [
 
 export default function Sidebar({ site }) {
     return (
-        <nav className="flex flex-col w-80 bg-gray-100 p-4">
+        <nav className="flex flex-col w-60 bg-gray-100 p-4">
             {data.map(item => {
                 return <SiteButton key={item.id} icon={item.icon} site={item.name} url={item.url} links={item.links} />
             })}
