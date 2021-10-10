@@ -28,12 +28,12 @@ const data = [
             {
                 id: 1,
                 name: 'Teams',
-                url: '/teams'
+                url: '/careers/teams'
             },
             {
                 id: 2,
                 name: 'Professionals',
-                url: '/professionals'
+                url: '/careers/professionals'
             }
         ]
     }
