@@ -6,16 +6,16 @@ export default function Layout({ children }) {
     return (
         <>
             <Meta />
-            <Navbar />
-            <div 
-                className="flex mt-14"
-                style={{minHeight: "calc(100vh - 3.5rem)"}}
-            >
+            <div className="flex h-screen">
                 <Sidebar />
-                <main className="w-full px-10 py-6">
-                    {children}
-                </main>
+                <div className="w-full">
+                    <Navbar />
+                    <main className="w-full px-10 py-6">
+                        {children}
+                    </main>
+                </div>
             </div>
+
         </>
     )
 }

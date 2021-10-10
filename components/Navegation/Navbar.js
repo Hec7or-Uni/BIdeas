@@ -5,15 +5,7 @@ export default function Navbar({ username }) {
     const [isActive, setActive] = useState(false);
 
     return (
-        <nav className="flex items-center h-14 w-full bg-gray-200 absolute top-0 z-50 tracking-wide">
-            {/* Logotipo */}
-            <Link href="/">
-                <a className="flex justify-center items-center h-10 w-60 rounded-md bg-gray-100">
-                    <h1 className="text-xl font-semibold text-black">
-                        logotipo
-                    </h1>
-                </a>
-            </Link>
+        <nav className="flex items-center h-14 w-full bg-gray-200 z-50 tracking-wide">
             <div className="flex items-center h-10 ml-8">
                 {/* Buscador */}
                 <form
@@ -34,7 +26,7 @@ export default function Navbar({ username }) {
                         name="search"
                         type="search"
                         placeholder="Search..."
-                        className="w-56 ml-2.5 outline-none text-xl font-normal placeholder-opacity-100 placeholder-black text-black"
+                        className="w-56 ml-2.5 outline-none text-lg font-normal text-black"
                     />
                 </form>
 
