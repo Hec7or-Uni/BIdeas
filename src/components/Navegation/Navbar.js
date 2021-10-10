@@ -1,6 +1,30 @@
 import Link from 'next/Link'
 import { useState } from "react"
 
+const links = [
+    {
+        id: 1,
+        name: "Go VIP",
+        url: ""
+    }, {
+        id: 2,
+        name: "View Profile",
+        url: ""
+    }, {
+        id: 3,
+        name: "Profile Settings",
+        url: ""
+    }, {
+        id: 4,
+        name: "Subscriptions",
+        url: ""
+    }, {
+        id: 5,
+        name: "Logout",
+        url: ""
+    }
+]
+
 export default function Navbar({ username }) {
     const [isActive, setActive] = useState(false);
 
@@ -31,7 +55,7 @@ export default function Navbar({ username }) {
                 </form>
 
                 {/* Upgrade To Vip */}
-                <div className="px-5 py-2 ml-6 rounded-full bg-gray-600">
+                <div className="px-5 py-1.5 ml-6 rounded-full bg-gray-600">
                     <button
                         id="vip"
                         type="button"
@@ -51,15 +75,33 @@ export default function Navbar({ username }) {
                 <p className="mx-2.5 text-lg font-semibold text-black">
                     {username}
                 </p>
-                <button
-                    id="settings"
-                    type="button"
-                    onClick={() => console.log("Click")}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setActive(!isActive)} className={`h-5 w-5 transition duration-500 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
+                <div>
+                    <button
+                        id="settings"
+                        type="button"
+                        onClick={() => console.log("Click")}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setActive(!isActive)} className={`h-5 w-5 transition duration-500 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    {isActive && (
+                        <div className="flex flex-col w-52 mt-6 rounded-md bg-gray-200 absolute right-0 z-50 py-1">
+                            {links.map(item => {
+                                return (
+                                    <Link href={item.url}>
+                                        <a className="px-3 py-1.5 hover:bg-gray-100">
+                                            <p className="text-base font-semibold text-black capitalize">
+                                                {item.name}
+                                            </p>
+                                        </a>
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                    )}
+
+                </div>
             </div>
         </nav>
     )
