@@ -2,6 +2,8 @@ import Meta from './Meta'
 import Navbar from './Navegation/Navbar'
 import Sidebar from './Navegation/Sidebar'
 
+import { sideBar } from '../context/sideBar'
+
 export default function Layout({ children }) {
     return (
         <>

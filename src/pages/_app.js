@@ -2,7 +2,7 @@
 import Layout from '../components/Layout'
 
 // Styles
-import 'tailwindcss/tailwind.css'
+import '../../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
     return (
