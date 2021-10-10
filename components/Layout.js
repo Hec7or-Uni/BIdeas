@@ -12,7 +12,7 @@ export default function Layout({ children }) {
                 style={{minHeight: "calc(100vh - 3.5rem)"}}
             >
                 <Sidebar />
-                <main className="px-10 py-6">
+                <main className="w-full px-10 py-6">
                     {children}
                 </main>
             </div>
