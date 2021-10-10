@@ -1,25 +1,25 @@
 export default function Header({ username, id, studies }) {
     return (
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center gap-4 tracking-normal">
             {/* Profile */}
             <div className="flex items-center">
-                <div className="w-20 h-20 rounded-full relative">
-                    <img src="/personas/HectorToralPallas.jpg" className="w-20 max-h-20 rounded-full object-cover center" />
-                    <div className="flex w-8 h-8 mb-1 ml-1 rounded-full absolute right-0 bottom-0">
+                <div className="w-16 h-16 rounded-full relative">
+                    <img src="/personas/HectorToralPallas.jpg" className="w-16 max-h-16 rounded-full object-cover center" />
+                    <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
                         <img src="/banderas/spain.png" className="rounded-full object-cover center" />
                     </div>
                 </div>
 
                 <div className="ml-8">
                     <div className="flex items-end">
-                        <p className="text-xl font-bold text-black">
+                        <p className="text-lg font-bold text-black">
                             {username}
                         </p>
-                        <p className="ml-2 text-lg font-semibold text-black">
+                        <p className="ml-2 text-base font-semibold text-black">
                             #{id}
                         </p>
                     </div>
-                    <p className="text-lg font-semibold text-gray-800">
+                    <p className="text-base font-semibold text-gray-800">
                         {studies}
                     </p>
                 </div>
@@ -31,7 +31,7 @@ export default function Header({ username, id, studies }) {
                     <p className="text-sm font-medium">
                         rank
                     </p>
-                    <p className="text-lg font-semibold">
+                    <p className="text-lg font-bold">
                         noob
                     </p>
                 </div>
@@ -41,7 +41,7 @@ export default function Header({ username, id, studies }) {
                     <p className="text-sm font-medium">
                         plan type
                     </p>
-                    <p className="text-lg font-semibold">
+                    <p className="text-lg font-bold">
                         free
                     </p>
                     <p className="text-sm font-medium">
