@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export default function LineMenu({ data }) {
-    const [isActive, setActive] = useState(false);
+    const [isActive, setActive] = useState(1);
 
     return (
         <>
