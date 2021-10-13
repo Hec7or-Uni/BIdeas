@@ -1,4 +1,5 @@
-import LineMenu from "../components/Navegation/LineMenu";
+import LineMenu from '../components/Navegation/LineMenu';
+import Card from '../components/Card'
 
 const data = [
     {
@@ -129,6 +130,7 @@ export default function Home() {
 
             {/* Selector */}
             <LineMenu data={data} />
+            <Card />
         </>
     )
 }

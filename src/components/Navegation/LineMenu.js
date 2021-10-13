@@ -20,7 +20,7 @@ export default function LineMenu({ data }) {
                     )
                 })}
             </div>
-            <hr className="border-black" />
+            <hr className="border-black mb-4" />
         </>
     )
 }
