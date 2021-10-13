@@ -7,7 +7,8 @@ export default function LineMenu({ data }) {
         <>
             <div className="flex items-start w-full mt-8 tracking-wide">
                 {data.map(item => {
-                    return (<input
+                    return (
+                        <input
                             key={item.id}
                             id={item.id}
                             name={item.id}
