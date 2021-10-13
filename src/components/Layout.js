@@ -2,7 +2,7 @@ import Meta from './Meta'
 import Navbar from './Navegation/Navbar'
 import Sidebar from './Navegation/Sidebar'
 
-import { SidebarProvider } from '../context/sideBarContext'
+import { SidebarProvider } from '../context/SidebarContext'
 
 export default function Layout({ children }) {
     return (
@@ -19,7 +19,6 @@ export default function Layout({ children }) {
                     </main>
                 </div>
             </div>
-
         </>
     )
 }

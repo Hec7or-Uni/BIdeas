@@ -1,15 +1,19 @@
-import { createContext, useState } from "react";
+import React, { useState, useContext } from "react";
 
-export const sideBarContext = createContext();
+const SidebarContext = React.createContext()
 
-export const useSidebar = () => useContext(sideBarContext);
+export function useSidebar() {
+    return useContext(SidebarContext)
+}
 
-export const SidebarProvider = ({ children }) => {
-    const [toggle, setToggle] = useState(false)
+export function SidebarProvider({ children }) {
+    // isActive == 0 si el sidebar esta abierto
+    // si esta minimizado, isActive == 1
+    const [isActive, setActive] = useState(false)
 
     return (
-        <sideBarContext.Provider value={{toggle, setToggle}}>
+        <SidebarContext.Provider value={[isActive, setActive]}>
             {children}
-        </sideBarContext.Provider>
+        </SidebarContext.Provider>
     )
-};
+}

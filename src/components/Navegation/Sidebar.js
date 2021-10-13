@@ -2,7 +2,7 @@ import Link from 'next/Link'
 import SiteButton from "../SiteButton"
 
 import { useState } from 'react'
-import { useToggle } from '../../context/sideBarContext'
+import { useSidebar } from '../../context/SidebarContext'
 
 const data = [
     {
@@ -45,10 +45,10 @@ const data = [
 
 export default function Sidebar() {
     const [hover, setHover] = useState(false)
-    const [isActive, setActive] = useState(false)
+    const [isActive, setActive] = useSidebar()
 
     return (
-        <>
+        <div className="flex h-screen">
             <div className={`flex flex-col bg-gray-100 ${isActive ? 'w-20' : 'w-60'}`}>
                 {/* Logotipo */}
                 <div className="flex justify-center items-center h-14 bg-gray-200">
@@ -62,7 +62,7 @@ export default function Sidebar() {
                 </div>
                 <nav className="flex flex-col p-4">
                     {data.map(item => {
-                        return <SiteButton key={item.id} icon={item.icon} site={item.name} url={item.url} links={item.links} show={isActive} />
+                        return <SiteButton key={item.id} icon={item.icon} site={item.name} url={item.url} links={item.links} />
                     })}
                 </nav>
             </div>
@@ -72,10 +72,10 @@ export default function Sidebar() {
                     onMouseLeave={() => setHover(false)}
                     className="flex flex-col h-screen"
                 >
-                    <hr className={`w-1 border-2 h-14 relative ${hover ? 'border-blue-500':'border-gray-200'}`} />
+                    <hr className={`w-1 border-2 h-14 relative ${hover ? 'border-blue-500 bg-blue-500':'border-gray-200 bg-gray-200'}`} />
                     <hr 
                         style={{minHeight: "calc(100vh - 3.5rem)"}}
-                        className={`w-1 border-2 relative ${hover ? 'border-blue-500':'border-gray-100'}`}
+                        className={`w-1 border-2 relative ${hover ? 'border-blue-500 bg-blue-500':'border-gray-100 bg-gray-100'}`}
                     />
                 </div>
                 <button
@@ -87,6 +87,6 @@ export default function Sidebar() {
                     </svg>
                 </button>
             </div>
-        </>
+        </div>
     )
 }
