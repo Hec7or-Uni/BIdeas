@@ -49,12 +49,12 @@ export default function Sidebar() {
 
     return (
         <div className="flex h-screen">
-            <div className={`flex flex-col bg-gray-100 ${isActive ? 'w-20' : 'w-60'}`}>
+            <div className={`flex flex-col bg-gray-100 ${isActive ? 'w-20' : 'w-48 md:w-52 lg:w-60'}`}>
                 {/* Logotipo */}
                 <div className="flex justify-center items-center h-14 bg-gray-200">
                     <Link href="/">
                         <a className="flex justify-center items-center h-10 w-56 rounded-md bg-gray-100">
-                            <h1 className="text-xl font-semibold text-black">
+                            <h1 className="text-base lg:text-xl font-semibold text-black">
                                 logotipo
                             </h1>
                         </a>
@@ -66,7 +66,7 @@ export default function Sidebar() {
                     })}
                 </nav>
             </div>
-            <div className="">
+            <div className="absolute right-0">
                 <div 
                     onMouseEnter={() => setHover(true)}
                     onMouseLeave={() => setHover(false)}

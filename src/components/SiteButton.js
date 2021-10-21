@@ -8,7 +8,7 @@ export default function SiteButton({ icon, site, url, links }) {
     const more = (links.length >= 1)
 
     return (
-        <div className="mb-1">
+        <div className="mb-1 rounded-md">
             {more ? (
                 <>
                     <button
@@ -19,10 +19,10 @@ export default function SiteButton({ icon, site, url, links }) {
                         {icon}
                         {!isActive && (
                             <>
-                                <p className="w-40 mx-4 text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+                                <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
                                     {site}
                                 </p>
-                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 absolute right-0 mx-4 transition duration-500 ${isActiveMore ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 md:h-5 md:w-5 absolute right-0 mx-4 transition duration-500 ${isActiveMore ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </>
@@ -33,7 +33,7 @@ export default function SiteButton({ icon, site, url, links }) {
                             return (
                                 <Link href={item.url}>
                                     <a className="px-2 py-2 rounded-md">
-                                        <p className="w-40 mx-4 text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+                                        <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
                                             {item.name}
                                         </p>
                                     </a>
@@ -50,7 +50,7 @@ export default function SiteButton({ icon, site, url, links }) {
                     >
                         {icon}
                         {!isActive && (
-                            <p className="w-40 mx-4 text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+                            <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
                                 {site}
                             </p>
                         )}
