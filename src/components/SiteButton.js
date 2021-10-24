@@ -1,11 +1,11 @@
-import Link from "next/Link";
-import { useState } from "react";
-import { useSidebar } from "../context/SidebarContext";
+import Link from "next/Link"
+import { useState } from "react"
+import { useSidebar } from "context/SidebarContext"
 
 export default function SiteButton({ icon, site, url, links }) {
-  const [isActiveMore, setActiveMore] = useState(false);
-  const [isActive, setActive] = useSidebar();
-  const more = links.length >= 1;
+  const [isActiveMore, setActiveMore] = useState(false)
+  const [isActive, setActive] = useSidebar()
+  const more = links.length >= 1
 
   return (
     <div className="mb-1 rounded-md">
@@ -59,7 +59,7 @@ export default function SiteButton({ icon, site, url, links }) {
                       </p>
                     </a>
                   </Link>
-                );
+                )
               })}
           </div>
         </>
@@ -81,5 +81,5 @@ export default function SiteButton({ icon, site, url, links }) {
         </Link>
       )}
     </div>
-  );
+  )
 }

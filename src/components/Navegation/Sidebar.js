@@ -1,8 +1,8 @@
-import Link from "next/Link";
-import SiteButton from "../SiteButton";
+import Link from "next/Link"
+import SiteButton from "../SiteButton"
 
-import { useState } from "react";
-import { useSidebar } from "../../context/SidebarContext";
+import { useState } from "react"
+import { useSidebar } from "context/SidebarContext"
 
 const data = [
   {
@@ -104,11 +104,11 @@ const data = [
       },
     ],
   },
-];
+]
 
 export default function Sidebar() {
-  const [hover, setHover] = useState(false);
-  const [isActive, setActive] = useSidebar();
+  const [hover, setHover] = useState(false)
+  const [isActive, setActive] = useSidebar()
 
   return (
     <div className="flex h-screen">
@@ -137,7 +137,7 @@ export default function Sidebar() {
                 url={item.url}
                 links={item.links}
               />
-            );
+            )
           })}
         </nav>
       </div>
@@ -186,5 +186,5 @@ export default function Sidebar() {
         </button>
       </div>
     </div>
-  );
+  )
 }

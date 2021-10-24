@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import LineMenu from "../components/Navegation/LineMenu";
+import Header from "components/Header"
+import LineMenu from "components/Navegation/LineMenu"
 
 const data = [
   {
@@ -10,7 +10,7 @@ const data = [
     id: 2,
     name: "team settings",
   },
-];
+]
 
 export default function Team() {
   return (
@@ -18,5 +18,5 @@ export default function Team() {
       <Header />
       <LineMenu data={data} />
     </div>
-  );
+  )
 }

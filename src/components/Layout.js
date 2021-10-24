@@ -1,8 +1,8 @@
-import Meta from "./Meta";
-import Navbar from "./Navegation/Navbar";
-import Sidebar from "./Navegation/Sidebar";
+import Meta from "./Meta"
+import Navbar from "./Navegation/Navbar"
+import Sidebar from "./Navegation/Sidebar"
 
-import { SidebarProvider } from "../context/SidebarContext";
+import { SidebarProvider } from "context/SidebarContext"
 
 export default function Layout({ children }) {
   return (
@@ -23,5 +23,5 @@ export default function Layout({ children }) {
         </div>
       </div>
     </>
-  );
+  )
 }
