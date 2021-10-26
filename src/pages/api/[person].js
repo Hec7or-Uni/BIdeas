@@ -1,22 +1,40 @@
 import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient()
-
 export default async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" })
   }
 
+  const prisma = new PrismaClient()
+
   try {
-    const data = await prisma.users.findUnique({
+    const data = await prisma.users.findMany({
       select: {
+        id: true,
         userName: true,
         email: true,
-        salt: true,
-        passwd: true,
+        avatar: true,
+        description: true,
+        xp: true,
+        respect: true,
+        name: true,
+        lastName: true,
+        country: true,
+        studies: true,
+        plan: true,
+        facebook: true,
+        twitter: true,
+        website: true,
       },
       where: {
-        email: JSON.parse(req.body).email,
+        id: req.body.id,
+      },
+      include: {
+        participations: {
+          include: {
+            projects: true,
+          },
+        },
       },
     })
     res.status(200).json(data)

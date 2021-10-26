@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from "react"
 
 export default function LineMenu({ data }) {
-  const [isActive, setActive] = useState(1);
+  const [isActive, setActive] = useState(1)
 
   return (
     <>
@@ -19,10 +19,10 @@ export default function LineMenu({ data }) {
                 isActive === item.id ? "border-opacity-100" : ""
               } bg-white`}
             />
-          );
+          )
         })}
       </div>
       <hr className="border-black mb-4" />
     </>
-  );
+  )
 }
