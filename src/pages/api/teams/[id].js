@@ -1,14 +1,16 @@
 import { PrismaClient } from "@prisma/client"
 
 export default async (req, res) => {
-  if (req.method !== "POST") {
+  if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" })
   }
 
   const prisma = new PrismaClient()
 
+  console.log(req.url.substring(11))
+
   try {
-    const data = await prisma.projects.findMany({
+    const data = await prisma.projects.findUnique({
       select: {
         id: true,
         teamName: true,
@@ -24,15 +26,15 @@ export default async (req, res) => {
         discord: true,
       },
       where: {
-        id: req.body.id,
+        teamName: req.url.substring(11),
       },
-      include: {
-        participations: {
-          include: {
-            user: true,
-          },
-        },
-      },
+      // include: {
+      //   participations: {
+      //     include: {
+      //       user: true,
+      //     },
+      //   },
+      // },
     })
     res.status(200).json(data)
   } catch (err) {

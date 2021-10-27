@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
 export default async (req, res) => {
-  if (req.method !== "POST") {
+  if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" })
   }
 
@@ -11,31 +11,12 @@ export default async (req, res) => {
     const data = await prisma.users.findMany({
       select: {
         id: true,
-        userName: true,
-        email: true,
         avatar: true,
-        description: true,
-        xp: true,
-        respect: true,
         name: true,
         lastName: true,
-        country: true,
         studies: true,
-        plan: true,
-        facebook: true,
-        twitter: true,
-        website: true,
       },
-      where: {
-        id: req.body.id,
-      },
-      include: {
-        participations: {
-          include: {
-            projects: true,
-          },
-        },
-      },
+      take: 100,
     })
     res.status(200).json(data)
   } catch (err) {
