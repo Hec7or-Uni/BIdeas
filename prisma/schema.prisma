@@ -49,7 +49,7 @@ model Projects {
   description String?  @db.VarChar(500)
   xp          Int      @default(0)
   respect     Int      @default(0)
-  country     String   @db.VarChar(50)
+  country     String?  @db.VarChar(50)
   maxMembers  Int      @default(4)
   facebook    String?
   twitter     String?

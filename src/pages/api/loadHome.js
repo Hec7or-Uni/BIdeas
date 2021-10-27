@@ -13,49 +13,60 @@ export default async (req, res) => {
 
   const prisma = new PrismaClient()
 
-  console.log(req.url.substring(11))
-
   try {
-    const dataProject = await prisma.projects.findUnique({
+    const dataUser = await prisma.users.findUnique({
       select: {
         id: true,
-        teamName: true,
+        userName: true,
         avatar: true,
-        cover: true,
-        motto: true,
-        description: true,
         xp: true,
         respect: true,
         country: true,
-        facebook: true,
-        twitter: true,
-        discord: true,
+        plan: true,
       },
       where: {
-        teamName: req.url.substring(11),
+        userName: JSON.parse(req.body).id,
       },
     })
 
-    const dataUsers = await prisma.participates.findMany({
+    const dataProjects = await prisma.participates.findMany({
       include: {
-        user: {
+        project: {
           select: {
             avatar: true,
-            name: true,
-            lastName: true,
+            teamName: true,
             description: true,
           },
         },
       },
       where: {
-        idProject: dataProject.id,
+        idUser: dataUser.id,
       },
+    })
+
+    const dataRecommendedProjects = await prisma.participates.findMany({
+      include: {
+        project: {
+          select: {
+            avatar: true,
+            teamName: true,
+            description: true,
+          },
+        },
+      },
+      where: {
+        NOT: {
+          idUser: dataUser.id,
+        },
+      },
+      take: 5,
     })
 
     const data = {
       data: {
-        project: dataProject,
-        users: dataUsers,
+        user: dataUser,
+        inProgress: dataProjects,
+        recommended: dataRecommendedProjects,
       },
       status: {
         status_code: 200,

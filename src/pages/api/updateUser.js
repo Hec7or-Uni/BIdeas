@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
 export default async (req, res) => {
-  if (req.method !== "GET") {
+  if (req.method !== "POST") {
     return res.status(405).json({
       status: {
         status_code: 405,
@@ -14,20 +14,16 @@ export default async (req, res) => {
   const prisma = new PrismaClient()
 
   try {
-    const users = await prisma.users.findMany({
-      select: {
-        id: true,
-        avatar: true,
-        name: true,
-        lastName: true,
-        studies: true,
+    const updatedUser = await prisma.users.update({
+      data: JSON.parse(req.body),
+      where: {
+        id: JSON.parse(req.body).id,
       },
-      take: 100,
     })
 
     const data = {
       data: {
-        users: users,
+        user: updatedUser,
       },
       status: {
         status_code: 200,
@@ -37,7 +33,6 @@ export default async (req, res) => {
 
     res.status(200).json(data)
   } catch (err) {
-    console.log("error")
     res.status(400).json({
       status: {
         status_code: 400,
@@ -46,6 +41,6 @@ export default async (req, res) => {
       },
     })
   } finally {
-    await prisma.$disconnect()
+    prisma.$disconnect()
   }
 }

@@ -2,13 +2,19 @@ import { PrismaClient } from "@prisma/client"
 
 export default async (req, res) => {
   if (req.method !== "GET") {
-    return res.status(405).json({ message: "Method not allowed" })
+    return res.status(405).json({
+      status: {
+        status_code: 405,
+        timestamp: new Date(),
+        method: "Method not allowed",
+      },
+    })
   }
 
   const prisma = new PrismaClient()
 
   try {
-    const data = await prisma.users.findUnique({
+    const dataUser = await prisma.users.findUnique({
       select: {
         id: true,
         userName: true,
@@ -27,23 +33,46 @@ export default async (req, res) => {
         website: true,
       },
       where: {
-        // id: Number(req.url.substring(5)),
         userName: req.url.substring(11),
       },
-      // include: {
-      //   participations: {
-      //     include: {
-      //       projects: true,
-      //     },
-      //   },
-      // },
     })
+
+    const dataProjects = await prisma.participates.findMany({
+      include: {
+        project: {
+          select: {
+            avatar: true,
+            teamName: true,
+            description: true,
+          },
+        },
+      },
+      where: {
+        idUser: dataUser.id,
+      },
+    })
+
+    const data = {
+      data: {
+        user: dataUser,
+        projects: dataProjects,
+      },
+      status: {
+        status_code: 200,
+        timestamp: new Date(),
+      },
+    }
+
     res.status(200).json(data)
   } catch (err) {
-    console.log("error")
-    res.status(400).json({ message: "Something went wrong" })
+    res.status(400).json({
+      status: {
+        status_code: 400,
+        timestamp: new Date(),
+        method: "Bad Request",
+      },
+    })
   } finally {
     await prisma.$disconnect()
-    console.log("desconectado de la bbdd")
   }
 }
