@@ -7,9 +7,16 @@
 ![Product Name Screen Shot](https://images.unsplash.com/photo-1633067016777-983973ee9195?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80)
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A diam maecenas sed enim. Mauris in aliquam sem fringilla ut morbi tincidunt. Integer enim neque volutpat ac tincidunt vitae. Mauris nunc congue nisi vitae suscipit tellus. Nisi lacus sed viverra tellus. In hac habitasse platea dictumst quisque. Pharetra magna ac placerat vestibulum lectus mauris ultrices. Sit amet porttitor eget dolor morbi non arcu. Nec ullamcorper sit amet risus nullam eget felis eget nunc. 
+This project is a place where any person could meet people to carry out ideas of any kind, help others or even get financial help from companies. 
 
-Elementum nisi quis eleifend quam adipiscing vitae proin sagittis. Venenatis cras sed felis eget velit aliquet. Nulla facilisi cras fermentum odio eu feugiat. In hac habitasse platea dictumst quisque sagittis purus sit. Hendrerit gravida rutrum quisque non tellus orci. Dolor morbi non arcu risus quis. Cursus sit amet dictum sit amet justo. Posuere morbi leo urna molestie at elementum eu facilisis sed.
+Every user on the site has a customizable profile where he can write anything important about him, such as studies, hobbies, disponibility etc. On the profile there are specific
+places where you can set you twitter, facebook or discord account, making it a lot easier to contact anyone on the site.
+
+People on the site can create projects where anyone who wants can ask the owner to take part of it, then the owner decides to choose the people who wants to work with, base on
+the profile of the users, or even his respect or xp on the site.
+
+Everytime a user works on a project gets xp which shows how active he is. He also gets respect from members of the projects he has worked in. The xp and respect help owners of
+projects to choose better the people they want to work with.
 
 <p align="right"><a href="#top">back to top</a></p>
 
@@ -17,7 +24,7 @@ Elementum nisi quis eleifend quam adipiscing vitae proin sagittis. Venenatis cra
 
 ### Built With
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A diam maecenas sed enim. Mauris in aliquam sem fringilla ut morbi tincidunt.
+The project is built with javascript and react. It has also been used prisma for the queries with the database, postgreSQL for the database. 
 
 * [Next.js](https://nextjs.org/)
 * [Tailwind.css](https://tailwindcss.com/)
