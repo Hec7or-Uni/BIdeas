@@ -1,14 +1,17 @@
 import Link from "next/Link"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import { useSidebar } from "context/SidebarContext"
 
 export default function SiteButton({ icon, site, url, links }) {
+  const router = useRouter()
   const [isActiveMore, setActiveMore] = useState(false)
   const [isActive, setActive] = useSidebar()
   const more = links.length >= 1
+  const activeRoute = router.asPath === url
 
   return (
-    <div className="mb-1 rounded-md">
+    <div className="h-9 w-full mb-1 rounded-md">
       {more ? (
         <>
           <button
@@ -19,18 +22,20 @@ export default function SiteButton({ icon, site, url, links }) {
                 : setActiveMore(true)
             }
             className={`flex items-center w-full ${
-              isActive ? "px-1 py-2" : "px-2 py-2"
+              activeRoute ? "bg-gray-200" : ""
+            } ${
+              isActive ? "ml-0.5 py-2" : "px-2 py-2"
             } rounded-md hover:bg-gray-200 relative`}
           >
             {icon}
             {!isActive && (
               <>
-                <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+                <p className="ml-1 max-w-40 text-base font-bold text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-tight">
                   {site}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 w-4 md:h-5 md:w-5 absolute right-0 mx-4 transition duration-500 ${
+                  className={`h-4 w-4 absolute right-0 mx-4 transition duration-500 ${
                     isActiveMore ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -53,8 +58,8 @@ export default function SiteButton({ icon, site, url, links }) {
               links.map((item) => {
                 return (
                   <Link href={item.url} key={1}>
-                    <a className="px-2 py-2 rounded-md">
-                      <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+                    <a className="px-4 py-2 rounded-md">
+                      <p className="max-w-40 text-base font-bold text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-tight">
                         {item.name}
                       </p>
                     </a>
@@ -68,12 +73,14 @@ export default function SiteButton({ icon, site, url, links }) {
           <a
             onClick={() => setActive(false)}
             className={`flex items-center w-full ${
-              isActive ? "px-1 py-2" : "px-2 py-2"
+              activeRoute ? "bg-gray-200" : ""
+            } ${
+              isActive ? "ml-0.5 py-2" : "px-2 py-2"
             } rounded-md hover:bg-gray-200 relative`}
           >
             {icon}
             {!isActive && (
-              <p className="w-40 mx-4 text-base lg:text-lg font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-wide">
+              <p className="ml-1 max-w-40 text-base font-bold text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-tight">
                 {site}
               </p>
             )}

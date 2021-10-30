@@ -1,5 +1,5 @@
 import Offert from "../../components/Cards/Offert"
-import { useState } from "react"
+import { useA4Hired } from "../../context/A4HiredContext"
 
 import LineMenu from "../../components/Navegation/LineMenu"
 import { useLMenu } from "../../context/LMenuContext"
@@ -16,7 +16,7 @@ const data = [
 ]
 
 export default function Teams() {
-  const [isToggled, Toggle] = useState(true)
+  const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
   function handleToggle() {

@@ -10,7 +10,7 @@ const data = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 mx-2"
+        className="h-6 w-6 mx-2"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -32,7 +32,7 @@ const data = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 mx-2"
+        className="h-6 w-6 mx-2"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -54,7 +54,7 @@ const data = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 mx-2"
+        className="h-6 w-6 mx-2"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -76,7 +76,7 @@ const data = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 mx-2"
+        className="h-6 w-6 mx-2"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -114,20 +114,20 @@ export default function Sidebar() {
     <div className="flex h-screen">
       <div
         className={`flex flex-col bg-gray-100 ${
-          isActive ? "w-20" : "w-48 md:w-52 lg:w-60"
+          isActive ? "w-14" : "w-48 md:w-52 lg:w-60"
         }`}
       >
         {/* Logotipo */}
-        <div className="flex justify-center items-center h-14 bg-gray-200">
+        <div className="flex justify-center items-center h-16 bg-gray-200">
           <Link href="/">
             <a className="flex justify-center items-center h-10 w-56 rounded-md bg-gray-100">
               <h1 className="text-base lg:text-xl font-semibold text-black">
-                logotipo
+                LG
               </h1>
             </a>
           </Link>
         </div>
-        <nav className="flex flex-col p-4">
+        <nav className="flex flex-col px-2 py-2">
           {data.map((item) => {
             return (
               <SiteButton
@@ -148,42 +148,33 @@ export default function Sidebar() {
           className="flex flex-col h-screen"
         >
           <hr
-            className={`w-1 border-2 h-14 relative ${
-              hover
-                ? "border-blue-500 bg-blue-500"
-                : "border-gray-200 bg-gray-200"
+            className={`border-cg1 h-16 relative transition-colors duration-300 ${
+              hover ? "border-black bg-black" : "border-gray-200 bg-gray-200"
             }`}
           />
           <hr
-            className={`w-1 border-2 relative ${
-              hover
-                ? "border-blue-500 bg-blue-500"
-                : "border-gray-100 bg-gray-100"
+            className={`border-cg1 relative transition-colors duration-300 ${
+              hover ? "border-black bg-black" : "border-gray-100 bg-gray-100"
             }`}
-            style={{ minHeight: "calc(100vh - 3.5rem)" }}
+            style={{ minHeight: "calc(100vh - 4rem)" }}
           />
         </div>
         <button
           onClick={() => setActive(!isActive)}
-          className={`bg-blue-300 rounded-full absolute top-0 -ml-3 mt-20 transition duration-500 ${
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          className={`bg-black rounded-full absolute top-0 ${
             isActive ? "-rotate-180" : ""
-          } ${hover ? "" : "hidden"}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-            />
-          </svg>
-        </button>
+          } transition delay-75 duration-500 ${
+            hover ? "bg-opacity-100" : "bg-opacity-0"
+          }`}
+          style={{
+            marginLeft: "-0.8rem",
+            marginTop: "3.2rem",
+            height: "1.75rem",
+            width: "1.75rem",
+          }}
+        />
       </div>
     </div>
   )

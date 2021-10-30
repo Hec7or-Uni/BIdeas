@@ -4,7 +4,7 @@ export default function LineMenu({ data }) {
   const [isActive, setActive] = useLMenu()
 
   return (
-    <div className="px-10">
+    <div className="px-8 mb-4">
       <div className="flex items-start w-full tracking-wide">
         {data.map((item) => {
           return (
@@ -15,9 +15,9 @@ export default function LineMenu({ data }) {
               type="button"
               value={item.name}
               onClick={(e) => setActive(item.id)}
-              className={`flex justify-center w-36 lg:w-44 pt-1.5 pb-3 border-b-2 border-black border-opacity-0 text-center text-sm lg:text-base font-semibold uppercase ${
+              className={`flex justify-center w-32 py-3 border-b-2 border-black border-opacity-0 text-center text-xs font-black uppercase tracking-wide ${
                 isActive === item.id ? "border-opacity-100" : ""
-              } bg-white`}
+              } bg-transparent`}
             />
           )
         })}

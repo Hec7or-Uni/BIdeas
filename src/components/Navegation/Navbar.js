@@ -23,7 +23,7 @@ const links = [
     url: "",
   },
   {
-    id: 5,
+    id: 0,
     name: "Logout",
     url: "",
   },
@@ -33,7 +33,7 @@ export default function Navbar({ username }) {
   const [isActive, setActive] = useState(false)
 
   return (
-    <nav className="flex items-center h-14 w-full bg-gray-200 z-50 tracking-wide">
+    <nav className="flex items-center h-16 w-full bg-gray-200 z-50 tracking-wide">
       <div className="flex items-center h-10 ml-8">
         {/* Buscador */}
         <form
@@ -67,11 +67,11 @@ export default function Navbar({ username }) {
         </form>
 
         {/* Upgrade To Vip */}
-        <div className="px-5 py-1.5 ml-6 rounded-full bg-gray-600">
+        <div className="px-5 py-1 ml-6 rounded-full bg-gray-600">
           <button
             id="vip"
             type="button"
-            className="uppercase text-base font-bold text-white"
+            className="align-baseline  uppercase text-xs font-bold text-white tracking-wider text"
             onClick={() => console.log("Click")}
           >
             upgrade to vip
@@ -97,7 +97,7 @@ export default function Navbar({ username }) {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`h-5 w-5 mt-1.5 transform transition duration-500 ${
-                isActive ? "translate-x-7" : ""
+                isActive ? "rotate-180" : ""
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -116,7 +116,11 @@ export default function Navbar({ username }) {
               {links.map((item) => {
                 return (
                   <Link href={item.url} key={1}>
-                    <a className="px-3 py-1.5 hover:bg-gray-100">
+                    <a
+                      className={`px-3 py-1.5 hover:bg-gray-100 ${
+                        item.id === 0 ? "bg-gray-50" : ""
+                      }`}
+                    >
                       <p className="text-base font-semibold text-black capitalize">
                         {item.name}
                       </p>
