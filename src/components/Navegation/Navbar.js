@@ -1,5 +1,5 @@
-import Link from "next/Link";
-import { useState } from "react";
+import Link from "next/Link"
+import { useState } from "react"
 
 const links = [
   {
@@ -27,10 +27,10 @@ const links = [
     name: "Logout",
     url: "",
   },
-];
+]
 
 export default function Navbar({ username }) {
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(false)
 
   return (
     <nav className="flex items-center h-14 w-full bg-gray-200 z-50 tracking-wide">
@@ -96,8 +96,8 @@ export default function Navbar({ username }) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`h-5 w-5 mt-1.5 transition duration-500 ${
-                isActive ? "rotate-180" : ""
+              className={`h-5 w-5 mt-1.5 transform transition duration-500 ${
+                isActive ? "translate-x-7" : ""
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -122,16 +122,16 @@ export default function Navbar({ username }) {
                       </p>
                     </a>
                   </Link>
-                );
+                )
               })}
             </div>
           )}
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
 Navbar.defaultProps = {
   username: "Hec7orci7o",
-};
+}

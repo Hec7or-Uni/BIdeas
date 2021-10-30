@@ -1,5 +1,5 @@
 import LineMenu from "components/Navegation/LineMenu"
-import Card from "components/Card"
+import Card from "components/Cards/Card"
 
 const data = [
   {

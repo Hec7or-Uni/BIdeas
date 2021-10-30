@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { useLMenu } from "../../context/LMenuContext"
 
 export default function LineMenu({ data }) {
-  const [isActive, setActive] = useState(1)
+  const [isActive, setActive] = useLMenu()
 
   return (
-    <>
+    <div className="px-10">
       <div className="flex items-start w-full tracking-wide">
         {data.map((item) => {
           return (
@@ -23,6 +23,6 @@ export default function LineMenu({ data }) {
         })}
       </div>
       <hr className="border-black mb-4" />
-    </>
+    </div>
   )
 }
