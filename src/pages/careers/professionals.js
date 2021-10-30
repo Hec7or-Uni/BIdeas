@@ -54,7 +54,7 @@ export default function Professionals() {
       <LineMenu data={data} />
       {isActive === 1 && (
         <div className="container px-10 mx-auto">
-          <p className="text-lg font-bold">Job Board</p>
+          <p className="text-lg font-bold">Proffesional Board</p>
           <p className="text-base font-normal mb-4">
             142 active job opportunities
           </p>
@@ -69,6 +69,23 @@ export default function Professionals() {
           />
           <Offert
             img={"/personas/JuanRodriguezPerez.jpg"}
+            title={"Juan Rodriguez"}
+            subtitle={"System Engineer"}
+            accion1={"view profile"}
+            accion2={"contact"}
+            date={"8d ago"}
+            person={true}
+          />
+        </div>
+      )}
+      {isActive === 2 && (
+        <div className="container px-10 mx-auto">
+          <p className="text-lg font-bold">Proffesional Board</p>
+          <p className="text-base font-normal mb-4">
+            you have contacted 1 person
+          </p>
+          <Offert
+            img={"/personas/CarlotaLopezSoria.jpg"}
             title={"Juan Rodriguez"}
             subtitle={"System Engineer"}
             accion1={"view profile"}

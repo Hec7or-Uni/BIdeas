@@ -78,6 +78,21 @@ export default function Teams() {
           />
         </div>
       )}
+      {isActive === 2 && (
+        <div className="container px-10 mx-auto">
+          <p className="text-lg font-bold">Job Board</p>
+          <p className="text-base font-normal mb-4">you applied for 1 job</p>
+          <Offert
+            img={"/anuncios/anuncio3.jpg"}
+            title={"Space X goes to mars"}
+            subtitle={"engineer required"}
+            accion1={"view job"}
+            accion2={"apply for job"}
+            date={"8d ago"}
+            applied={true}
+          />
+        </div>
+      )}
     </>
   )
 }

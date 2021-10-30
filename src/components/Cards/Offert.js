@@ -9,6 +9,7 @@ export default function offert({
   accion2,
   date,
   person,
+  applied,
 }) {
   const [hover, setHover] = useState(false)
 
@@ -29,7 +30,7 @@ export default function offert({
         </div>
         <div className="flex flex-col w-1/2">
           <p className="text-lg font-bold capitalize">{title}</p>
-          {hover && !person ? (
+          {hover && !person && !applied ? (
             // candidato apto?
             <div className="h-auto w-auto relative">
               <div className="w-full h-full bg-green-200 absolute filter blur-sm z-0" />
@@ -63,11 +64,19 @@ export default function offert({
           // botones
           <div className="flex absolute right-0">
             <Link href="/">
-              <a className="text-sm font-medium px-4 py-2 rounded-sm mr-2 uppercase border-2 border-black">
+              <a
+                className={`text-sm font-medium px-4 py-2 rounded-sm mr-2 uppercase border-2 border-black ${
+                  applied ? "mr-4" : ""
+                }`}
+              >
                 {accion1}
               </a>
             </Link>
-            <button className="text-white text-sm font-medium px-4 py-2 rounded-sm mr-4 uppercase bg-black">
+            <button
+              className={`text-white text-sm font-medium px-4 py-2 rounded-sm mr-4 uppercase bg-black ${
+                applied ? "hidden" : ""
+              }`}
+            >
               {accion2}
             </button>
           </div>
