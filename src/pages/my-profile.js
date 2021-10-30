@@ -3,6 +3,7 @@ import LineMenu from "components/Navegation/LineMenu"
 import { useLMenu } from "../context/LMenuContext"
 import Stats from "../components/Cards/Stats"
 import TeUsCard from "../components/Cards/TeUsCard"
+import Layout from "../components/layout"
 
 const data = [
   {
@@ -138,4 +139,8 @@ export default function Profile() {
       {isActive === 2 && <div>2</div>}
     </div>
   )
+}
+
+Profile.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

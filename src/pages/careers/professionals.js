@@ -1,6 +1,6 @@
 import Offert from "../../components/Cards/Offert"
 import { useA4Hired } from "../../context/A4HiredContext"
-
+import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import { useLMenu } from "../../context/LMenuContext"
 
@@ -97,4 +97,8 @@ export default function Professionals() {
       )}
     </>
   )
+}
+
+Professionals.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

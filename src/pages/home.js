@@ -1,6 +1,7 @@
 import LineMenu from "components/Navegation/LineMenu"
 import Card from "components/Cards/Card"
 import { useLMenu } from "../context/LMenuContext"
+import Layout from "../components/layout"
 import Link from "next/Link"
 
 const data = [
@@ -148,4 +149,8 @@ export default function Home() {
       </div>
     </>
   )
+}
+
+Home.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }
