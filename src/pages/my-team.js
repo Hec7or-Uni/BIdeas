@@ -125,8 +125,20 @@ export default function Team() {
           </div>
 
           <div className="flex flex-col gap-x-5 mt-12">
-            <TeUsCard />
-            <TeUsCard />
+            <TeUsCard
+              img={"/personas/AnaMariaGarciaJirola.jpg"}
+              title={"Ana Maria"}
+              desc={
+                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
+              }
+            />
+            <TeUsCard
+              img={"/personas/AnaMariaGarciaJirola.jpg"}
+              title={"Ana Maria"}
+              desc={
+                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
+              }
+            />
           </div>
         </div>
       )}

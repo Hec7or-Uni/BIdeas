@@ -8,9 +8,9 @@ export default function TeUsCard({ img, title, desc }) {
           className="w-full h-full object-cover rounded-xl"
         />
       </div>
-      <div className="self-start w-96 truncate mt-2">
+      <div className="self-start w-3/5 overflow-ellipsis overflow-hidden mt-2">
         <p className="text-xl font-bold">{title}</p>
-        <p className="text-base font-normal">{desc}</p>
+        <p className="text-base font-normal h-16 leading-5">{desc}</p>
       </div>
     </div>
   )
