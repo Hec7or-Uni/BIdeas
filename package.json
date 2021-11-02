@@ -3,13 +3,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint . --fix",
-    "prepare": "husky install"
+    "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^3.3.0",
+    "@prisma/client": "^3.4.0",
+    "crypto-js": "^4.1.1",
     "next": "^11.1.2",
+    "next-auth": "4.0.0-beta.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

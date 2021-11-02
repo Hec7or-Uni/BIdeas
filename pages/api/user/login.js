@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import status from "../../../../utils/status"
+import status from "../../../utils/status"
 
 const prisma = new PrismaClient()
 
@@ -13,6 +13,7 @@ export default async (req, res) => {
   const query = JSON.parse(req.body)
   const dataUser = await prisma.users.findUnique({
     select: {
+      id: true,
       userName: true,
       email: true,
       salt: true,

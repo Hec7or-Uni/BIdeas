@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import status from "../../../../utils/status"
+import status from "../../../utils/status"
 
 const prisma = new PrismaClient()
 
