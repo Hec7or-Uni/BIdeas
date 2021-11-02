@@ -1,5 +1,6 @@
 import Link from "next/Link"
 import { useState } from "react"
+import { signOut } from "next-auth/react"
 
 const links = [
   {
@@ -20,11 +21,6 @@ const links = [
   {
     id: 4,
     name: "Subscriptions",
-    url: "",
-  },
-  {
-    id: 0,
-    name: "Logout",
     url: "",
   },
 ]
@@ -116,11 +112,7 @@ export default function Navbar({ username }) {
               {links.map((item) => {
                 return (
                   <Link href={item.url} key={1}>
-                    <a
-                      className={`px-3 py-1.5 hover:bg-gray-100 ${
-                        item.id === 0 ? "bg-gray-50" : ""
-                      }`}
-                    >
+                    <a className="px-3 py-1.5 hover:bg-gray-100">
                       <p className="text-base font-semibold text-black capitalize">
                         {item.name}
                       </p>
@@ -128,6 +120,14 @@ export default function Navbar({ username }) {
                   </Link>
                 )
               })}
+              <button
+                onClick={() => signOut()}
+                className="px-3 py-1.5 hover:bg-gray-100 bg-gray-50"
+              >
+                <p className="text-base font-semibold text-black capitalize">
+                  Logout
+                </p>
+              </button>
             </div>
           )}
         </div>
