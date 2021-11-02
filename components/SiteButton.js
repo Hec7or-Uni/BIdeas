@@ -1,7 +1,7 @@
 import Link from "next/Link"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { useSidebar } from "context/SidebarContext"
+import { useSidebar } from "../context/SideBarContext"
 
 export default function SiteButton({ icon, site, url, links }) {
   const router = useRouter()

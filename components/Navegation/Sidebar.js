@@ -2,7 +2,7 @@ import Link from "next/Link"
 import SiteButton from "../SiteButton"
 
 import { useState } from "react"
-import { useSidebar } from "context/SidebarContext"
+import { useSidebar } from "../../context/SideBarContext"
 
 const data = [
   {

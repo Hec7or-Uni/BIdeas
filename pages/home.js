@@ -1,5 +1,5 @@
-import LineMenu from "components/Navegation/LineMenu"
-import Card from "components/Cards/Card"
+import LineMenu from "../components/Navegation/LineMenu"
+import Card from "../components/Cards/Card"
 import { useLMenu } from "../context/LMenuContext"
 import Layout from "../components/layout"
 import Link from "next/Link"

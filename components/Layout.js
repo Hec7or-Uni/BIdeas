@@ -2,9 +2,9 @@ import Meta from "./Meta"
 import Navbar from "./Navegation/Navbar"
 import Sidebar from "./Navegation/Sidebar"
 
-import { SidebarProvider } from "context/SidebarContext"
-import { LMenuProvider } from "context/LMenuContext"
-import { A4HProvider } from "context/A4HiredContext"
+import { SidebarProvider } from "../context/SideBarContext"
+import { LMenuProvider } from "../context/LMenuContext"
+import { A4HProvider } from "../context/A4HiredContext"
 
 export default function Layout({ children }) {
   return (
