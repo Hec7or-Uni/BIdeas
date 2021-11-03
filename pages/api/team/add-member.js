@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client"
-import status from "../../../utils/status"
+import status from "../../../libs/status"
 import { getToken } from "next-auth/jwt"
+import prisma from "../../../libs/prisma"
 
-const prisma = new PrismaClient()
 const secret = process.env.SECRET
 
 export default async (req, res) => {

@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-import status from "../../../utils/status"
-
-const prisma = new PrismaClient()
+import prisma from "../../../libs/prisma"
+import status from "../../../libs/status"
 
 export default async (req, res) => {
   if (req.method !== "POST") {
