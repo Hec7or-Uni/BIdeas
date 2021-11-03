@@ -3,6 +3,7 @@ import Card from "../components/Cards/Card"
 import { useLMenu } from "../context/LMenuContext"
 import Layout from "../components/layout"
 import Link from "next/Link"
+import { getSession } from "next-auth/react"
 
 const data = [
   {
@@ -153,4 +154,23 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

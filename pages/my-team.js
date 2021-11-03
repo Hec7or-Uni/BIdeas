@@ -4,6 +4,7 @@ import { useLMenu } from "../context/LMenuContext"
 import Stats from "../components/Cards/Stats"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
+import { getSession } from "next-auth/react"
 
 const data = [
   {
@@ -149,4 +150,23 @@ export default function Team() {
 
 Team.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

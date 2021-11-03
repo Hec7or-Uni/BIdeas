@@ -3,6 +3,7 @@ import { useA4Hired } from "../../context/A4HiredContext"
 import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import { useLMenu } from "../../context/LMenuContext"
+import { getSession } from "next-auth/react"
 
 const data = [
   {
@@ -101,4 +102,23 @@ export default function Professionals() {
 
 Professionals.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }
