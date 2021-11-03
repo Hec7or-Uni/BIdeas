@@ -13,7 +13,7 @@ datasource db {
 model Users {
   id          Int      @id @default(autoincrement())
   userName    String   @unique @db.VarChar(36)
-  avatar      Bytes?   @db.ByteA
+  avatar      String?  
   description String?  @db.VarChar(500)
   xp          Int      @default(0)
   respect     Int      @default(0)
@@ -43,8 +43,8 @@ model Users {
 model Projects {
   id          Int      @id @default(autoincrement())
   teamName    String   @unique @db.VarChar(50)
-  avatar      Bytes?   @db.ByteA
-  cover       Bytes?   @db.ByteA
+  avatar      String?  
+  cover       String?  
   motto       String?  @db.VarChar(80)
   description String?  @db.VarChar(500)
   xp          Int      @default(0)

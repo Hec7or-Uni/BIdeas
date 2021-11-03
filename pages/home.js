@@ -106,8 +106,48 @@ export default function Home() {
             {/* Derecha */}
             <div className="flex flex-col gap-y-0.5 h-full w-1/2">
               {/* Parte Superior */}
-              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200">
-                <p className="text-lg font-bold">Hec7orci7o</p>
+              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200 relative">
+                <p className="text-lg font-bold">
+                  Hec7orci7o <span className="font-medium">- Respect</span>
+                </p>
+                <div className="flex gap-x-1 absolute bottom-0 mb-6">
+                  <button className="bg-gray-400 p-0.5 rounded">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-5 h-5 text-white"
+                    >
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button className="bg-gray-400 p-0.5 rounded">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-5 h-5 text-white rotate-180"
+                    >
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex items-center gap-x-1 absolute bottom-0 right-0 mb-6 mr-6">
+                  <div className="w-6 h-6 bg-red-500 mr-1" />
+                  <p className="p-0.5 text-xl font-bold">0</p>
+                </div>
               </div>
               {/* Parte Inferior */}
               <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-gray-200">

@@ -148,6 +148,7 @@ Profile.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  console.log(session.token.name)
 
   if (!session) {
     return {

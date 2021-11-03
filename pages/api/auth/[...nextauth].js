@@ -26,15 +26,15 @@ export default NextAuth({
           return res.json()
         })
 
-        const { id, userName, email, salt, passwd } = res.data.user
         let user = null
+        const { id, userName, email, salt, passwd } = res.data.user
 
         if (
           CryptoJS.SHA512(salt + credentials.password).toString() === passwd
         ) {
           user = {
             id: id,
-            userName: userName,
+            name: userName,
             email: email,
           }
         }
@@ -70,6 +70,10 @@ export default NextAuth({
   jwt: {
     secret: process.env.SECRET,
     encryption: true,
+  },
+  session: {
+    // Seconds - How long until an idle session expires and is no longer valid.
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   pages: {
     signIn: "/login",
