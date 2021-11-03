@@ -24,8 +24,10 @@ export default function SiteButton({ icon, site, url, links }) {
             className={`flex items-center w-full ${
               activeRoute ? "bg-gray-200" : ""
             } ${
-              isActive ? "ml-0.5 py-2" : "px-2 py-2"
-            } rounded-md hover:bg-gray-200 relative`}
+              isActive ? "ml-0.5 py-2 " : "px-2 py-2"
+            } rounded-md hover:bg-gray-200 relative ${
+              isActiveMore ? "bg-gray-200" : ""
+            }`}
           >
             {icon}
             {!isActive && (

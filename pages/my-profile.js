@@ -5,7 +5,6 @@ import Stats from "../components/Cards/Stats"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import { getSession } from "next-auth/react"
-
 const data = [
   {
     id: 1,
@@ -148,7 +147,6 @@ Profile.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
-  console.log(session.token.name)
 
   if (!session) {
     return {
