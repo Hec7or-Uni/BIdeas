@@ -8,23 +8,19 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   if (req.method === "POST") {
     const query = JSON.parse(req.body)
+    console.log(query)
     const newUser = await prisma.users.create({ data: query })
 
-    res
-      .json({
-        data: { user: newUser },
-        status: status(200, ""),
-      })
-      .end()
+    res.json({
+      data: { user: newUser },
+      status: status(200, ""),
+    })
   } else if (req.method === "PUT") {
     const token = await getToken({ req, secret })
     if (!token) {
-      res
-        .status(401)
-        .json({
-          status: status(401, ""),
-        })
-        .end()
+      res.status(401).json({
+        status: status(401, ""),
+      })
     }
 
     const query = JSON.parse(req.body)
@@ -33,21 +29,16 @@ export default async (req, res) => {
       where: { id: query.id },
     })
 
-    res
-      .json({
-        data: { user: updatedUser },
-        status: status(405, ""),
-      })
-      .end()
+    res.json({
+      data: { user: updatedUser },
+      status: status(405, ""),
+    })
   } else if (req.method === "GET") {
     const token = await getToken({ req, secret })
     if (!token) {
-      res
-        .status(401)
-        .json({
-          status: status(401, ""),
-        })
-        .end()
+      res.status(401).json({
+        status: status(401, ""),
+      })
     }
 
     const query = req.query
@@ -132,23 +123,19 @@ export default async (req, res) => {
       take: 20,
     })
 
-    res
-      .json({
-        data: {
-          user: qUser,
-          projects: {
-            owns: qProjects.filter(
-              (item) => item.idUser === item.project.owner
-            ),
-            participates: qProjects.filter(
-              (item) => item.idUser !== item.project.owner
-            ),
-            recommended: qRecommended,
-          },
+    res.json({
+      data: {
+        user: qUser,
+        projects: {
+          owns: qProjects.filter((item) => item.idUser === item.project.owner),
+          participates: qProjects.filter(
+            (item) => item.idUser !== item.project.owner
+          ),
+          recommended: qRecommended,
         },
-        status: status(200, ""),
-      })
-      .end()
+      },
+      status: status(200, ""),
+    })
   } else if (req.method === "DELETE") {
     // const query = req.url
     // const delUser = await prisma.users.delete({
@@ -161,6 +148,6 @@ export default async (req, res) => {
     //   status: status(200, ""),
     // })
   } else {
-    res.json({ status: status(405, "") }).end()
+    res.json({ status: status(405, "") })
   }
 }

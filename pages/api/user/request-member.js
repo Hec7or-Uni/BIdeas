@@ -17,22 +17,16 @@ export default async (req, res) => {
 
   const token = await getToken({ req, secret })
   if (!token) {
-    res
-      .status(401)
-      .json({
-        status: status(401, ""),
-      })
-      .end()
+    res.status(401).json({
+      status: status(401, ""),
+    })
   }
 
   const query = JSON.parse(req.body)
   const newMember = await prisma.requestRecruit.create({ data: query })
 
-  res
-    .status(200)
-    .json({
-      data: { user: newMember },
-      status: status(200, ""),
-    })
-    .end()
+  res.status(200).json({
+    data: { user: newMember },
+    status: status(200, ""),
+  })
 }
