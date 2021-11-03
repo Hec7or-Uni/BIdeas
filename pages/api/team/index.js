@@ -1,17 +1,31 @@
 import { PrismaClient } from "@prisma/client"
 import status from "../../../utils/status"
+import { getToken } from "next-auth/jwt"
 
 const prisma = new PrismaClient()
+const secret = process.env.SECRET
 
 export default async (req, res) => {
+  const token = await getToken({ req, secret })
+  if (!token) {
+    res
+      .status(401)
+      .json({
+        status: status(401, ""),
+      })
+      .end()
+  }
+
   if (req.method === "POST") {
     const query = JSON.parse(req.body)
     const newProject = await prisma.projects.create({ data: query })
 
-    res.json({
-      data: { project: newProject },
-      status: status(200, ""),
-    })
+    res
+      .json({
+        data: { project: newProject },
+        status: status(200, ""),
+      })
+      .end()
   } else if (req.method === "PUT") {
     const query = JSON.parse(req.body)
     const updatedProject = await prisma.projects.update({
@@ -19,10 +33,12 @@ export default async (req, res) => {
       where: { id: query.id },
     })
 
-    res.json({
-      data: { project: updatedProject },
-      status: status(200, ""),
-    })
+    res
+      .json({
+        data: { project: updatedProject },
+        status: status(200, ""),
+      })
+      .end()
   } else if (req.method === "GET") {
     const query = req.query
     const qTeam = await prisma.projects.findUnique({
@@ -79,16 +95,18 @@ export default async (req, res) => {
       },
     })
 
-    res.json({
-      data: {
-        team: qTeam,
-        users: {
-          owner: qUsers.filter((item) => item.idUser === qTeam.owner),
-          workers: qUsers.filter((item) => item.idUser !== qTeam.owner),
+    res
+      .json({
+        data: {
+          team: qTeam,
+          users: {
+            owner: qUsers.filter((item) => item.idUser === qTeam.owner),
+            workers: qUsers.filter((item) => item.idUser !== qTeam.owner),
+          },
         },
-      },
-      status: status(200, ""),
-    })
+        status: status(200, ""),
+      })
+      .end()
   } else if (req.method === "DELETE") {
     // const query = JSON.parse(req.body)
     // const prisma = new PrismaClient()
@@ -107,6 +125,11 @@ export default async (req, res) => {
     //   },
     // })
   } else {
-    res.json(status(200, ""))
+    res
+      .status(405)
+      .json({
+        status: status(405, ""),
+      })
+      .end()
   }
 }

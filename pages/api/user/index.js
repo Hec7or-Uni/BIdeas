@@ -1,29 +1,55 @@
 import { PrismaClient } from "@prisma/client"
 import status from "../../../utils/status"
+import { getToken } from "next-auth/jwt"
 
 const prisma = new PrismaClient()
+const secret = process.env.SECRET
 
 export default async (req, res) => {
   if (req.method === "POST") {
     const query = JSON.parse(req.body)
     const newUser = await prisma.users.create({ data: query })
 
-    res.json({
-      data: { user: newUser },
-      status: status(200, ""),
-    })
+    res
+      .json({
+        data: { user: newUser },
+        status: status(200, ""),
+      })
+      .end()
   } else if (req.method === "PUT") {
+    const token = await getToken({ req, secret })
+    if (!token) {
+      res
+        .status(401)
+        .json({
+          status: status(401, ""),
+        })
+        .end()
+    }
+
     const query = JSON.parse(req.body)
     const updatedUser = await prisma.users.update({
       data: query,
       where: { id: query.id },
     })
 
-    res.json({
-      data: { user: updatedUser },
-      status: status(405, ""),
-    })
+    res
+      .json({
+        data: { user: updatedUser },
+        status: status(405, ""),
+      })
+      .end()
   } else if (req.method === "GET") {
+    const token = await getToken({ req, secret })
+    if (!token) {
+      res
+        .status(401)
+        .json({
+          status: status(401, ""),
+        })
+        .end()
+    }
+
     const query = req.query
     const qUser = await prisma.users.findUnique({
       select: {
@@ -106,19 +132,23 @@ export default async (req, res) => {
       take: 20,
     })
 
-    res.json({
-      data: {
-        user: qUser,
-        projects: {
-          owns: qProjects.filter((item) => item.idUser === item.project.owner),
-          participates: qProjects.filter(
-            (item) => item.idUser !== item.project.owner
-          ),
-          recommended: qRecommended,
+    res
+      .json({
+        data: {
+          user: qUser,
+          projects: {
+            owns: qProjects.filter(
+              (item) => item.idUser === item.project.owner
+            ),
+            participates: qProjects.filter(
+              (item) => item.idUser !== item.project.owner
+            ),
+            recommended: qRecommended,
+          },
         },
-      },
-      status: status(200, ""),
-    })
+        status: status(200, ""),
+      })
+      .end()
   } else if (req.method === "DELETE") {
     // const query = req.url
     // const delUser = await prisma.users.delete({
@@ -131,6 +161,6 @@ export default async (req, res) => {
     //   status: status(200, ""),
     // })
   } else {
-    res.json({ status: status(405, "") })
+    res.json({ status: status(405, "") }).end()
   }
 }
