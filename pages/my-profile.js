@@ -167,6 +167,8 @@ export async function getServerSideProps({ req }) {
       headers: {
         Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
       },
+    }).then((res) => {
+      return res.json()
     })
 
     await console.log(res)

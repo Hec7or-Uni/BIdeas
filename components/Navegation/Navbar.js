@@ -29,7 +29,7 @@ export default function Navbar({ username }) {
   const [isActive, setActive] = useState(false)
 
   return (
-    <nav className="flex items-center h-16 w-full bg-gray-200 z-50 tracking-wide">
+    <nav className="sticky top-0 flex items-center h-16 w-full bg-gray-200 z-40 tracking-wide">
       <div className="flex items-center h-10 ml-8">
         {/* Buscador */}
         <form
