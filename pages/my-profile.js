@@ -5,6 +5,7 @@ import Stats from "../components/Cards/Stats"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import { getSession } from "next-auth/react"
+
 const data = [
   {
     id: 1,
@@ -155,6 +156,20 @@ export async function getServerSideProps({ req }) {
         permanent: false,
       },
     }
+  } else {
+    console.log(req.cookies["next-auth.session-token"])
+    const params = new URLSearchParams({ id: session.token.id })
+    const url = `http://localhost:3000/api/user?${params.toString()}`
+    console.log(url)
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    })
+
+    await console.log(res)
   }
 
   return {
