@@ -9,6 +9,7 @@ module.exports = {
         cg58: "58%",
         "3/10": "30%",
         "7/10": "70%",
+        15: "15rem",
       },
       height: {
         cg42: "26.75rem",
@@ -17,6 +18,9 @@ module.exports = {
       },
       borderWidth: {
         cg1: "1.2px",
+      },
+      minWidth: {
+        15: "15rem",
       },
     },
   },

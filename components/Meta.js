@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from "next/head"
 
 export default function Meta({ title }) {
   return (
@@ -9,9 +9,9 @@ export default function Meta({ title }) {
       <title>{title}</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-  );
+  )
 }
 
 Meta.defaultProps = {
   title: "Titulo",
-};
+}
