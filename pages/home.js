@@ -84,7 +84,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="px-8 h-1/2">
+      <div className="h-1/2">
         {/* Cabecera */}
         <Cabecera />
 
@@ -109,7 +109,12 @@ export default function Home() {
                     className="h-full w-full relative"
                     style={{ strokeWidth: "0.6" }}
                   />
-                  <div className="h-10 w-10 rounded absolute bg-red-500" />
+                  <div className="h-10 w-10 border border-black rounded absolute">
+                    <img
+                      src={`/ranks/${0}.jpg`}
+                      className="w-full h-full object-cover object-center rounded"
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col ml-5">
                   <p className="text-base font-bold capitalize">entrepreneur</p>
@@ -141,13 +146,13 @@ export default function Home() {
                 <div className="flex gap-x-1 absolute bottom-0 mb-6">
                   <button
                     onClick={() => handleDecrement()}
-                    className="bg-gray-400 p-0.5 rounded"
+                    className="bg-gray-500 p-0.5 rounded"
                   >
                     <FiChevronLeft className="h-5 w-5 text-white" />
                   </button>
                   <button
                     onClick={() => handleIncrement()}
-                    className="bg-gray-600 p-0.5 rounded"
+                    className="bg-gray-500 p-0.5 rounded"
                   >
                     <FiChevronRight className="h-5 w-5 text-white" />
                   </button>
@@ -177,7 +182,7 @@ export default function Home() {
       <div className="mt-3">
         <LineMenu data={data} />
         {isActive === 1 && (
-          <div className="flex gap-x-4 px-8">
+          <div className="flex gap-x-4">
             <Card />
             <Card />
             <Card />
@@ -185,13 +190,13 @@ export default function Home() {
           </div>
         )}
         {isActive === 2 && (
-          <div className="flex gap-x-4 px-8">
+          <div className="flex gap-x-4">
             <Card />
             <Card />
           </div>
         )}
         {isActive === 3 && (
-          <div className="flex gap-x-4 px-8">
+          <div className="flex gap-x-4">
             <Card />
           </div>
         )}

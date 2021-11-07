@@ -4,7 +4,7 @@ export default function LineMenu({ data }) {
   const [isActive, setActive] = useLMenu()
 
   return (
-    <div className="px-8 mb-4">
+    <div className="mb-4">
       <div className="flex items-start w-full tracking-wide">
         {data.map((item) => {
           return (

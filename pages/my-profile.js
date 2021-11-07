@@ -40,7 +40,12 @@ export default function Profile({ res }) {
                   className="h-full w-full relative"
                   style={{ strokeWidth: "0.6" }}
                 />
-                <div className="h-10 w-10 rounded absolute bg-red-500" />
+                <div className="h-10 w-10 border border-black rounded absolute">
+                  <img
+                    src={`/ranks/${0}.jpg`}
+                    className="w-full h-full object-cover object-center rounded"
+                  />
+                </div>
               </div>
               <div>
                 <p className="text-lg font-bold">Noob</p>

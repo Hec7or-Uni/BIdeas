@@ -14,13 +14,13 @@ export default function Layout({ children }) {
         <Navbar />
         <div className="flex w-full" style={{ height: "calc(100vh - 4rem)" }}>
           <Sidebar />
-          <div className="flex-auto px-6 py-3 overflow-y-auto">
-            <main>
-              <LMenuProvider>
-                <A4HProvider>{children}</A4HProvider>
-              </LMenuProvider>
-            </main>
-          </div>
+          <LMenuProvider>
+            <A4HProvider>
+              <div className="flex-auto px-8 py-3 overflow-y-auto">
+                <main>{children}</main>
+              </div>
+            </A4HProvider>
+          </LMenuProvider>
         </div>
       </SidebarProvider>
     </>

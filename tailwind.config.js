@@ -23,6 +23,9 @@ module.exports = {
         15: "15rem",
         3.5: "3.5rem",
       },
+      minHeight: {},
+      maxWidth: {},
+      maxHeight: { cg42: "24rem" },
     },
   },
   variants: {

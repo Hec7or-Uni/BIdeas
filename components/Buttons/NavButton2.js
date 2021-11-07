@@ -13,7 +13,7 @@ export default function NewButton2({ icon, text, current, sub }) {
     <>
       <button
         className={`flex items-center h-9 w-full px-2.5 py-2.5 rounded hover:bg-gray-200 relative
-        ${current ? "bg-gray-200" : ""}`}
+        ${current || isActive ? "bg-gray-200" : ""}`}
         onClick={() => {
           setActive(!isActive)
           ToggleSidebar(false)
