@@ -5,6 +5,13 @@ import Stats from "../components/Cards/Stats"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import { getSession } from "next-auth/react"
+import {
+  FiHexagon,
+  FiAward,
+  FiFlag,
+  FiBriefcase,
+  FiHeart,
+} from "react-icons/fi"
 
 const data = [
   {
@@ -17,7 +24,7 @@ const data = [
   },
 ]
 
-export default function Profile() {
+export default function Profile({ res }) {
   const [isActive] = useLMenu()
 
   return (
@@ -27,8 +34,14 @@ export default function Profile() {
       {isActive === 1 && (
         <div className="container px-8 mt-6">
           <div className="flex gap-x-5">
-            <div className="flex gap-x-4 items-center justify-center w-1/5 h-44 bg-gray-100">
-              <div className="bg-blue-500 w-24 h-24" />
+            <div className="flex gap-x-1 items-center justify-center w-1/5 h-44 bg-gray-100">
+              <div className="flex justify-center items-center h-28 w-28">
+                <FiHexagon
+                  className="h-full w-full relative"
+                  style={{ strokeWidth: "0.6" }}
+                />
+                <div className="h-10 w-10 rounded absolute bg-red-500" />
+              </div>
               <div>
                 <p className="text-lg font-bold">Noob</p>
                 <p className="text-lg font-normal">rank</p>
@@ -55,77 +68,22 @@ export default function Profile() {
 
           <div className="flex gap-x-5 mt-6">
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-purple-500"
-                >
-                  <circle cx="12" cy="8" r="7"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                </svg>
-              }
+              icon={<FiAward className="h-6 w-6 text-purple-500" />}
               points={"10"}
               desc={"points"}
             />
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-yellow-500"
-                >
-                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                  <line x1="4" y1="22" x2="4" y2="15"></line>
-                </svg>
-              }
+              icon={<FiFlag className="h-6 w-6 text-yellow-500" />}
               points={"1"}
               desc={"teams owned"}
             />
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-blue-500"
-                >
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                </svg>
-              }
+              icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
               points={"2"}
               desc={"teams"}
             />
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-red-500"
-                >
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-              }
+              icon={<FiHeart className="h-6 w-6 text-red-500" />}
               points={"4"}
               desc={"respect"}
             />
@@ -148,6 +106,7 @@ Profile.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  let res = null
 
   if (!session) {
     return {
@@ -157,12 +116,10 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
-    console.log(req.cookies["next-auth.session-token"])
     const params = new URLSearchParams({ id: session.token.id })
     const url = `http://localhost:3000/api/user?${params.toString()}`
-    console.log(url)
 
-    const res = await fetch(url, {
+    res = await fetch(url, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
@@ -170,13 +127,12 @@ export async function getServerSideProps({ req }) {
     }).then((res) => {
       return res.json()
     })
-
-    await console.log(res)
   }
 
   return {
     props: {
       session,
+      res,
     },
   }
 }

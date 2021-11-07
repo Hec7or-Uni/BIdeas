@@ -5,7 +5,7 @@ import { FiChevronUp } from "react-icons/fi"
 // pruebas
 import NavButton from "./NavButton"
 
-export default function NewButton2({ icon, text, current }) {
+export default function NewButton2({ icon, text, current, sub }) {
   const [isActive, setActive] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
 
@@ -36,9 +36,9 @@ export default function NewButton2({ icon, text, current }) {
       </button>
       {isActive && !isToggle && (
         <>
-          {/* Ejemplos */}
-          <NavButton url="/" text="Teams" />
-          <NavButton url="/" text="Professionals" />
+          {sub.map((item) => {
+            return <NavButton key={item.id} url={item.url} text={item.text} />
+          })}
         </>
       )}
     </>

@@ -10,19 +10,19 @@ export default function Layout({ children }) {
   return (
     <>
       <Meta />
-      <div className="flex h-screen">
-        <SidebarProvider>
+      <SidebarProvider>
+        <Navbar />
+        <div className="flex w-full" style={{ height: "calc(100vh - 4rem)" }}>
           <Sidebar />
-        </SidebarProvider>
-        <div className="w-full">
-          <Navbar />
-          <main className="w-full py-3 overflow-y-visible">
-            <LMenuProvider>
-              <A4HProvider>{children}</A4HProvider>
-            </LMenuProvider>
-          </main>
+          <div className="flex-auto px-6 py-3 overflow-y-auto">
+            <main>
+              <LMenuProvider>
+                <A4HProvider>{children}</A4HProvider>
+              </LMenuProvider>
+            </main>
+          </div>
         </div>
-      </div>
+      </SidebarProvider>
     </>
   )
 }

@@ -1,9 +1,22 @@
+import { useState } from "react"
 import LineMenu from "../components/Navegation/LineMenu"
 import Card from "../components/Cards/Card"
 import { useLMenu } from "../context/LMenuContext"
 import Layout from "../components/layout"
 import Link from "next/Link"
 import { getSession } from "next-auth/react"
+import Cabecera from "components/Cabeceras/Cabecera"
+
+import {
+  FiChevronUp,
+  FiHexagon,
+  FiAward,
+  FiFlag,
+  FiBriefcase,
+  FiHeart,
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi"
 
 const data = [
   {
@@ -20,39 +33,60 @@ const data = [
   },
 ]
 
+const Stats = [
+  {
+    id: 0,
+    name: "points",
+    icon: <FiAward className="h-5 w-5" />,
+    number: 10,
+  },
+  {
+    id: 1,
+    name: "teams owned",
+    icon: <FiFlag className="h-5 w-5" />,
+    number: 1,
+  },
+  {
+    id: 2,
+    name: "teams",
+    icon: <FiBriefcase className="h-5 w-5" />,
+    number: 2,
+  },
+  {
+    id: 3,
+    name: "respect",
+    icon: <FiHeart className="h-5 w-5" />,
+    number: 4,
+  },
+]
+
 export default function Home() {
+  const [stat, setStat] = useState(Stats[0])
   const [isActive] = useLMenu()
+
+  const handleIncrement = () => {
+    const id = stat.id
+    if (id + 1 < Stats.length) {
+      setStat(Stats[id + 1])
+    } else {
+      setStat(Stats[0])
+    }
+  }
+
+  const handleDecrement = () => {
+    const id = stat.id
+    if (id - 1 >= 0) {
+      setStat(Stats[id - 1])
+    } else {
+      setStat(Stats[Stats.length - 1])
+    }
+  }
 
   return (
     <>
       <div className="px-8 h-1/2">
         {/* Cabecera */}
-        <div className="flex items-center h-12 relative">
-          <div className="flex lg:w-1/2 tracking-wide divide-x-2">
-            <div className="flex flex-col w-1/2 text-left">
-              <p className="text-xs font-medium uppercase truncate">
-                announcement
-              </p>
-              <p className="mt-2 text-base font-bold truncate">
-                EUROAVIA Mission
-              </p>
-            </div>
-            <div className="flex flex-col w-1/2 text-left pl-6">
-              <p className="text-xs font-medium uppercase truncate">
-                changelog
-              </p>
-              <p className="mt-2 text-base font-bold capitalize truncate">
-                version 0.1
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col lg:w-1/2 text-right absolute right-0">
-            <p className="text-xs font-medium uppercase truncate">users</p>
-            <p className="mt-2 text-base font-bold capitalize truncate">
-              <span className="text-lg font-black">555</span> users online
-            </p>
-          </div>
-        </div>
+        <Cabecera />
 
         {/* Anuncio & estadisticas */}
         <div className="flex gap-x-6 h-cg42">
@@ -70,7 +104,13 @@ export default function Home() {
             <div className="h-full w-1/2 rounded-tl-xl rounded-bl-xl p-6 bg-gray-200 relative">
               {/* Parte superior */}
               <div className="flex items-center">
-                <div className="h-28 w-28 bg-red-500">img</div>
+                <div className="flex justify-center items-center h-28 w-28">
+                  <FiHexagon
+                    className="h-full w-full relative"
+                    style={{ strokeWidth: "0.6" }}
+                  />
+                  <div className="h-10 w-10 rounded absolute bg-red-500" />
+                </div>
                 <div className="flex flex-col ml-5">
                   <p className="text-base font-bold capitalize">entrepreneur</p>
                   <hr className="h-1 w-3/4 my-1.5 bg-gray-700 rounded-full" />
@@ -84,21 +124,8 @@ export default function Home() {
               <div className="flex items-center absolute bottom-0 mb-10">
                 <p className="text-base font-bold capitalize">rank up - 0</p>
                 <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
+                  <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />
                   <div className="w-full h-full rounded-full bg-green-200 absolute filter blur-sm" />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mx-auto rotate-180 text-green-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
                 </div>
               </div>
             </div>
@@ -108,45 +135,26 @@ export default function Home() {
               {/* Parte Superior */}
               <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200 relative">
                 <p className="text-lg font-bold">
-                  Hec7orci7o <span className="font-medium">- Respect</span>
+                  Hec7orci7o{" "}
+                  <span className="font-medium capitalize">- {stat.name}</span>
                 </p>
                 <div className="flex gap-x-1 absolute bottom-0 mb-6">
-                  <button className="bg-gray-400 p-0.5 rounded">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="36"
-                      height="36"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-5 h-5 text-white"
-                    >
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
+                  <button
+                    onClick={() => handleDecrement()}
+                    className="bg-gray-400 p-0.5 rounded"
+                  >
+                    <FiChevronLeft className="h-5 w-5 text-white" />
                   </button>
-                  <button className="bg-gray-400 p-0.5 rounded">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="36"
-                      height="36"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="w-5 h-5 text-white rotate-180"
-                    >
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
+                  <button
+                    onClick={() => handleIncrement()}
+                    className="bg-gray-600 p-0.5 rounded"
+                  >
+                    <FiChevronRight className="h-5 w-5 text-white" />
                   </button>
                 </div>
                 <div className="flex items-center gap-x-1 absolute bottom-0 right-0 mb-6 mr-6">
-                  <div className="w-6 h-6 bg-red-500 mr-1" />
-                  <p className="p-0.5 text-xl font-bold">0</p>
+                  {stat.icon}
+                  <p className="p-0.5 text-xl font-bold">{stat.number}</p>
                 </div>
               </div>
               {/* Parte Inferior */}

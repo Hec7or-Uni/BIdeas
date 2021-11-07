@@ -1,111 +1,45 @@
-import Link from "next/Link"
 import { useState } from "react"
+import Link from "next/link"
 import { signOut } from "next-auth/react"
+import { useSidebar } from "../../context/SideBarContext"
+import { FiChevronUp } from "react-icons/fi"
+import { links } from "../../data/Navbar"
 
-const links = [
-  {
-    id: 1,
-    name: "Go VIP",
-    url: "",
-  },
-  {
-    id: 2,
-    name: "View Profile",
-    url: "",
-  },
-  {
-    id: 3,
-    name: "Profile Settings",
-    url: "",
-  },
-  {
-    id: 4,
-    name: "Subscriptions",
-    url: "",
-  },
-]
-
-export default function Navbar({ username }) {
+export default function NewNavbar() {
   const [isActive, setActive] = useState(false)
+  const [isToggle, ToggleSidebar] = useSidebar()
 
   return (
-    <nav className="sticky top-0 flex items-center h-16 w-full bg-gray-200 z-40 tracking-wide">
-      <div className="flex items-center h-10 ml-8">
-        {/* Buscador */}
-        <form
-          method="#"
-          onSubmit={() => console.log("Click")}
-          className="flex items-center h-8 bg-white p-2 rounded-md"
+    <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-gray-200">
+      {/* Logotipo */}
+
+      <Link href="/">
+        <a
+          className={`flex justify-center items-center h-full p-2
+          ${isToggle ? "min-w-3.5" : "min-w-15 w-48"}`}
+          onClick={() => ToggleSidebar(false)}
         >
-          <button id="magnifier" type="submit">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-          <input
-            id="search"
-            name="search"
-            type="search"
-            placeholder="Search..."
-            className="w-56 ml-2.5 outline-none text-lg font-normal text-black"
-          />
-        </form>
+          <p className="h-10 w-full text-center text-base lg:text-xl font-semibold text-black bg-gray-100 rounded-md">
+            lg
+          </p>
+        </a>
+      </Link>
 
-        {/* Upgrade To Vip */}
-        <div className="px-5 py-1 ml-6 rounded-full bg-gray-600">
-          <button
-            id="vip"
-            type="button"
-            className="align-baseline  uppercase text-xs font-bold text-white tracking-wider text"
-            onClick={() => console.log("Click")}
-          >
-            upgrade to vip
-          </button>
-        </div>
-      </div>
-
-      {/* Profile */}
-      <div className="flex items-center h-12 absolute right-0 mr-8">
+      {/* User */}
+      <div className="flex items-center gap-x-2.5 h-12 absolute right-0 mr-8">
         <div className="w-10 h-10 rounded-full">
           <img
             src="/personas/HectorToralPallas.jpg"
             className="w-10 max-h-10 rounded-full object-cover center"
           />
         </div>
-        <p className="mx-2.5 text-lg font-semibold text-black">{username}</p>
+        <p className="text-lg font-normal text-black">Username</p>
         <div>
-          <button
-            id="settings"
-            type="button"
-            onClick={() => setActive(!isActive)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-5 w-5 mt-1.5 transform transition duration-500 ${
-                isActive ? "rotate-180" : ""
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+          <button onClick={() => setActive(!isActive)}>
+            <FiChevronUp
+              className={`mt-2 transition duration-500 
+            ${isActive ? "-rotate-180" : ""}`}
+            />
           </button>
           {isActive && (
             <div className="flex flex-col w-52 mt-6 rounded-md bg-gray-200 absolute right-0 z-50 py-1">
@@ -132,10 +66,6 @@ export default function Navbar({ username }) {
           )}
         </div>
       </div>
-    </nav>
+    </div>
   )
-}
-
-Navbar.defaultProps = {
-  username: "Hec7orci7o",
 }
