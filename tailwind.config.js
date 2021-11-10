@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        cg42: "42%",
-        cg58: "58%",
+        left: "42%",
+        right: "58%",
         "3/10": "30%",
         "7/10": "70%",
         15: "15rem",

@@ -66,7 +66,7 @@ export default function Sidebar() {
           ${
             isHover
               ? "border-opacity-100 bg-blue-500 border-blue-500"
-              : "border-opacity-0"
+              : "border-opacity-0 bg-gray-200"
           }`}
         />
       </div>

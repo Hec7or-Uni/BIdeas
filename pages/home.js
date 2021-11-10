@@ -84,24 +84,22 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-1/2">
+      <div className="px-8">
         {/* Cabecera */}
         <Cabecera />
 
         {/* Anuncio & estadisticas */}
-        <div className="flex gap-x-6 h-cg42">
+        <div className="flex flex-col lg:flex-row w-full gap-x-6 gap-y-4 my-5">
           {/* anuncio */}
-          <div className="w-cg42 h-cg42 rounded-xl py-5">
+          <div className="rounded-xl w-full lg:w-left">
             <img
               src="/anuncios/anuncio2.jpg"
-              className="w-full h-full object-fill object-center rounded-xl"
+              className="h-auto w-full object-fill object-center rounded-xl"
             />
           </div>
-
-          {/* estadisticas */}
-          <div className="flex h-cg42 w-cg58 gap-x-0.5 py-5 rounded-xl">
+          <div className="flex gap-x-0.5 rounded-xl w-full h-72 lg:h-auto lg:w-right">
             {/* Izquierda */}
-            <div className="h-full w-1/2 rounded-tl-xl rounded-bl-xl p-6 bg-gray-200 relative">
+            <div className="h-full w-right rounded-tl-xl rounded-bl-xl p-6 bg-gray-200 relative">
               {/* Parte superior */}
               <div className="flex items-center">
                 <div className="flex justify-center items-center h-28 w-28">
@@ -136,7 +134,7 @@ export default function Home() {
             </div>
 
             {/* Derecha */}
-            <div className="flex flex-col gap-y-0.5 h-full w-1/2">
+            <div className="flex flex-col gap-y-0.5 h-full w-left">
               {/* Parte Superior */}
               <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200 relative">
                 <p className="text-lg font-bold">
@@ -179,10 +177,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 px-8">
         <LineMenu data={data} />
         {isActive === 1 && (
-          <div className="flex gap-x-4">
+          <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Card />
             <Card />
             <Card />
@@ -190,13 +188,13 @@ export default function Home() {
           </div>
         )}
         {isActive === 2 && (
-          <div className="flex gap-x-4">
+          <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Card />
             <Card />
           </div>
         )}
         {isActive === 3 && (
-          <div className="flex gap-x-4">
+          <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Card />
           </div>
         )}
