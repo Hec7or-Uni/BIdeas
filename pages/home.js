@@ -84,7 +84,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="px-8">
+      <div className="px-8 pt-3">
         {/* Cabecera */}
         <Cabecera />
 
@@ -107,10 +107,10 @@ export default function Home() {
                     className="h-full w-full relative"
                     style={{ strokeWidth: "0.6" }}
                   />
-                  <div className="h-10 w-10 border border-black rounded absolute">
+                  <div className="h-10 w-10 rounded absolute">
                     <img
                       src={`/ranks/${0}.jpg`}
-                      className="w-full h-full object-cover object-center rounded"
+                      className="w-full h-full border border-black object-cover object-center rounded"
                     />
                   </div>
                 </div>
@@ -177,7 +177,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-3 px-8">
+      <div className="mt-3 px-8 pb-3">
         <LineMenu data={data} />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">

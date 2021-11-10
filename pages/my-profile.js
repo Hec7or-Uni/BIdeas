@@ -28,22 +28,22 @@ export default function Profile({ res }) {
   const [isActive] = useLMenu()
 
   return (
-    <div className="w-full">
+    <div className="w-full px-8 py-3">
       <Header />
       <LineMenu data={data} />
       {isActive === 1 && (
-        <div className="container px-8 mt-6">
+        <div className="container mt-6">
           <div className="flex gap-x-5">
-            <div className="flex gap-x-1 items-center justify-center w-1/5 h-44 bg-gray-100">
+            <div className="flex gap-x-1 items-center justify-center w-1/4 h-44 bg-gray-100">
               <div className="flex justify-center items-center h-28 w-28 relative">
                 <FiHexagon
                   className="h-full w-full relative"
                   style={{ strokeWidth: "0.6" }}
                 />
-                <div className="h-10 w-10 border border-black rounded absolute">
+                <div className="h-10 w-10 rounded absolute">
                   <img
                     src={`/ranks/${0}.jpg`}
-                    className="w-full h-full object-cover object-center rounded"
+                    className="w-full h-full object-cover object-center rounded border border-black"
                   />
                 </div>
               </div>
@@ -52,7 +52,7 @@ export default function Profile({ res }) {
                 <p className="text-lg font-normal">rank</p>
               </div>
             </div>
-            <div className="flex flex-col self-center w-2/4 leading-snug">
+            <div className="flex flex-col self-start w-2/4 leading-snug">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                 cras lectus senectus proin purus, scelerisque odio et. Magna
@@ -60,13 +60,6 @@ export default function Profile({ res }) {
                 semper. Nulla egestas at ac leo. Quam turpis tempus consectetur
                 pellentesque. Tincidunt lectus ultricies sit morbi pharetra.
                 Varius ullamcorper vulputate amet sit massa.
-              </p>
-              <p>
-                Eu quisque pulvinar dui velit nunc est. Sed quam aenean aliquam
-                suspendisse. Habitant augue fringilla dolor risus, sit dolor
-                ullamcorper ipsum. Vivamus vulputate tellus tellus lectus
-                pharetra volutpat, est. Quis massa cursus faucibus quam cursus
-                aliquam, pretium diam.
               </p>
             </div>
           </div>

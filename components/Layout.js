@@ -16,7 +16,7 @@ export default function Layout({ children }) {
           <Sidebar />
           <LMenuProvider>
             <A4HProvider>
-              <div className="flex-auto py-3 overflow-y-auto">
+              <div className="flex-auto overflow-y-auto">
                 <main>{children}</main>
               </div>
             </A4HProvider>

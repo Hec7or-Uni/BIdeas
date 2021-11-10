@@ -22,7 +22,7 @@ export default function Team() {
   const [isActive] = useLMenu()
 
   return (
-    <div className="">
+    <div className="px-8 py-3">
       <Header />
       <LineMenu data={data} />
       {isActive === 1 && (
