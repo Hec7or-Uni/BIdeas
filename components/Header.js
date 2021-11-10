@@ -1,6 +1,6 @@
 export default function Header({ username, id, studies }) {
   return (
-    <div className="flex justify-between items-center gap-4 tracking-normal mb-4 px-10">
+    <div className="flex justify-between items-center gap-4 tracking-normal mb-4 px-10 relative">
       {/* Profile */}
       <div className="flex items-center">
         <div className="w-16 h-16 rounded-full relative">

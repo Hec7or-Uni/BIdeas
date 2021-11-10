@@ -35,7 +35,7 @@ export default function Profile({ res }) {
         <div className="container px-8 mt-6">
           <div className="flex gap-x-5">
             <div className="flex gap-x-1 items-center justify-center w-1/5 h-44 bg-gray-100">
-              <div className="flex justify-center items-center h-28 w-28">
+              <div className="flex justify-center items-center h-28 w-28 relative">
                 <FiHexagon
                   className="h-full w-full relative"
                   style={{ strokeWidth: "0.6" }}
