@@ -5,7 +5,7 @@ import { useSidebar } from "../../context/SideBarContext"
 import { FiChevronUp } from "react-icons/fi"
 import { links } from "../../data/Navbar"
 
-export default function NewNavbar() {
+export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
 
@@ -29,11 +29,11 @@ export default function NewNavbar() {
       <div className="flex items-center gap-x-2.5 h-12 absolute right-0 mr-8">
         <div className="w-10 h-10 rounded-full">
           <img
-            src="/personas/HectorToralPallas.jpg"
+            src={avatar || "/personas/HectorToralPallas.jpg"}
             className="w-10 max-h-10 rounded-full object-cover center"
           />
         </div>
-        <p className="text-lg font-normal text-black">Username</p>
+        <p className="text-lg font-normal text-black capitalize">{userName}</p>
         <div>
           <button onClick={() => setActive(!isActive)}>
             <FiChevronUp

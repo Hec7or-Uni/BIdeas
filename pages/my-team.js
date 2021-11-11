@@ -18,12 +18,18 @@ const data = [
   },
 ]
 
-export default function Team() {
+export default function Team({ team, user, workers }) {
   const [isActive] = useLMenu()
 
   return (
     <div className="px-8 py-3">
-      <Header />
+      <Header
+        avatar={user.avatar}
+        username={user.userName}
+        id={user.id}
+        studies={user.studies}
+        plan={user.plan}
+      />
       <LineMenu data={data} />
       {isActive === 1 && (
         <div className="w-full px-8 mt-6">
@@ -31,7 +37,7 @@ export default function Team() {
             <div className="flex items-center gap-x-6">
               <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
                 <img
-                  src="/anuncios/anuncio2.jpg"
+                  src={team.avatar || "/anuncios/anuncio2.jpg"}
                   alt=""
                   className="w-full h-full rounded-full object-cover"
                 />
@@ -45,43 +51,30 @@ export default function Team() {
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
-                  <p className="text-lg font-bold">EUROAVIA MISION</p>
+                  <p className="text-lg font-bold">{team.teamName}</p>
                 </div>
-                <p className="text-base font-medium">To infinity and beyond.</p>
+                <p className="text-base font-medium">{team.motto}</p>
               </div>
-            </div>
-            <div className="flex gap-x-3">
-              <button className="h-10 border-2 border-black px-8 text-base font-semibold uppercase hover:animate-pulse">
-                request join
-              </button>
-              <button className="h-10 bg-black text-white px-8 text-base font-semibold uppercase hover:animate-pulse">
-                respect
-              </button>
             </div>
           </div>
           <p className="flex flex-col self-center w-2/4 leading-snug my-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cras
-            lectus senectus proin purus, scelerisque odio et. Magna pretium et,
-            neque odio. Donec facilisis amet eget donec varius semper. Nulla
-            egestas at ac leo. Quam turpis tempus consectetur pellentesque.
-            Tincidunt lectus ultricies sit morbi pharetra. Varius ullamcorper
-            vulputate amet sit massa.
+            {team.description}
           </p>
 
           <div className="flex gap-x-5 mt-6">
             <Stats
               icon={<FiAward className="h-6 w-6 text-purple-500" />}
-              points={"10"}
+              points={team.xp}
               desc={"points"}
             />
             <Stats
               icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
               points={"2"}
-              desc={"teams"}
+              desc={"users"}
             />
             <Stats
               icon={<FiHeart className="h-6 w-6 text-red-500" />}
-              points={"4"}
+              points={team.respect}
               desc={"respect"}
             />
           </div>
@@ -115,6 +108,7 @@ Team.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  let res = null
 
   if (!session) {
     return {
@@ -123,11 +117,30 @@ export async function getServerSideProps({ req }) {
         permanent: false,
       },
     }
+  } else {
+    const params = new URLSearchParams({ id: session.token.id })
+    const url = `http://localhost:3000/api/team?${params.toString()}`
+
+    res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((res) => {
+      return res.json()
+    })
   }
+
+  const { team, users } = res.data
+  const user = users.owner.user
+  const workers = users.workers
 
   return {
     props: {
       session,
+      team,
+      user,
+      workers,
     },
   }
 }

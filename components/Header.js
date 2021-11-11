@@ -1,11 +1,11 @@
-export default function Header({ username, id, studies }) {
+export default function Header({ avatar, username, id, studies, plan }) {
   return (
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
       {/* Profile */}
       <div className="flex items-center">
         <div className="w-16 h-16 rounded-full relative">
           <img
-            src="/personas/HectorToralPallas.jpg"
+            src={avatar || "/personas/HectorToralPallas.jpg"}
             className="w-16 max-h-16 rounded-full object-cover center"
           />
           <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
@@ -18,10 +18,14 @@ export default function Header({ username, id, studies }) {
 
         <div className="ml-8">
           <div className="flex items-end">
-            <p className="text-lg font-bold text-black">{username}</p>
+            <p className="text-lg font-bold text-black capitalize">
+              {username}
+            </p>
             <p className="ml-2 text-base font-semibold text-black">#{id}</p>
           </div>
-          <p className="text-base font-semibold text-gray-800">{studies}</p>
+          <p className="text-base font-semibold text-gray-800 capitalize">
+            {studies}
+          </p>
         </div>
       </div>
 
@@ -35,16 +39,10 @@ export default function Header({ username, id, studies }) {
         {/* Plan Type */}
         <div className="flex flex-col uppercase">
           <p className="text-sm font-medium">plan type</p>
-          <p className="text-lg font-bold">free</p>
-          <p className="text-sm font-medium">go vip</p>
+          <p className="text-lg font-bold">{plan === 0 ? "free" : "vip"}</p>
+          {plan === 0 && <p className="text-sm font-medium">go vip</p>}
         </div>
       </div>
     </div>
   )
-}
-
-Header.defaultProps = {
-  username: "Hec7orci7o",
-  id: 129454,
-  studies: "Engineer",
 }

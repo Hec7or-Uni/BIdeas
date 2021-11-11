@@ -18,7 +18,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi"
 
-const data = [
+const links = [
   {
     id: 1,
     name: "overview",
@@ -38,29 +38,25 @@ const Stats = [
     id: 0,
     name: "points",
     icon: <FiAward className="h-5 w-5" />,
-    number: 10,
   },
   {
     id: 1,
     name: "teams owned",
     icon: <FiFlag className="h-5 w-5" />,
-    number: 1,
   },
   {
     id: 2,
     name: "teams",
     icon: <FiBriefcase className="h-5 w-5" />,
-    number: 2,
   },
   {
     id: 3,
     name: "respect",
     icon: <FiHeart className="h-5 w-5" />,
-    number: 4,
   },
 ]
 
-export default function Home() {
+export default function Home({ user }) {
   const [stat, setStat] = useState(Stats[0])
   const [isActive] = useLMenu()
 
@@ -137,8 +133,8 @@ export default function Home() {
             <div className="flex flex-col gap-y-0.5 h-full w-left">
               {/* Parte Superior */}
               <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200 relative">
-                <p className="text-lg font-bold">
-                  Hec7orci7o{" "}
+                <p className="text-lg font-bold capitalize">
+                  {user.userName}{" "}
                   <span className="font-medium capitalize">- {stat.name}</span>
                 </p>
                 <div className="flex gap-x-1 absolute bottom-0 mb-6">
@@ -157,20 +153,29 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-x-1 absolute bottom-0 right-0 mb-6 mr-6">
                   {stat.icon}
-                  <p className="p-0.5 text-xl font-bold">{stat.number}</p>
+                  <p className="p-0.5 text-xl font-bold">
+                    {stat.id === 0 && user.xp}
+                    {stat.id === 1 && 1}
+                    {stat.id === 2 && 2}
+                    {stat.id === 3 && user.respect}
+                  </p>
                 </div>
               </div>
               {/* Parte Inferior */}
               <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-gray-200">
                 <div className="flex flex-col">
                   <p className="text-xs font-bold uppercase">plan</p>
-                  <p className="text-xl font-bold capitalize">free</p>
+                  <p className="text-xl font-bold capitalize">
+                    {user.plan === 0 ? "free" : "vip"}
+                  </p>
                 </div>
-                <Link href="">
-                  <a className="text-base font-bold uppercase hover:underline">
-                    go vip
-                  </a>
-                </Link>
+                {user.plan === 0 && (
+                  <Link href="">
+                    <a className="text-base font-bold uppercase hover:underline">
+                      go vip
+                    </a>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -178,7 +183,7 @@ export default function Home() {
       </div>
 
       <div className="mt-3 px-8 pb-3">
-        <LineMenu data={data} />
+        <LineMenu data={links} />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Card />
@@ -209,6 +214,7 @@ Home.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  let res
 
   if (!session) {
     return {
@@ -217,11 +223,26 @@ export async function getServerSideProps({ req }) {
         permanent: false,
       },
     }
+  } else {
+    const params = new URLSearchParams({ id: session.token.id })
+    const url = `http://localhost:3000/api/user?${params.toString()}`
+
+    res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((res) => {
+      return res.json()
+    })
   }
+
+  const { user } = res.data
 
   return {
     props: {
       session,
+      user,
     },
   }
 }

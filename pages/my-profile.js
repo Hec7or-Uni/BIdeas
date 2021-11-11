@@ -24,12 +24,18 @@ const data = [
   },
 ]
 
-export default function Profile({ res }) {
+export default function Profile({ user }) {
   const [isActive] = useLMenu()
 
   return (
     <div className="w-full px-8 py-3">
-      <Header />
+      <Header
+        avatar={user.avatar}
+        username={user.userName}
+        id={user.id}
+        studies={user.studies}
+        plan={user.plan}
+      />
       <LineMenu data={data} />
       {isActive === 1 && (
         <div className="container mt-6">
@@ -53,21 +59,14 @@ export default function Profile({ res }) {
               </div>
             </div>
             <div className="flex flex-col self-start w-2/4 leading-snug">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                cras lectus senectus proin purus, scelerisque odio et. Magna
-                pretium et, neque odio. Donec facilisis amet eget donec varius
-                semper. Nulla egestas at ac leo. Quam turpis tempus consectetur
-                pellentesque. Tincidunt lectus ultricies sit morbi pharetra.
-                Varius ullamcorper vulputate amet sit massa.
-              </p>
+              <p>{user.description ? user.description : "Introduzca texto"}</p>
             </div>
           </div>
 
           <div className="flex gap-x-5 mt-6">
             <Stats
               icon={<FiAward className="h-6 w-6 text-purple-500" />}
-              points={"10"}
+              points={user.xp}
               desc={"points"}
             />
             <Stats
@@ -82,7 +81,7 @@ export default function Profile({ res }) {
             />
             <Stats
               icon={<FiHeart className="h-6 w-6 text-red-500" />}
-              points={"4"}
+              points={user.respect}
               desc={"respect"}
             />
           </div>
@@ -127,10 +126,12 @@ export async function getServerSideProps({ req }) {
     })
   }
 
+  const { user } = res.data
+
   return {
     props: {
       session,
-      res,
+      user,
     },
   }
 }
