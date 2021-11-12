@@ -16,13 +16,10 @@ const data = [
   },
 ]
 
-export default function Teams() {
+export default function Teams({ projects }) {
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  function handleToggle() {
-    Toggle(!isToggled)
-  }
   return (
     <>
       <div className="px-10">
@@ -39,7 +36,7 @@ export default function Teams() {
           }`}
         >
           <button
-            onClick={handleToggle}
+            onClick={() => Toggle(!isToggled)}
             className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 ${
               isToggled ? "transform translate-x-full" : ""
             }`}
@@ -57,26 +54,21 @@ export default function Teams() {
         <div className="container px-10 mx-auto">
           <p className="text-lg font-bold">Job Board</p>
           <p className="text-base font-normal mb-4">
-            142 active job opportunities
+            <span>{projects.length}</span> active job opportunities
           </p>
-          <Offert
-            img={"/anuncios/anuncio4.jpg"}
-            title={"human resources"}
-            subtitle={"rrpp | well paid"}
-            accion1={"view job"}
-            accion2={"apply for job"}
-            date={"8d ago"}
-          />
-          <Offert
-            img={"/anuncios/anuncio5.jpg"}
-            title={"Técnico/a de Soporte Telefonía"}
-            subtitle={
-              "+1 año trabajando con centralitas Alcatel. • Idiomas: Euskera y saber desenvolverse en Inglés (medio-alto a nivel oral). • Estudios en informática o telecomunicaciones: grado/ingeniería/FP…(no imprescindibles si se tiene la"
-            }
-            accion1={"view job"}
-            accion2={"apply for job"}
-            date={"8d ago"}
-          />
+          {projects.map((item) => {
+            return (
+              <Offert
+                key={item.id}
+                img={projects.avatar}
+                title={projects.teamName}
+                subtitle={projects.motto}
+                accion1={"view job"}
+                accion2={"apply for job"}
+                date={"8d ago"}
+              />
+            )
+          })}
         </div>
       )}
       {isActive === 2 && (
@@ -104,6 +96,8 @@ Teams.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  let resUser = null
+  let resTeams = null
 
   if (!session) {
     return {
@@ -112,11 +106,37 @@ export async function getServerSideProps({ req }) {
         permanent: false,
       },
     }
+  } else {
+    const params = new URLSearchParams({ id: session.token.id })
+    const urlUser = `http://localhost:3000/api/user?${params.toString()}`
+
+    resUser = await fetch(urlUser, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((resUser) => {
+      return resUser.json()
+    })
+
+    const urlTeams = `http://localhost:3000/api/teams`
+    resTeams = await fetch(urlTeams, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((resTeams) => {
+      return resTeams.json()
+    })
   }
+  const { user } = resUser.data
+  const { projects } = resTeams.data
 
   return {
     props: {
       session,
+      user,
+      projects,
     },
   }
 }
