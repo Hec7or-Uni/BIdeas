@@ -1,4 +1,5 @@
 import LayoutOut from "../components/LayoutOut"
+import { getSession } from "next-auth/react"
 
 export default function Root() {
   return (
@@ -20,4 +21,14 @@ export default function Root() {
 
 Root.getLayout = function getLayout(page) {
   return <LayoutOut>{page}</LayoutOut>
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

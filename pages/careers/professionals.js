@@ -31,15 +31,13 @@ export default function Professionals({ users }) {
       </div>
       <div className="flex items-center gap-x-5 w-full bg-gray-200 px-8 my-8 py-5">
         <div
-          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out ${
-            isToggled ? "bg-green-200" : "bg-red-200"
-          }`}
+          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out 
+          ${isToggled ? "bg-green-200" : "bg-red-200"}`}
         >
           <button
             onClick={() => Toggle(!isToggled)}
-            className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 ${
-              isToggled ? "transform translate-x-full" : ""
-            }`}
+            className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 
+            ${isToggled ? "transform translate-x-full" : ""}`}
           />
         </div>
         <div>

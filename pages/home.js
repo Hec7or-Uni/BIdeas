@@ -82,7 +82,6 @@ export default function Home({ user, projects }) {
 
   return (
     <>
-    
       <div className="px-8 pt-3">
         {/* Cabecera */}
         <Cabecera />
@@ -266,7 +265,6 @@ export async function getServerSideProps({ req }) {
   }
 
   const { user, projects } = res.data
-  console.log(res.data)
 
   return {
     props: {
@@ -275,5 +273,4 @@ export async function getServerSideProps({ req }) {
       projects,
     },
   }
-
 }

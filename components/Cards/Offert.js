@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Button from "../Buttons/Button"
 import { useState } from "react"
 
 export default function offert({
@@ -62,23 +62,16 @@ export default function offert({
 
         {hover ? (
           // botones
-          <div className="flex absolute right-0">
-            <Link href="/">
-              <a
-                className={`text-sm font-medium px-4 py-2 rounded-sm mr-2 uppercase border-2 border-black ${
-                  applied ? "mr-4" : ""
-                }`}
+          <div className="absolute right-0 mr-4">
+            <div className="flex items-center space-x-3">
+              <Button url={"/"} text={accion1} />
+              <button
+                className={`text-white text-sm font-medium px-4 py-2 rounded-sm mr-4 capitalize bg-black border-2 border-black transition-colors duration-500 hover:bg-transparent hover:text-black
+                ${applied ? "hidden" : ""}`}
               >
-                {accion1}
-              </a>
-            </Link>
-            <button
-              className={`text-white text-sm font-medium px-4 py-2 rounded-sm mr-4 uppercase bg-black ${
-                applied ? "hidden" : ""
-              }`}
-            >
-              {accion2}
-            </button>
+                {accion2}
+              </button>
+            </div>
           </div>
         ) : (
           // date
