@@ -1,4 +1,5 @@
 import Link from "next/Link"
+import Boton from "../Buttons/Button.js"
 
 export default function Navbar({ username }) {
   return (
@@ -6,17 +7,15 @@ export default function Navbar({ username }) {
       <div className="flex justify-center container mx-auto relative">
         <div className="absolute left-0">logo</div>
         <nav>enlaces</nav>
-        <div className="gap-x-3 absolute right-0">
-          <Link href="/login">
-            <a className="capitalize text-sm font-bold px-4 py-2 border-2 border-black rounded mx-3">
-              Sign in
-            </a>
-          </Link>
-          <Link href="/invite">
-            <a className="capitalize text-sm font-bold px-4 py-2 border-2 border-black rounded">
-              Join Now
-            </a>
-          </Link>
+        <div className="flex gap-x-3 absolute right-0">
+          <Boton 
+            url={"/login"}
+            text={"Sign in"}
+          />
+          <Boton 
+            url={"/invite"}
+            text={"Join now"}
+          />
         </div>
       </div>
     </div>
