@@ -32,7 +32,7 @@ export default function Team({ team, user, workers }) {
       />
       <LineMenu data={data} />
       {isActive === 1 && (
-        <div className="w-full px-8 mt-6">
+        <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
               <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
@@ -69,7 +69,7 @@ export default function Team({ team, user, workers }) {
             />
             <Stats
               icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
-              points={"2"}
+              points={workers.length}
               desc={"users"}
             />
             <Stats
@@ -80,20 +80,16 @@ export default function Team({ team, user, workers }) {
           </div>
 
           <div className="flex flex-col gap-x-5 mt-12">
-            <TeUsCard
-              img={"/personas/AnaMariaGarciaJirola.jpg"}
-              title={"Ana Maria"}
-              desc={
-                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
-              }
-            />
-            <TeUsCard
-              img={"/personas/AnaMariaGarciaJirola.jpg"}
-              title={"Ana Maria"}
-              desc={
-                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
-              }
-            />
+            {workers.map((item) => {
+              return (
+                <TeUsCard
+                  key={item.idUser}
+                  img={item.user.avatar}
+                  title={item.user.name + " " + item.user.lastName}
+                  desc={item.user.description}
+                />
+              )
+            })}
           </div>
         </div>
       )}

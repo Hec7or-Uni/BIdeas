@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { getCsrfToken } from "next-auth/react"
 
 export default function Login({ csrfToken }) {
@@ -65,18 +66,19 @@ export default function Login({ csrfToken }) {
         </form>
       </div>
       <div className="flex w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-5 items-center justify-between">
-        <a
-          className="block text-sm text-indigo-700 fontme hover:underline"
-          href="#"
-        >
-          Don’t have an account?
-        </a>
-        <button
-          type="submit"
-          className="w-1/3 px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide"
-        >
-          Join Now
-        </button>
+        <Link href="/invite">
+          <a
+            className="block text-sm text-indigo-700 fontme hover:underline"
+            href="#"
+          >
+            Don’t have an account?
+          </a>
+        </Link>
+        <Link href="/invite">
+          <a className="w-1/3 px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide">
+            Join Now
+          </a>
+        </Link>
       </div>
     </div>
   )

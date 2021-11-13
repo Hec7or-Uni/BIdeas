@@ -7,6 +7,8 @@ import Link from "next/Link"
 import { getSession } from "next-auth/react"
 import Cabecera from "components/Cabeceras/Cabecera"
 
+import { GoOrganization, GoTelescope } from "react-icons/go"
+
 import {
   FiChevronUp,
   FiHexagon,
@@ -56,7 +58,7 @@ const Stats = [
   },
 ]
 
-export default function Home({ user }) {
+export default function Home({ user, projects }) {
   const [stat, setStat] = useState(Stats[0])
   const [isActive] = useLMenu()
 
@@ -155,8 +157,8 @@ export default function Home({ user }) {
                   {stat.icon}
                   <p className="p-0.5 text-xl font-bold">
                     {stat.id === 0 && user.xp}
-                    {stat.id === 1 && 1}
-                    {stat.id === 2 && 2}
+                    {stat.id === 1 && projects.owns.length}
+                    {stat.id === 2 && projects.participates.length}
                     {stat.id === 3 && user.respect}
                   </p>
                 </div>
@@ -182,25 +184,50 @@ export default function Home({ user }) {
         </div>
       </div>
 
-      <div className="mt-3 px-8 pb-3">
+      <div className="mt-3 px-8">
         <LineMenu data={links} />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card
+              img={<GoOrganization className="h-3/4 w-3/4" />}
+              title={"create a team"}
+              desc={"Start developing your new idea now"}
+            />
+            <Card
+              img={<GoTelescope className="h-3/4 w-3/4" />}
+              title={"join a team"}
+              desc={"Looking for amazing projects? join one now!"}
+            />
           </div>
         )}
         {isActive === 2 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            <Card />
-            <Card />
+            {projects.recommended.map((item) => {
+              return (
+                <>
+                  <Card
+                    img={item.avatar}
+                    title={item.teamName}
+                    desc={item.description}
+                  />
+                </>
+              )
+            })}
           </div>
         )}
         {isActive === 3 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            <Card />
+            {projects.participates.map((item) => {
+              return (
+                <>
+                  <Card
+                    img={item.avatar}
+                    title={item.teamName}
+                    desc={item.description}
+                  />
+                </>
+              )
+            })}
           </div>
         )}
       </div>
@@ -237,12 +264,14 @@ export async function getServerSideProps({ req }) {
     })
   }
 
-  const { user } = res.data
+  const { user, projects } = res.data
+  console.log(res.data)
 
   return {
     props: {
       session,
       user,
+      projects,
     },
   }
 }

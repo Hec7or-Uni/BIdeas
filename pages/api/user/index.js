@@ -119,7 +119,7 @@ export default async (req, res) => {
           owner: Number(query.id),
         },
       },
-      take: 20,
+      take: 5,
     })
 
     res.json({

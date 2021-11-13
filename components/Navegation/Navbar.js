@@ -12,7 +12,6 @@ export default function NewNavbar({ avatar, userName, plan }) {
   return (
     <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-gray-200">
       {/* Logotipo */}
-
       <Link href="/">
         <a
           className={`flex justify-center items-center h-full p-2
@@ -44,7 +43,9 @@ export default function NewNavbar({ avatar, userName, plan }) {
           {isActive && (
             <div className="flex flex-col w-52 mt-6 rounded-md bg-gray-200 absolute right-0 z-50 py-1">
               {links.map((item) => {
-                return (
+                return item.name === "go vip" && plan === 1 ? (
+                  <></>
+                ) : (
                   <Link href={item.url} key={1}>
                     <a className="px-3 py-1.5 hover:bg-gray-100">
                       <p className="text-base font-semibold text-black capitalize">

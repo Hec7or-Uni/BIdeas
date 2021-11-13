@@ -24,7 +24,7 @@ const data = [
   },
 ]
 
-export default function Profile({ user }) {
+export default function Profile({ user, owns, participates }) {
   const [isActive] = useLMenu()
 
   return (
@@ -71,12 +71,12 @@ export default function Profile({ user }) {
             />
             <Stats
               icon={<FiFlag className="h-6 w-6 text-yellow-500" />}
-              points={"1"}
+              points={owns.length}
               desc={"teams owned"}
             />
             <Stats
               icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
-              points={"2"}
+              points={participates.length}
               desc={"teams"}
             />
             <Stats
@@ -87,8 +87,26 @@ export default function Profile({ user }) {
           </div>
 
           <div className="flex flex-col gap-x-5 mt-12">
-            <TeUsCard />
-            <TeUsCard />
+            {owns.map((item) => {
+              return (
+                <TeUsCard
+                  key={item.idProject}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                />
+              )
+            })}
+            {participates.map((item) => {
+              return (
+                <TeUsCard
+                  key={item.idUser}
+                  img={item.user.avatar}
+                  title={item.user.name + " " + item.user.lastName}
+                  desc={item.user.description}
+                />
+              )
+            })}
           </div>
         </div>
       )}
@@ -126,12 +144,15 @@ export async function getServerSideProps({ req }) {
     })
   }
 
-  const { user } = res.data
+  const { user, projects } = res.data
+  const { owns, participates } = projects
 
   return {
     props: {
       session,
       user,
+      owns,
+      participates,
     },
   }
 }

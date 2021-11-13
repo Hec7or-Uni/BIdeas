@@ -1,22 +1,22 @@
 export const links = [
   {
     id: 1,
-    name: "Go VIP",
+    name: "go vip",
     url: "",
   },
   {
     id: 2,
-    name: "View Profile",
+    name: "view profile",
     url: "/my-profile",
   },
   {
     id: 3,
-    name: "View Team",
+    name: "view team",
     url: "/my-team",
   },
   {
     id: 4,
-    name: "Subscriptions",
+    name: "subscriptions",
     url: "",
   },
 ]

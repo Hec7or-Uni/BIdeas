@@ -1,10 +1,10 @@
 export default function TeUsCard({ img, title, desc }) {
   return (
     <div className="flex items-center gap-x-4 h-28 w-1/2 mb-2 px-2 rounded-xl bg-gray-200">
-      <div className="w-24 h-24 rounded-xl bg-pink-300">
+      <div className="w-24 h-24 rounded-xl">
         <img
           src={img}
-          alt=""
+          alt={"Profile img of " + title}
           className="w-full h-full object-cover rounded-xl"
         />
       </div>

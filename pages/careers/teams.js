@@ -22,14 +22,14 @@ export default function Teams({ projects }) {
 
   return (
     <>
-      <div className="px-10">
+      <div className="px-8 top-0">
         <p className="text-lg font-bold">Lot of Jobs</p>
         <p className="text-base font-normal">
           Here you will be able to find some of the projects that are looking
           for professionals. Hopefully you will find one to your liking.
         </p>
       </div>
-      <div className="flex items-center gap-x-5 w-full bg-gray-200 px-10 my-8 py-5">
+      <div className="flex items-center gap-x-5 w-full bg-gray-200 px-8 my-8 py-5">
         <div
           className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out ${
             isToggled ? "bg-green-200" : "bg-red-200"
@@ -49,9 +49,11 @@ export default function Teams({ projects }) {
           </p>
         </div>
       </div>
-      <LineMenu data={data} />
+      <div className="px-8">
+        <LineMenu data={data} />
+      </div>
       {isActive === 1 && (
-        <div className="container px-10 mx-auto">
+        <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Job Board</p>
           <p className="text-base font-normal mb-4">
             <span>{projects.length}</span> active job opportunities
@@ -72,7 +74,7 @@ export default function Teams({ projects }) {
         </div>
       )}
       {isActive === 2 && (
-        <div className="container px-10 mx-auto">
+        <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Job Board</p>
           <p className="text-base font-normal mb-4">you applied for 1 job</p>
           <Offert

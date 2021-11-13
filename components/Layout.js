@@ -23,7 +23,7 @@ export default function Layout({ children }) {
           <LMenuProvider>
             <A4HProvider>
               <div className="flex-auto overflow-y-auto">
-                <main>{children}</main>
+                <main className="py-3">{children}</main>
               </div>
             </A4HProvider>
           </LMenuProvider>
