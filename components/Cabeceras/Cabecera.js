@@ -13,12 +13,6 @@ export default function Cabecera() {
           </p>
         </div>
       </div>
-      <div className="flex flex-col lg:w-1/2 text-right absolute right-0">
-        <p className="text-xs font-medium uppercase truncate">users</p>
-        <p className="mt-2 text-base font-bold capitalize truncate">
-          <span className="text-lg font-black">555</span> users online
-        </p>
-      </div>
     </div>
   )
 }

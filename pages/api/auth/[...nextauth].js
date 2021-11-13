@@ -81,5 +81,6 @@ export default NextAuth({
   },
   pages: {
     signIn: "/login",
+    error: "/login",
   },
 })
