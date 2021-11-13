@@ -77,7 +77,8 @@ export default function Professionals({ users }) {
         <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Proffesional Board</p>
           <p className="text-base font-normal mb-4">
-            you have contacted <span>{users.length}</span> person
+            You have contacted <span>{users.length}</span>{" "}
+            {users.length === 0 ? "person" : "people"}
           </p>
           <Offert
             img={"/personas/CarlotaLopezSoria.jpg"}

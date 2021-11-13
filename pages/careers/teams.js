@@ -62,9 +62,9 @@ export default function Teams({ projects }) {
             return (
               <Offert
                 key={item.id}
-                img={projects.avatar}
-                title={projects.teamName}
-                subtitle={projects.motto}
+                img={item.avatar}
+                title={item.teamName}
+                subtitle={item.motto}
                 accion1={"view job"}
                 accion2={"apply for job"}
                 date={"8d ago"}
@@ -76,7 +76,10 @@ export default function Teams({ projects }) {
       {isActive === 2 && (
         <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Job Board</p>
-          <p className="text-base font-normal mb-4">you applied for 1 job</p>
+          <p className="text-base font-normal mb-4">
+            you applied for <span>{projects.length}</span>{" "}
+            {projects.length === 0 ? "job" : "jobs"}
+          </p>
           <Offert
             img={"/anuncios/anuncio3.jpg"}
             title={"Space X goes to mars"}
