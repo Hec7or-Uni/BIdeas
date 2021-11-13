@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import Link from "next/Link"
 import { getSession } from "next-auth/react"
 import Cabecera from "components/Cabeceras/Cabecera"
+import React, { Component } from "react";
 
 import {
   FiChevronUp,
@@ -80,6 +81,7 @@ export default function Home({ user }) {
 
   return (
     <>
+    
       <div className="px-8 pt-3">
         {/* Cabecera */}
         <Cabecera />
@@ -245,4 +247,5 @@ export async function getServerSideProps({ req }) {
       user,
     },
   }
+
 }
