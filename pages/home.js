@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 import Link from "next/Link"
 import { getSession } from "next-auth/react"
 import Cabecera from "components/Cabeceras/Cabecera"
-import React, { Component } from "react";
 
 import {
   FiChevronUp,
