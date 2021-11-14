@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id          Int      @id @default(autoincrement())
+  userName    String   @unique @db.VarChar(36)
+  avatar      String?  
+  description String?  @db.VarChar(500)
+  xp          Int      @default(0)
+  respect     Int      @default(0)
+  name        String   @db.VarChar(50)
+  lastName    String   @db.VarChar(75)
+  age         Int?
+  genre       Int?
+  country     String?  @db.VarChar(50)
+  studies     String?  @db.VarChar(50)
+  email       String   @unique @db.VarChar(254)
+  salt        String
+  passwd      String
+  plan        Int      @default(0)
+  av4hire     Boolean  @default(true)
+  facebook    String?
+  twitter     String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projects        Projects[]
+  participations  Participates[]
+  joinRequests    RequestJoin[]
+  recruitRequests RequestRecruit[]
+}
+
+model Projects {
+  id          Int      @id @default(autoincrement())
+  teamName    String   @unique @db.VarChar(50)
+  avatar      String?  
+  cover       String?  
+  motto       String?  @db.VarChar(80)
+  description String?  @db.VarChar(500)
+  xp          Int      @default(0)
+  respect     Int      @default(0)
+  country     String?  @db.VarChar(50)
+  maxMembers  Int      @default(4)
+  facebook    String?
+  twitter     String?
+  discord     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owned           Users            @relation(fields: [owner], references: [id])
+  owner           Int
+  participations  Participates[]
+  joinRequests    RequestJoin[]
+  recruitRequests RequestRecruit[]
+}
+
+model Participates {
+  id        Int      @id @default(autoincrement())
+  user      Users    @relation(fields: [idUser], references: [id])
+  idUser    Int
+  project   Projects @relation(fields: [idProject], references: [id])
+  idProject Int
+}
+
+model RequestJoin {
+  id        Int      @id @default(autoincrement())
+  user      Users    @relation(fields: [idUser], references: [id])
+  idUser    Int
+  project   Projects @relation(fields: [idProject], references: [id])
+  idProject Int
+}
+
+model RequestRecruit {
+  id        Int      @id @default(autoincrement())
+  user      Users    @relation(fields: [idUser], references: [id])
+  idUser    Int
+  project   Projects @relation(fields: [idProject], references: [id])
+  idProject Int
+}
