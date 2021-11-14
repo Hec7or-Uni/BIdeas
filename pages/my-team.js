@@ -6,6 +6,7 @@ import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import { getSession } from "next-auth/react"
 import { countryList } from "../data/countryList"
+import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 
 const numMaxMembers = {
   2: "2",
@@ -32,19 +33,26 @@ const data = [
   },
 ]
 
-export default function Team() {
+export default function Team({ team, user, workers }) {
   const [isActive] = useLMenu()
+
   return (
-    <div className="">
-      <Header />
+    <div className="px-8 py-3">
+      <Header
+        avatar={user.avatar}
+        username={user.userName}
+        id={user.id}
+        studies={user.studies}
+        plan={user.plan}
+      />
       <LineMenu data={data} />
       {isActive === 1 && (
-        <div className="w-full px-8 mt-6">
+        <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
               <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
                 <img
-                  src="/anuncios/anuncio2.jpg"
+                  src={team.avatar || "/anuncios/anuncio2.jpg"}
                   alt=""
                   className="w-full h-full rounded-full object-cover"
                 />
@@ -58,103 +66,45 @@ export default function Team() {
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
-                  <p className="text-lg font-bold">EUROAVIA MISION</p>
+                  <p className="text-lg font-bold">{team.teamName}</p>
                 </div>
-                <p className="text-base font-medium">To infinity and beyond.</p>
+                <p className="text-base font-medium">{team.motto}</p>
               </div>
-            </div>
-            <div className="flex gap-x-3">
-              <button className="h-10 border-2 border-black px-8 text-base font-semibold uppercase hover:animate-pulse">
-                request join
-              </button>
-              <button className="h-10 bg-black text-white px-8 text-base font-semibold uppercase hover:animate-pulse">
-                respect
-              </button>
             </div>
           </div>
           <p className="flex flex-col self-center w-2/4 leading-snug my-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam cras
-            lectus senectus proin purus, scelerisque odio et. Magna pretium et,
-            neque odio. Donec facilisis amet eget donec varius semper. Nulla
-            egestas at ac leo. Quam turpis tempus consectetur pellentesque.
-            Tincidunt lectus ultricies sit morbi pharetra. Varius ullamcorper
-            vulputate amet sit massa.
+            {team.description}
           </p>
 
           <div className="flex gap-x-5 mt-6">
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-purple-500"
-                >
-                  <circle cx="12" cy="8" r="7"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                </svg>
-              }
-              points={"10"}
+              icon={<FiAward className="h-6 w-6 text-purple-500" />}
+              points={team.xp}
               desc={"points"}
             />
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-blue-500"
-                >
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                </svg>
-              }
-              points={"1"}
-              desc={"sponsors"}
+              icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
+              points={workers.length}
+              desc={"users"}
             />
             <Stats
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="stroke-current text-red-500"
-                >
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-              }
-              points={"4"}
+              icon={<FiHeart className="h-6 w-6 text-red-500" />}
+              points={team.respect}
               desc={"respect"}
             />
           </div>
 
           <div className="flex flex-col gap-x-5 mt-12">
-            <TeUsCard
-              img={"/personas/AnaMariaGarciaJirola.jpg"}
-              title={"Ana Maria"}
-              desc={
-                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
-              }
-            />
-            <TeUsCard
-              img={"/personas/AnaMariaGarciaJirola.jpg"}
-              title={"Ana Maria"}
-              desc={
-                "Pellentesque maximus eros sit amet eleifend aliquam. Duis fringilla porta sapien, a commodo risus convallis molestie. Vestibulum congue magna ac venenatis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae felis dignissim, vulputate metus vitae, varius tortor. Vivamus condimentum elementum justo. Duis non velit ac ante laoreet varius. Vivamus sollicitudin justo at ex vestibulum, sit amet mollis turpis pellentesque."
-              }
-            />
+            {workers.map((item) => {
+              return (
+                <TeUsCard
+                  key={item.idUser}
+                  img={item.user.avatar}
+                  title={item.user.name + " " + item.user.lastName}
+                  desc={item.user.description}
+                />
+              )
+            })}
           </div>
         </div>
       )}
@@ -415,6 +365,7 @@ Team.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
+  let res = null
 
   if (!session) {
     return {
@@ -423,11 +374,30 @@ export async function getServerSideProps({ req }) {
         permanent: false,
       },
     }
+  } else {
+    const params = new URLSearchParams({ id: session.token.id })
+    const url = `http://localhost:3000/api/team?${params.toString()}`
+
+    res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((res) => {
+      return res.json()
+    })
   }
+
+  const { team, users } = res.data
+  const user = users.owner.user
+  const workers = users.workers
 
   return {
     props: {
       session,
+      team,
+      user,
+      workers,
     },
   }
 }

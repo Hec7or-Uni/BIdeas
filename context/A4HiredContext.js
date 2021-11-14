@@ -7,8 +7,9 @@ export function useA4Hired() {
 }
 
 export function A4HProvider({ children }) {
+  const { user } = children.props.children.props.children.props.children.props
   // isActive == false, si no quiere ser contratado
-  const [isActive, setActive] = useState(false)
+  const [isActive, setActive] = useState(user.av4hire)
 
   return (
     <A4HiredContext.Provider value={[isActive, setActive]}>

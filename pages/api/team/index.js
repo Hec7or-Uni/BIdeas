@@ -33,7 +33,7 @@ export default async (req, res) => {
     })
   } else if (req.method === "GET") {
     const query = req.query
-    const qTeam = await prisma.projects.findUnique({
+    const qTeam = await prisma.projects.findMany({
       select: {
         id: true,
         owner: true,
@@ -53,13 +53,14 @@ export default async (req, res) => {
         updatedAt: true,
       },
       where: {
-        id: Number(query.id),
+        owner: Number(query.id),
       },
     })
     const qUsers = await prisma.participates.findMany({
       include: {
         user: {
           select: {
+            id: true,
             userName: true,
             avatar: true,
             description: true,
@@ -83,16 +84,16 @@ export default async (req, res) => {
         },
       },
       where: {
-        idProject: Number(query.id),
+        idProject: qTeam[0].id,
       },
     })
 
     res.json({
       data: {
-        team: qTeam,
+        team: qTeam[0],
         users: {
-          owner: qUsers.filter((item) => item.idUser === qTeam.owner),
-          workers: qUsers.filter((item) => item.idUser !== qTeam.owner),
+          owner: qUsers.filter((item) => item.idUser === Number(query.id))[0],
+          workers: qUsers.filter((item) => item.idUser !== Number(query.id)),
         },
       },
       status: status(200, ""),
