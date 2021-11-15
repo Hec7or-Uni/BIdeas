@@ -33,6 +33,7 @@ export default async (req, res) => {
       facebook: true,
       twitter: true,
       discord: true,
+      owner: true,
     },
     where: {
       teamName: query,
@@ -42,10 +43,15 @@ export default async (req, res) => {
     include: {
       user: {
         select: {
+          id: true,
+          userName: true,
           avatar: true,
           name: true,
           lastName: true,
           description: true,
+          studies: true,
+          xp: true,
+          plan: true,
         },
       },
     },

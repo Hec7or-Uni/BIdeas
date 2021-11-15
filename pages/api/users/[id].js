@@ -41,6 +41,7 @@ export default async (req, res) => {
       userName: query,
     },
   })
+
   const dataProjects = await prisma.participates.findMany({
     include: {
       project: {
