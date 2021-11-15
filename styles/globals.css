@@ -14,10 +14,5 @@ body {
 }
 /* ----- Scroll bar ---------------------------------------------- */
 ::-webkit-scrollbar {
-    width: 7px;
-    
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 7px;
-    background: #04001b;
+    width: 0;
 }
