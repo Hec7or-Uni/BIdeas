@@ -4,8 +4,10 @@ import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import { useLMenu } from "../../context/LMenuContext"
 import { getSession } from "next-auth/react"
+import useSWR from "swr"
+import { useRouter } from "next/router"
 
-const data = [
+const links = [
   {
     id: 1,
     name: "Jobs",
@@ -16,9 +18,25 @@ const data = [
   },
 ]
 
-export default function Teams({ projects }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export default function Teams() {
+  let projects = null
+  const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
+
+  const { data, error } = useSWR(`http://localhost:3000/api/teams`, fetcher)
+
+  if (error) {
+    return router.push("/404")
+  } else {
+    if (!data) {
+      return <>loading</>
+    } else {
+      projects = data.data.projects
+    }
+  }
 
   return (
     <>
@@ -50,7 +68,7 @@ export default function Teams({ projects }) {
         </div>
       </div>
       <div className="px-8">
-        <LineMenu data={data} />
+        <LineMenu data={links} />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">
@@ -102,7 +120,6 @@ Teams.getLayout = function getLayout(page) {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
   let resUser = null
-  let resTeams = null
 
   if (!session) {
     return {
@@ -123,25 +140,13 @@ export async function getServerSideProps({ req }) {
     }).then((resUser) => {
       return resUser.json()
     })
-
-    const urlTeams = `http://localhost:3000/api/teams`
-    resTeams = await fetch(urlTeams, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
-      },
-    }).then((resTeams) => {
-      return resTeams.json()
-    })
   }
   const { user } = resUser.data
-  const { projects } = resTeams.data
 
   return {
     props: {
       session,
       user,
-      projects,
     },
   }
 }

@@ -4,8 +4,10 @@ import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import { useLMenu } from "../../context/LMenuContext"
 import { getSession } from "next-auth/react"
+import useSWR from "swr"
+import { useRouter } from "next/router"
 
-const data = [
+const links = [
   {
     id: 1,
     name: "Proffesionals",
@@ -16,9 +18,25 @@ const data = [
   },
 ]
 
-export default function Professionals({ users }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export default function Professionals() {
+  let users = null
+  const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
+
+  const { data, error } = useSWR(`http://localhost:3000/api/users`, fetcher)
+
+  if (error) {
+    return router.push("/404")
+  } else {
+    if (!data) {
+      return <>loading</>
+    } else {
+      users = data.data.users
+    }
+  }
 
   return (
     <>
@@ -48,7 +66,7 @@ export default function Professionals({ users }) {
         </div>
       </div>
       <div className="px-8">
-        <LineMenu data={data} />
+        <LineMenu data={links} />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">
@@ -100,7 +118,6 @@ Professionals.getLayout = function getLayout(page) {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
   let resUser = null
-  let resUsers = null
 
   if (!session) {
     return {
@@ -121,25 +138,13 @@ export async function getServerSideProps({ req }) {
     }).then((resUser) => {
       return resUser.json()
     })
-
-    const urlUsers = `http://localhost:3000/api/users`
-    resUsers = await fetch(urlUsers, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
-      },
-    }).then((resTeams) => {
-      return resTeams.json()
-    })
   }
   const { user } = resUser.data
-  const { users } = resUsers.data
 
   return {
     props: {
       session,
       user,
-      users,
     },
   }
 }
