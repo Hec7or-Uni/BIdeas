@@ -20,7 +20,7 @@ const links = [
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Professionals() {
+export default function Professionals({ user }) {
   let users = null
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
@@ -34,7 +34,7 @@ export default function Professionals() {
     if (!data) {
       return <>loading</>
     } else {
-      users = data.data.users
+      users = data.data.users.filter((item) => item.id !== user.id)
     }
   }
 

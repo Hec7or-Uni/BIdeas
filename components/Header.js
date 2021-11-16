@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function Header({ avatar, username, id, studies, plan }) {
   return (
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
@@ -41,9 +43,11 @@ export default function Header({ avatar, username, id, studies, plan }) {
           <p className="text-sm font-medium">plan type</p>
           <p className="text-lg font-bold">{plan === 0 ? "free" : "vip"}</p>
           {plan === 0 && (
-            <p className="text-sm font-medium text-blue-600 hover:underline">
-              go vip
-            </p>
+            <Link href="#">
+              <a className="text-sm font-medium text-blue-600 hover:underline">
+                go vip
+              </a>
+            </Link>
           )}
         </div>
       </div>

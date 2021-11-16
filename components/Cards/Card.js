@@ -1,26 +1,30 @@
-export default function Card({ img, title, desc }) {
+import Link from "next/link"
+
+export default function Card({ img, title, desc, url }) {
   return (
-    <div className="flex flex-col items-center h-80 min-w-15.5 w-15.5 rounded-xl shadow p-4 text-black transition duration-150 ease-in-out scale-95 hover:scale-100 bg-white">
-      <div className="flex justify-center items-center h-32 w-32 mt-7 mb-4">
-        {typeof img === "object" ? (
-          img
-        ) : (
-          <img
-            src={img}
-            alt={title + " team profile image"}
-            className="w-full h-full object-cover object-center rounded-xl"
-          />
-        )}
-      </div>
-      <div className="w-44 tracking-tighter">
-        <p className="font-bold text-2xl text-center capitalize text-gray-800">
-          {title}
-        </p>
-        <p className="mt-0.5 text-sm text-center font-medium text-gray-500">
-          {desc}
-        </p>
-      </div>
-    </div>
+    <Link href={url}>
+      <a className="flex flex-col items-center h-80 min-w-15.5 w-15.5 rounded-xl shadow p-4 text-black transition duration-150 ease-in-out scale-95 hover:scale-100 bg-white">
+        <div className="flex justify-center items-center h-32 w-32 mt-7 mb-4">
+          {typeof img === "object" ? (
+            img
+          ) : (
+            <img
+              src={img}
+              alt={title + " team profile image"}
+              className="w-full h-full object-cover object-center rounded-xl"
+            />
+          )}
+        </div>
+        <div className="w-44 tracking-tighter">
+          <p className="font-bold text-2xl text-center capitalize text-gray-800">
+            {title}
+          </p>
+          <p className="mt-0.5 text-sm text-center font-medium text-gray-500">
+            {desc}
+          </p>
+        </div>
+      </a>
+    </Link>
   )
 }
 

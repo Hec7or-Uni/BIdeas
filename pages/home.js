@@ -192,11 +192,13 @@ export default function Home({ user, projects }) {
               img={<GoOrganization className="h-3/4 w-3/4" />}
               title={"create a team"}
               desc={"Start developing your new idea now"}
+              url={"/home"}
             />
             <Card
               img={<GoTelescope className="h-3/4 w-3/4" />}
               title={"join a team"}
               desc={"Looking for amazing projects? join one now!"}
+              url={"/home"}
             />
           </div>
         )}
@@ -209,6 +211,7 @@ export default function Home({ user, projects }) {
                     img={item.avatar}
                     title={item.teamName}
                     desc={item.description}
+                    url={"/teams/" + item.teamName}
                   />
                 </>
               )
@@ -224,6 +227,7 @@ export default function Home({ user, projects }) {
                     img={item.avatar}
                     title={item.teamName}
                     desc={item.description}
+                    url={"/"}
                   />
                 </>
               )

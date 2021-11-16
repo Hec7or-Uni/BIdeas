@@ -20,7 +20,7 @@ const links = [
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Teams() {
+export default function Teams({ myProjects }) {
   let projects = null
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
@@ -35,6 +35,9 @@ export default function Teams() {
       return <>loading</>
     } else {
       projects = data.data.projects
+      projects = data.data.projects.filter(
+        (item) => item.id !== myProjects[0].idProject
+      )
     }
   }
 
@@ -144,12 +147,14 @@ export async function getServerSideProps({ req }) {
       return resUser.json()
     })
   }
-  const { user } = resUser.data
+  const { user, projects } = resUser.data
+  const myProjects = projects.owns || null
 
   return {
     props: {
       session,
       user,
+      myProjects,
     },
   }
 }

@@ -8,7 +8,6 @@ const DATE_UNITS = [
 ]
 
 const getDateDiffs = (datetime) => {
-  console.log(datetime)
   const timestamp = Date.parse(datetime)
   const now = Date.now()
   const elapsed = (timestamp - now) / 1000
@@ -28,12 +27,12 @@ export default function useTimeAgo(timestamp) {
     const interval = setInterval(() => {
       const newTimeAgo = getDateDiffs(timestamp)
       setTimeago(newTimeAgo)
-    }, 5000)
+    }, 30000)
 
     return () => clearInterval(interval)
   }, [timestamp])
 
-  const rtf = new Intl.RelativeTimeFormat("es", { style: "short" })
+  const rtf = new Intl.RelativeTimeFormat("en", { style: "short" })
 
   const { value, unit } = timeago
 

@@ -40,10 +40,9 @@ export default function offert({
           <p className="text-lg font-bold capitalize">{title}</p>
           {hover && !isUser && !applied ? (
             <div className="h-auto w-auto relative">
-              <div className="w-full h-full bg-green-200 absolute filter blur-sm z-0" />
-              <div className="flex items-center">
+              <div className="flex items-center w-min	bg-green-200 rounded">
                 <FiCheck className="h-5 w-5 ml-1 z-10" />
-                <p className="text-black  px-1.5 ml-1 text-base font-normal truncate z-10">
+                <p className="text-black px-1.5 ml-1 text-base font-normal truncate z-10">
                   Your are elegible for this job
                 </p>
               </div>
@@ -58,7 +57,12 @@ export default function offert({
           // botones
           <div className="absolute right-0 mr-4">
             <div className="flex items-center space-x-3">
-              <ButtonS url={"/"} text={accion1} />
+              <ButtonS
+                url={`http://localhost:3000/${
+                  isUser ? "users" : "teams"
+                }/${url}`}
+                text={accion1}
+              />
               {!applied && <ButtonP url={"/"} text={accion2} />}
             </div>
           </div>
