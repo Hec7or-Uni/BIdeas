@@ -84,7 +84,9 @@ export default function Teams() {
                 subtitle={item.motto}
                 accion1={"view job"}
                 accion2={"apply for job"}
-                date={"8d ago"}
+                isUser={false}
+                url={item.teamName}
+                createdAt={item.createdAt}
               />
             )
           })}
@@ -103,8 +105,10 @@ export default function Teams() {
             subtitle={"engineer required"}
             accion1={"view job"}
             accion2={"apply for job"}
-            date={"8d ago"}
             applied={true}
+            isUser={false}
+            url={"item.teamName"}
+            createdAt={"2021-11-15T21:10:03.340Z"}
           />
         </div>
       )}

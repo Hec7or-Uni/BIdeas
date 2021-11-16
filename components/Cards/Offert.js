@@ -2,6 +2,9 @@ import ButtonP from "../Buttons/ButtonP"
 import ButtonS from "../Buttons/ButtonS"
 import { useState } from "react"
 import { FiCheck } from "react-icons/fi"
+import Link from "next/Link"
+import useTimeAgo from "hooks/useTimeAgo"
+import useDateTimeFormat from "hooks/useDateTimeFormat"
 
 export default function offert({
   img,
@@ -9,30 +12,33 @@ export default function offert({
   subtitle,
   accion1,
   accion2,
-  date,
-  person,
+  url,
+  isUser,
   applied,
+  createdAt,
 }) {
   const [hover, setHover] = useState(false)
+  const timeago = useTimeAgo(createdAt)
+  const createdAtFormated = useDateTimeFormat(createdAt)
 
   return (
-    <>
-      <div
+    <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
+      <a
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="flex items-center h-20 w-2/3 rounded-xl bg-white shadow mb-8 p-2 relative"
+        className="flex items-center h-20 w-2/3 rounded-xl bg-white shadow mb-8 p-2 relative cursor-default"
       >
         <div className="h-16 w-16 rounded-xl bg-blue-500 mr-3">
           {/* img */}
           <img
             src={img}
             alt="img de la oferta"
-            className="h-16 w-16 object-cover object-center rounded-xl"
+            className="h-full w-full object-cover object-center rounded-xl"
           />
         </div>
         <div className="flex flex-col w-1/2">
           <p className="text-lg font-bold capitalize">{title}</p>
-          {hover && !person && !applied ? (
+          {hover && !isUser && !applied ? (
             <div className="h-auto w-auto relative">
               <div className="w-full h-full bg-green-200 absolute filter blur-sm z-0" />
               <div className="flex items-center">
@@ -57,10 +63,14 @@ export default function offert({
             </div>
           </div>
         ) : (
-          // date
-          <p className="text-sm absolute right-0 bottom-0 mb-2 mr-4">{date}</p>
+          <date
+            title={createdAtFormated}
+            className="text-sm absolute right-0 bottom-0 mb-2 mr-4"
+          >
+            {timeago}
+          </date>
         )}
-      </div>
-    </>
+      </a>
+    </Link>
   )
 }

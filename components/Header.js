@@ -3,10 +3,10 @@ export default function Header({ avatar, username, id, studies, plan }) {
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
       {/* Profile */}
       <div className="flex items-center">
-        <div className="w-16 h-16 rounded-full relative">
+        <div className="w-16 h-16 rounded-full relative bg-green-500">
           <img
             src={avatar || "/personas/HectorToralPallas.jpg"}
-            className="w-16 max-h-16 rounded-full object-cover center"
+            className="w-full h-full rounded-full object-cover center"
           />
           <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
             <img

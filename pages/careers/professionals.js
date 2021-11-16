@@ -14,7 +14,7 @@ const links = [
   },
   {
     id: 2,
-    name: "Conatct Requests",
+    name: "Contacts Requests",
   },
 ]
 
@@ -84,7 +84,9 @@ export default function Professionals() {
                 subtitle={item.studies}
                 accion1={"view job"}
                 accion2={"apply for job"}
-                date={"8d ago"}
+                isUser={true}
+                url={item.userName}
+                createdAt={item.createdAt}
               />
             )
           })}
@@ -103,8 +105,9 @@ export default function Professionals() {
             subtitle={"System Engineer"}
             accion1={"view profile"}
             accion2={"contact"}
-            date={"8d ago"}
-            person={true}
+            isUser={true}
+            url={"item.userName"}
+            createdAt={"2021-11-15T21:10:03.340Z"}
           />
         </div>
       )}

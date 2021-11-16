@@ -22,9 +22,11 @@ export default async (req, res) => {
     select: {
       id: true,
       avatar: true,
+      userName: true,
       name: true,
       lastName: true,
       studies: true,
+      createdAt: true,
     },
     take: 100,
   })

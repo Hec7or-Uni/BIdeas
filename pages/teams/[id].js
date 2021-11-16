@@ -98,6 +98,8 @@ export default function Team() {
                 img={item.user.avatar}
                 title={item.user.name + " " + item.user.lastName}
                 desc={item.user.description}
+                isUser={true}
+                url={item.user.userName}
               />
             )
           })}

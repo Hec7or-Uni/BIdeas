@@ -102,6 +102,8 @@ export default function Profile() {
                 img={item.project.avatar}
                 title={item.project.teamName}
                 desc={item.project.description}
+                isUser={false}
+                url={item.project.teamName}
               />
             )
           })}

@@ -28,7 +28,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
         <div className="w-10 h-10 rounded-full">
           <img
             src={avatar || "/personas/HectorToralPallas.jpg"}
-            className="w-10 max-h-10 rounded-full object-cover center"
+            className="w-full h-full rounded-full object-cover center"
           />
         </div>
         <p className="text-lg font-normal text-black capitalize">{userName}</p>

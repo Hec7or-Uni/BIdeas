@@ -15,7 +15,7 @@ export default function LineMenu({ data }) {
               type="button"
               value={item.name}
               onClick={(e) => setActive(item.id)}
-              className={`flex justify-center w-36 py-3 border-b-2 border-black border-opacity-0 text-center text-xs font-black uppercase tracking-wide ${
+              className={`flex justify-center w-36 py-3 border-b-2 border-black border-opacity-0 text-center text-xs font-black uppercase tracking-wide cursor-pointer ${
                 isActive === item.id ? "border-opacity-100" : ""
               } bg-transparent`}
             />
