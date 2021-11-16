@@ -1,5 +1,7 @@
-import Button from "../Buttons/Button"
+import ButtonP from "../Buttons/ButtonP"
+import ButtonS from "../Buttons/ButtonS"
 import { useState } from "react"
+import { FiCheck } from "react-icons/fi"
 
 export default function offert({
   img,
@@ -18,7 +20,7 @@ export default function offert({
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="flex items-center h-20 w-2/3 rounded-xl bg-gray-200 mb-8 p-2 relative"
+        className="flex items-center h-20 w-2/3 rounded-xl bg-white shadow mb-8 p-2 relative"
       >
         <div className="h-16 w-16 rounded-xl bg-blue-500 mr-3">
           {/* img */}
@@ -31,24 +33,10 @@ export default function offert({
         <div className="flex flex-col w-1/2">
           <p className="text-lg font-bold capitalize">{title}</p>
           {hover && !person && !applied ? (
-            // candidato apto?
             <div className="h-auto w-auto relative">
               <div className="w-full h-full bg-green-200 absolute filter blur-sm z-0" />
               <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 ml-1 z-10"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+                <FiCheck className="h-5 w-5 ml-1 z-10" />
                 <p className="text-black  px-1.5 ml-1 text-base font-normal truncate z-10">
                   Your are elegible for this job
                 </p>
@@ -64,13 +52,8 @@ export default function offert({
           // botones
           <div className="absolute right-0 mr-4">
             <div className="flex items-center space-x-3">
-              <Button url={"/"} text={accion1} />
-              <button
-                className={`text-white text-sm font-medium px-4 py-2 rounded-sm mr-4 capitalize bg-black border-2 border-black transition-colors duration-500 hover:bg-transparent hover:text-black
-                ${applied ? "hidden" : ""}`}
-              >
-                {accion2}
-              </button>
+              <ButtonS url={"/"} text={accion1} />
+              {!applied && <ButtonP url={"/"} text={accion2} />}
             </div>
           </div>
         ) : (

@@ -1,19 +1,20 @@
-import Button from "../Buttons/Button.js"
+import ButtonP from "../Buttons/ButtonP"
+import ButtonS from "../Buttons/ButtonS"
 import { signOut } from "next-auth/react"
+import Logo from "../Logo"
 
 export default function Navbar({ session }) {
   return (
-    <div className="sticky top-0 h-16 w-full flex items-center tracking-wide bg-gray-200 z-50">
-      <div className="flex justify-center container mx-auto relative">
-        <div className="absolute left-0 mx-4">logo</div>
-        <nav>enlaces</nav>
+    <div className="sticky top-0 h-16 w-full flex items-center tracking-wide bg-white z-50">
+      <div className="flex justify-center items-center container mx-auto relative">
+        <Logo />
         <div className="flex gap-x-3 absolute right-0 mx-4">
           {session ? (
-            <Button func={() => signOut()} url={"/"} text={"sign out"} />
+            <ButtonP func={() => signOut()} url={"/"} text={"sign out"} />
           ) : (
             <>
-              <Button url={"/login"} text={"sign in"} />
-              <Button url={"/invite"} text={"join now"} />
+              <ButtonS url={"/login"} text={"log in"} />
+              <ButtonP url={"/invite"} text={"sign up"} />
             </>
           )}
         </div>

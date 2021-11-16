@@ -95,9 +95,9 @@ export default function Home({ user, projects }) {
               className="h-auto w-full object-fill object-center rounded-xl"
             />
           </div>
-          <div className="flex gap-x-0.5 rounded-xl w-full h-72 lg:h-auto lg:w-right">
+          <div className="flex gap-x-0.5 rounded-xl w-full h-72 lg:h-auto lg:w-right shadow">
             {/* Izquierda */}
-            <div className="h-full w-right rounded-tl-xl rounded-bl-xl p-6 bg-gray-200 relative">
+            <div className="h-full w-right rounded-tl-xl rounded-bl-xl p-6 bg-white relative">
               {/* Parte superior */}
               <div className="flex items-center">
                 <div className="flex justify-center items-center h-28 w-28">
@@ -134,7 +134,7 @@ export default function Home({ user, projects }) {
             {/* Derecha */}
             <div className="flex flex-col gap-y-0.5 h-full w-left">
               {/* Parte Superior */}
-              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-gray-200 relative">
+              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-white relative">
                 <p className="text-lg font-bold capitalize">
                   {user.userName}{" "}
                   <span className="font-medium capitalize">- {stat.name}</span>
@@ -142,13 +142,13 @@ export default function Home({ user, projects }) {
                 <div className="flex gap-x-1 absolute bottom-0 mb-6">
                   <button
                     onClick={() => handleDecrement()}
-                    className="bg-gray-500 p-0.5 rounded"
+                    className="bg-gray-700 p-0.5 rounded"
                   >
                     <FiChevronLeft className="h-5 w-5 text-white" />
                   </button>
                   <button
                     onClick={() => handleIncrement()}
-                    className="bg-gray-500 p-0.5 rounded"
+                    className="bg-gray-700 p-0.5 rounded"
                   >
                     <FiChevronRight className="h-5 w-5 text-white" />
                   </button>
@@ -164,7 +164,7 @@ export default function Home({ user, projects }) {
                 </div>
               </div>
               {/* Parte Inferior */}
-              <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-gray-200">
+              <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-white">
                 <div className="flex flex-col">
                   <p className="text-xs font-bold uppercase">plan</p>
                   <p className="text-xl font-bold capitalize">
@@ -173,7 +173,7 @@ export default function Home({ user, projects }) {
                 </div>
                 {user.plan === 0 && (
                   <Link href="">
-                    <a className="text-base font-bold uppercase hover:underline">
+                    <a className="text-base font-bold uppercase hover:underline text-blue-600">
                       go vip
                     </a>
                   </Link>

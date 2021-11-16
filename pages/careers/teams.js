@@ -47,19 +47,18 @@ export default function Teams() {
           for professionals. Hopefully you will find one to your liking.
         </p>
       </div>
-      <div className="flex items-center gap-x-5 w-full bg-gray-200 px-8 my-8 py-5">
+      <div className="flex items-center gap-x-5 w-full bg-white shadow-sm px-8 my-8 py-5">
         <div
-          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out ${
-            isToggled ? "bg-green-200" : "bg-red-200"
-          }`}
+          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out opacity-75
+          ${isToggled ? "bg-green-400" : "bg-red-400"}`}
         >
           <button
             onClick={() => Toggle(!isToggled)}
-            className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 ${
-              isToggled ? "transform translate-x-full" : ""
-            }`}
+            className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 
+            ${isToggled ? "transform translate-x-full" : ""}`}
           />
         </div>
+
         <div>
           <p className="text-lg font-semibold">Available for hire</p>
           <p className="text-base font-normal">

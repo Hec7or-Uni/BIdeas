@@ -102,6 +102,8 @@ export default function Team({ team, user, workers }) {
                   img={item.user.avatar}
                   title={item.user.name + " " + item.user.lastName}
                   desc={item.user.description}
+                  url={item.user.userName}
+                  isUser={true}
                 />
               )
             })}

@@ -40,7 +40,11 @@ export default function Header({ avatar, username, id, studies, plan }) {
         <div className="flex flex-col uppercase">
           <p className="text-sm font-medium">plan type</p>
           <p className="text-lg font-bold">{plan === 0 ? "free" : "vip"}</p>
-          {plan === 0 && <p className="text-sm font-medium">go vip</p>}
+          {plan === 0 && (
+            <p className="text-sm font-medium text-blue-600 hover:underline">
+              go vip
+            </p>
+          )}
         </div>
       </div>
     </div>

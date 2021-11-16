@@ -4,13 +4,14 @@ import { signOut } from "next-auth/react"
 import { useSidebar } from "../../context/SideBarContext"
 import { FiChevronUp } from "react-icons/fi"
 import { links } from "../../data/Navbar"
+import Logo from "../Logo"
 
 export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
 
   return (
-    <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-gray-200">
+    <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-white">
       {/* Logotipo */}
       <Link href="/">
         <a
@@ -18,9 +19,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           ${isToggle ? "min-w-3.5" : "min-w-15 w-48"}`}
           onClick={() => ToggleSidebar(false)}
         >
-          <p className="h-10 w-full text-center text-base lg:text-xl font-semibold text-black bg-gray-100 rounded-md">
-            lg
-          </p>
+          <Logo toggle={isToggle} />
         </a>
       </Link>
 
@@ -41,13 +40,13 @@ export default function NewNavbar({ avatar, userName, plan }) {
             />
           </button>
           {isActive && (
-            <div className="flex flex-col w-52 mt-6 rounded-md bg-gray-200 absolute right-0 z-50 py-1">
+            <div className="flex flex-col w-52 mt-6 rounded-md bg-neutral absolute right-0 z-50 py-1">
               {links.map((item) => {
                 return item.name === "go vip" && plan === 1 ? (
                   <></>
                 ) : (
                   <Link href={item.url} key={1}>
-                    <a className="px-3 py-1.5 hover:bg-gray-100">
+                    <a className="px-3 py-1.5 hover:bg-basic">
                       <p className="text-base font-semibold text-black capitalize">
                         {item.name}
                       </p>
@@ -57,7 +56,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
               })}
               <button
                 onClick={() => signOut()}
-                className="px-3 py-1.5 hover:bg-gray-100 bg-gray-50"
+                className="px-3 py-1.5 hover:bg-neutral bg-gray-50"
               >
                 <p className="text-base font-semibold text-black capitalize">
                   Logout

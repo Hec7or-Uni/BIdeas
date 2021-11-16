@@ -42,7 +42,7 @@ export default function Profile({ user, owns, participates }) {
       {isActive === 1 && (
         <div className="container mt-6">
           <div className="flex gap-x-5">
-            <div className="flex gap-x-1 items-center justify-center w-1/4 h-44 bg-gray-100">
+            <div className="flex gap-x-1 items-center justify-center w-1/4 h-44 bg-neutral">
               <div className="flex justify-center items-center h-28 w-28 relative">
                 <FiHexagon
                   className="h-full w-full relative"
@@ -96,16 +96,20 @@ export default function Profile({ user, owns, participates }) {
                   img={item.project.avatar}
                   title={item.project.teamName}
                   desc={item.project.description}
+                  url={item.project.teamName}
+                  isUser={false}
                 />
               )
             })}
             {participates.map((item) => {
               return (
                 <TeUsCard
-                  key={item.idUser}
-                  img={item.user.avatar}
-                  title={item.user.name + " " + item.user.lastName}
-                  desc={item.user.description}
+                  key={item.idProject}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                  url={item.project.teamName}
+                  isUser={false}
                 />
               )
             })}

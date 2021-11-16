@@ -21,7 +21,7 @@ export default function Login({ csrfToken }) {
               type="email"
               name="email"
               autoComplete="username"
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
           </label>
@@ -32,7 +32,7 @@ export default function Login({ csrfToken }) {
               type="password"
               name="password"
               autoComplete="current-password"
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
           </label>
@@ -41,14 +41,14 @@ export default function Login({ csrfToken }) {
               <label className="inline-flex items-center">
                 <input
                   type="checkbox"
-                  className="text-indigo-600 border form-checkbox"
+                  className="text-blue-600 border form-checkbox"
                 />
                 <span className="mx-2 text-sm text-gray-600">Remember me</span>
               </label>
             </div>
             <div>
               <a
-                className="block text-sm text-indigo-700 fontme hover:underline"
+                className="block text-sm text-blue-600 fontme hover:underline"
                 href="#"
               >
                 Forgot your password?
@@ -58,7 +58,7 @@ export default function Login({ csrfToken }) {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide"
+              className="capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700"
             >
               Sign in
             </button>
@@ -68,14 +68,14 @@ export default function Login({ csrfToken }) {
       <div className="flex w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-5 items-center justify-between">
         <Link href="/invite">
           <a
-            className="block text-sm text-indigo-700 fontme hover:underline"
-            href="#"
+            className="block text-sm text-blue-700 fontme hover:underline"
+            href="/invite"
           >
             Don’t have an account?
           </a>
         </Link>
         <Link href="/invite">
-          <a className="w-1/3 px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide">
+          <a className="capitalize w-1/3 tracking-normal px-4 py-2.5 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700">
             Join Now
           </a>
         </Link>

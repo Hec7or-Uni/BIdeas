@@ -67,7 +67,7 @@ export default function Invite() {
                 name="name"
                 autoComplete="name"
                 onChange={handleName}
-                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
                 required
               />
             </label>
@@ -79,7 +79,7 @@ export default function Invite() {
                 name="lastName"
                 autoComplete="last name"
                 onChange={handleLastName}
-                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
                 required
               />
             </label>
@@ -92,7 +92,7 @@ export default function Invite() {
               name="username"
               autoComplete="username"
               onChange={handleUsername}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
           </label>
@@ -104,7 +104,7 @@ export default function Invite() {
               name="email"
               autoComplete="email"
               onChange={handleEmail}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
           </label>
@@ -116,7 +116,7 @@ export default function Invite() {
               name="password"
               autoComplete="current-password"
               onChange={handlePassword}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-indigo-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
           </label>
@@ -124,7 +124,7 @@ export default function Invite() {
             <label className="inline-flex items-center mt-4">
               <input
                 type="checkbox"
-                className="text-indigo-600 border form-checkbox"
+                className="text-blue-600 border form-checkbox"
               />
               <span className="ml-2 text-sm text-gray-600">
                 I accept the{" "}
@@ -141,7 +141,7 @@ export default function Invite() {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide"
+              className="capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700"
             >
               Register
             </button>
@@ -151,14 +151,14 @@ export default function Invite() {
       <div className="flex w-full max-w-md p-4 bg-white rounded-md shadow-md sm:p-5 items-center justify-between">
         <Link href="/login">
           <a
-            className="block text-sm text-indigo-700 fontme hover:underline"
+            className="block text-sm text-blue-700 fontme hover:underline"
             href="#"
           >
             Have an account?
           </a>
         </Link>
         <Link href="/login">
-          <a className="w-1/3 px-4 py-2.5 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500 tracking-wide">
+          <a className="capitalize w-1/3 tracking-normal px-4 py-2.5 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700">
             Sign in
           </a>
         </Link>

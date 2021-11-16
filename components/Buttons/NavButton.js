@@ -6,8 +6,8 @@ export default function NewButton({ url, icon, text, current }) {
   return (
     <Link href={url}>
       <a
-        className={`flex items-center h-9 w-full px-2.5 py-2.5 rounded hover:bg-gray-200 relative
-        ${current ? "bg-gray-200" : ""}`}
+        className={`flex items-center h-9 w-full px-2.5 py-2.5 rounded hover:bg-neutral relative
+        ${current ? "bg-neutral" : ""}`}
         onClick={() => ToggleSidebar(false)}
       >
         <div className="w-5 h-5">{icon}</div>
