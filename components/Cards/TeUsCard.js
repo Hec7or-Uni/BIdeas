@@ -1,4 +1,5 @@
 import Link from "next/Link"
+
 export default function TeUsCard({ img, title, desc, url, isUser }) {
   return (
     <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>

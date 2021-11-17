@@ -1,14 +1,12 @@
 import { useState } from "react"
-import LineMenu from "../components/Navegation/LineMenu"
-import Card from "../components/Cards/Card"
-import { useLMenu } from "../context/LMenuContext"
-import Layout from "../components/layout"
-import Link from "next/Link"
 import { getSession } from "next-auth/react"
+import Link from "next/Link"
+import LineMenu from "../components/Navegation/LineMenu"
+import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"
-
+import Layout from "../components/layout"
+import { useLMenu } from "../context/LMenuContext"
 import { GoOrganization, GoTelescope } from "react-icons/go"
-
 import {
   FiChevronUp,
   FiHexagon,
@@ -188,13 +186,15 @@ export default function Home({ user, projects }) {
         <LineMenu data={links} />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            <Card
+            <Shortcut
+              key={0}
               img={<GoOrganization className="h-3/4 w-3/4" />}
               title={"create a team"}
               desc={"Start developing your new idea now"}
               url={"/home"}
             />
-            <Card
+            <Shortcut
+              key={1}
               img={<GoTelescope className="h-3/4 w-3/4" />}
               title={"join a team"}
               desc={"Looking for amazing projects? join one now!"}
@@ -206,14 +206,13 @@ export default function Home({ user, projects }) {
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             {projects.recommended.map((item) => {
               return (
-                <>
-                  <Card
-                    img={item.avatar}
-                    title={item.teamName}
-                    desc={item.description}
-                    url={"/teams/" + item.teamName}
-                  />
-                </>
+                <Shortcut
+                  key={item.id}
+                  img={item.avatar}
+                  title={item.teamName}
+                  desc={item.description}
+                  url={"/teams/" + item.teamName}
+                />
               )
             })}
           </div>
@@ -222,14 +221,13 @@ export default function Home({ user, projects }) {
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             {projects.participates.map((item) => {
               return (
-                <>
-                  <Card
-                    img={item.avatar}
-                    title={item.teamName}
-                    desc={item.description}
-                    url={"/"}
-                  />
-                </>
+                <Shortcut
+                  key={item.id}
+                  img={item.avatar}
+                  title={item.teamName}
+                  desc={item.description}
+                  url={"/"}
+                />
               )
             })}
           </div>

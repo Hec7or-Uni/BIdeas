@@ -1,4 +1,4 @@
-export default function Card1({ icon, points, desc }) {
+export default function Statistics({ icon, points, desc }) {
   return (
     <div className="flex flex-col items-center w-32 h-32 rounded-xl bg-white shadow-sm p-2.5">
       {icon}
@@ -8,7 +8,7 @@ export default function Card1({ icon, points, desc }) {
   )
 }
 
-Card1.defaultProps = {
+Statistics.defaultProps = {
   icon: "",
   points: "0",
   desc: "Points",

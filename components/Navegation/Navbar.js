@@ -5,9 +5,11 @@ import { useSidebar } from "../../context/SideBarContext"
 import { FiChevronUp, FiHelpCircle, FiMail } from "react-icons/fi"
 import { links } from "../../data/Navbar"
 import Logo from "../Logo"
+import Modal from "../Modal"
 
 export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)
+  const [isModal, setModal] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
 
   return (
@@ -24,8 +26,16 @@ export default function NewNavbar({ avatar, userName, plan }) {
       </Link>
 
       <div className="flex items-center gap-x-6 absolute right-0 mr-8">
-        <div className="flex items-center gap-x-4">
-          <FiMail className="h-5 w-5 hover:text-blue-500" />
+        <div className="flex items-center gap-x-4 relative">
+          <button
+            id="button"
+            onClick={() => {
+              setModal(!isModal)
+              setActive(false)
+            }}
+          >
+            <FiMail className="h-5 w-5 hover:text-blue-500" />
+          </button>
           <Link href="/faq">
             <a>
               <FiHelpCircle className="h-5 w-5 hover:text-green-500" />
@@ -44,7 +54,12 @@ export default function NewNavbar({ avatar, userName, plan }) {
             {userName}
           </p>
           <div>
-            <button onClick={() => setActive(!isActive)}>
+            <button
+              onClick={() => {
+                setActive(!isActive)
+                setModal(false)
+              }}
+            >
               <FiChevronUp
                 className={`mt-2 transition duration-500 
                 ${isActive ? "-rotate-180" : ""}`}
@@ -78,6 +93,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           </div>
         </div>
       </div>
+      {isModal && <Modal />}
     </div>
   )
 }

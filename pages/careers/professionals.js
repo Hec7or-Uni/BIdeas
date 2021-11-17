@@ -1,11 +1,11 @@
-import Offert from "../../components/Cards/Offert"
-import { useA4Hired } from "../../context/A4HiredContext"
-import Layout from "../../components/layout"
-import LineMenu from "../../components/Navegation/LineMenu"
-import { useLMenu } from "../../context/LMenuContext"
+import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
 import useSWR from "swr"
-import { useRouter } from "next/router"
+import Layout from "../../components/layout"
+import LineMenu from "../../components/Navegation/LineMenu"
+import Preview from "../../components/Cards/Preview"
+import { useLMenu } from "../../context/LMenuContext"
+import { useA4Hired } from "../../context/A4HiredContext"
 
 const links = [
   {
@@ -77,7 +77,7 @@ export default function Professionals({ user }) {
           </p>
           {users.map((item) => {
             return (
-              <Offert
+              <Preview
                 key={item.id}
                 img={item.avatar}
                 title={item.name + " " + item.lastName}
@@ -99,7 +99,7 @@ export default function Professionals({ user }) {
             You have contacted <span>{users.length}</span>{" "}
             {users.length === 0 ? "person" : "people"}
           </p>
-          <Offert
+          <Preview
             img={"/personas/CarlotaLopezSoria.jpg"}
             title={"Juan Rodriguez"}
             subtitle={"System Engineer"}

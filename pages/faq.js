@@ -1,5 +1,5 @@
-import LayoutOut from "../components/LayoutOut"
 import FAQ from "components/FAQ"
+import LayoutOut from "../components/LayoutOut"
 
 export default function faq() {
   return (

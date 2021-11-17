@@ -1,5 +1,6 @@
-import LayoutOut from "../components/LayoutOut"
 import { getSession } from "next-auth/react"
+import LayoutOut from "../components/LayoutOut"
+
 import {
   HiOutlineShare,
   HiOutlineOfficeBuilding,

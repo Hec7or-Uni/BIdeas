@@ -1,11 +1,12 @@
-import Offert from "../../components/Cards/Offert"
-import { useA4Hired } from "../../context/A4HiredContext"
+import { useRouter } from "next/router"
+import { getSession } from "next-auth/react"
 import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
+import Preview from "../../components/Cards/Preview"
 import { useLMenu } from "../../context/LMenuContext"
-import { getSession } from "next-auth/react"
+import { useA4Hired } from "../../context/A4HiredContext"
+
 import useSWR from "swr"
-import { useRouter } from "next/router"
 
 const links = [
   {
@@ -80,7 +81,7 @@ export default function Teams({ myProjects }) {
           </p>
           {projects.map((item) => {
             return (
-              <Offert
+              <Preview
                 key={item.id}
                 img={item.avatar}
                 title={item.teamName}
@@ -102,7 +103,7 @@ export default function Teams({ myProjects }) {
             you applied for <span>{projects.length}</span>{" "}
             {projects.length === 0 ? "job" : "jobs"}
           </p>
-          <Offert
+          <Preview
             img={"/anuncios/anuncio3.jpg"}
             title={"Space X goes to mars"}
             subtitle={"engineer required"}

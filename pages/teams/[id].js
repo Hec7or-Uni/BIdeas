@@ -1,12 +1,11 @@
+import { useRouter } from "next/router"
+import { getSession } from "next-auth/react"
+import useSWR from "swr"
 import Header from "../../components/Header"
-
-import Stats from "../../components/Cards/Stats"
+import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
 import Layout from "../../components/layout"
-import { getSession } from "next-auth/react"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
-import useSWR from "swr"
-import { useRouter } from "next/router"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -73,17 +72,17 @@ export default function Team() {
         </p>
 
         <div className="flex gap-x-5 mt-6">
-          <Stats
+          <Statistics
             icon={<FiAward className="h-6 w-6 text-purple-500" />}
             points={team.xp}
             desc={"points"}
           />
-          <Stats
+          <Statistics
             icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
             points={users.length}
             desc={"users"}
           />
-          <Stats
+          <Statistics
             icon={<FiHeart className="h-6 w-6 text-red-500" />}
             points={team.respect}
             desc={"respect"}

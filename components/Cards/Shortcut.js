@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function Card({ img, title, desc, url }) {
+export default function Shortcut({ img, title, desc, url }) {
   return (
     <Link href={url}>
       <a className="flex flex-col items-center h-80 min-w-15.5 w-15.5 rounded-xl shadow p-4 text-black transition duration-150 ease-in-out scale-95 hover:scale-100 bg-white">
@@ -28,7 +28,7 @@ export default function Card({ img, title, desc, url }) {
   )
 }
 
-Card.defaultProps = {
+Shortcut.defaultProps = {
   img: "https://images.unsplash.com/photo-1555861496-0666c8981751?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
   title: "error",
   desc: "An error has ocurred while loading the page.",

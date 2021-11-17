@@ -1,7 +1,7 @@
 import Header from "components/Header"
 import LineMenu from "components/Navegation/LineMenu"
 import { useLMenu } from "../context/LMenuContext"
-import Stats from "../components/Cards/Stats"
+import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import { getSession } from "next-auth/react"
@@ -77,17 +77,17 @@ export default function Team({ team, user, workers }) {
           </p>
 
           <div className="flex gap-x-5 mt-6">
-            <Stats
+            <Statistics
               icon={<FiAward className="h-6 w-6 text-purple-500" />}
               points={team.xp}
               desc={"points"}
             />
-            <Stats
+            <Statistics
               icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
               points={workers.length}
               desc={"users"}
             />
-            <Stats
+            <Statistics
               icon={<FiHeart className="h-6 w-6 text-red-500" />}
               points={team.respect}
               desc={"respect"}

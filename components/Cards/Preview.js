@@ -1,12 +1,12 @@
+import { useState } from "react"
+import Link from "next/Link"
 import ButtonP from "../Buttons/ButtonP"
 import ButtonS from "../Buttons/ButtonS"
-import { useState } from "react"
-import { FiCheck } from "react-icons/fi"
-import Link from "next/Link"
 import useTimeAgo from "hooks/useTimeAgo"
 import useDateTimeFormat from "hooks/useDateTimeFormat"
+import { FiCheck } from "react-icons/fi"
 
-export default function offert({
+export default function Preview({
   img,
   title,
   subtitle,
