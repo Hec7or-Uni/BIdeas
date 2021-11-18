@@ -35,8 +35,7 @@ export default function Teams({ myProjects }) {
     if (!data) {
       return <>loading</>
     } else {
-      projects = data.data.projects
-      projects = data.data.projects.filter(
+      projects = data.data.teams.filter(
         (item) => item.id !== myProjects[0].idProject
       )
     }

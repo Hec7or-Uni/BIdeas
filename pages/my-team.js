@@ -1,10 +1,10 @@
+import { getSession } from "next-auth/react"
 import Header from "components/Header"
-import LineMenu from "components/Navegation/LineMenu"
-import { useLMenu } from "../context/LMenuContext"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
+import LineMenu from "components/Navegation/LineMenu"
 import Layout from "../components/layout"
-import { getSession } from "next-auth/react"
+import { useLMenu } from "../context/LMenuContext"
 import { countryList } from "../data/countryList"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 
