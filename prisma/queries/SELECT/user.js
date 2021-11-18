@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function User(id) {
-  return await prisma.users.findUnique({
+  const query = await prisma.users.findMany({
     select: {
       id: true, // ---------- Identification
       userName: true,
@@ -25,13 +25,18 @@ export async function User(id) {
       updatedAt: true,
     },
     where: {
-      userName: id,
+      OR: [
+        { id: { equals: Number(id) || undefined } },
+        { userName: { equals: id || undefined } },
+      ],
     },
   })
+
+  return query[0]
 }
 
 export async function UserLite(id) {
-  return await prisma.users.findUnique({
+  const query = await prisma.users.findUnique({
     select: {
       id: true, // ---------- Identification
       userName: true,
@@ -46,7 +51,11 @@ export async function UserLite(id) {
       updatedAt: true,
     },
     where: {
-      userName: id,
+      OR: [
+        { id: { equals: Number(id) || undefined } },
+        { userName: { equals: id || undefined } },
+      ],
     },
   })
+  return query[0]
 }

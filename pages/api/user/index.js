@@ -26,7 +26,7 @@ export default async (req, res) => {
         status: status(401, ""),
       })
     } else {
-      const user = await User("hec7orci7o")
+      const user = await User(req.query.id)
       const PROJECTS = await Projects()
       const projsOwned = PROJECTS.filter((item) => item.owner === user.id)
       const projsInProgress = await InProgress(143)

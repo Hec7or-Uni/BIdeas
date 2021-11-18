@@ -220,12 +220,13 @@ export default function Home({ user, projects }) {
         {isActive === 3 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             {projects.participates.map((item) => {
+              console.log(item)
               return (
                 <Shortcut
-                  key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
+                  key={item.project.id}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
                   url={"/"}
                 />
               )

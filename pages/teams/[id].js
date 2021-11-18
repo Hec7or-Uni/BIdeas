@@ -27,9 +27,8 @@ export default function Team() {
       return <>loading</>
     } else {
       team = data.data.project
-      users = data.data.users.filter((item) => item.idUser !== team.owner)
-      owner = data.data.users.filter((item) => item.idUser === team.owner)[0]
-        .user
+      users = data.data.users.filter((item) => item.id !== team.owner)
+      owner = data.data.users.filter((item) => item.id === team.owner)[0]
     }
   }
 
@@ -93,12 +92,12 @@ export default function Team() {
           {users.map((item) => {
             return (
               <TeUsCard
-                key={item.idUser}
-                img={item.user.avatar}
-                title={item.user.name + " " + item.user.lastName}
-                desc={item.user.description}
+                key={item.id}
+                img={item.avatar}
+                title={item.name + " " + item.lastName}
+                desc={item.description}
                 isUser={true}
-                url={item.user.userName}
+                url={item.userName}
               />
             )
           })}

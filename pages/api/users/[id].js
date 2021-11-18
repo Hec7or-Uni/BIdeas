@@ -1,5 +1,6 @@
 import status from "../../../libs/status"
 import { User } from "../../../prisma/queries/SELECT/user"
+import { InProgress } from "../../../prisma/queries/SELECT/in-progress"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -12,23 +13,13 @@ export default async (req, res) => {
     })
   } else {
     if (req.method === "GET") {
+      const user = await User(req.url.substring(11))
+      const projects = await InProgress(user.id)
+
       res.status(200).json({
         data: {
-          user: await User(req.url.substring(11)),
-          // projects: await prisma.participates.findMany({
-          //   include: {
-          //     project: {
-          //       select: {
-          //         avatar: true,
-          //         teamName: true,
-          //         description: true,
-          //       },
-          //     },
-          //   },
-          //   where: {
-          //     idUser: dataUser.id,
-          //   },
-          // }),
+          user: user,
+          projects: projects,
         },
         status: status(200, ""),
       })

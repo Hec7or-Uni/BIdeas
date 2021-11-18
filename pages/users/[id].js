@@ -26,7 +26,7 @@ export default function Profile() {
   )
 
   if (error) {
-    return router.push("/404")
+    // return router.push("/404")
   } else {
     if (!data) {
       return <>loading</>

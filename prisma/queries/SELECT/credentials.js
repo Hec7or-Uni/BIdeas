@@ -1,11 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function Credentials(id) {
-  const regex = /@/
-  const isEmail = regex.test(id)
-  const filter = isEmail ? { email: id } : { userName: id }
-
-  return await prisma.users.findUnique({
+  const query = await prisma.users.findMany({
     select: {
       id: true, // ---------- Identification
       userName: true,
@@ -15,6 +11,9 @@ export async function Credentials(id) {
       createdAt: true, // --- Info
       updatedAt: true,
     },
-    where: filter,
+    where: {
+      OR: [{ email: { equals: id } }, { userName: { equals: id } }],
+    },
   })
+  return query[0]
 }

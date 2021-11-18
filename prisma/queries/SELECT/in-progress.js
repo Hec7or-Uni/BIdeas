@@ -1,6 +1,6 @@
 import prisma from "../../../libs/prisma"
 
-export async function InProgress(id) {
+export async function InProgress(idUser, idProject) {
   return await prisma.participates.findMany({
     include: {
       user: {
@@ -46,11 +46,16 @@ export async function InProgress(id) {
         },
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: {
+      OR: [
+        { idUser: { equals: idUser || undefined } },
+        { idProject: { equals: idProject || undefined } },
+      ],
+    },
   })
 }
 
-export async function InProgressLite(id) {
+export async function InProgressLite(idUser, idProject) {
   return await prisma.participates.findMany({
     include: {
       user: {
@@ -81,6 +86,11 @@ export async function InProgressLite(id) {
         },
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: {
+      OR: [
+        { idUser: { equals: idUser || undefined } },
+        { idProject: { equals: idProject || undefined } },
+      ],
+    },
   })
 }

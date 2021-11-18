@@ -27,7 +27,10 @@ export default function Teams({ myProjects }) {
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  const { data, error } = useSWR(`http://localhost:3000/api/teams`, fetcher)
+  const { data, error } = useSWR(
+    `http://localhost:3000/api/teams/lite`,
+    fetcher
+  )
 
   if (error) {
     return router.push("/404")
@@ -35,9 +38,7 @@ export default function Teams({ myProjects }) {
     if (!data) {
       return <>loading</>
     } else {
-      projects = data.data.teams.filter(
-        (item) => item.id !== myProjects[0].idProject
-      )
+      projects = data.data.teams
     }
   }
 

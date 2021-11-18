@@ -26,7 +26,10 @@ export default function Professionals({ user }) {
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  const { data, error } = useSWR(`http://localhost:3000/api/users`, fetcher)
+  const { data, error } = useSWR(
+    `http://localhost:3000/api/users/lite`,
+    fetcher
+  )
 
   if (error) {
     return router.push("/404")
@@ -37,6 +40,21 @@ export default function Professionals({ user }) {
       users = data.data.users.filter((item) => item.id !== user.id)
     }
   }
+
+  // const { data, error } = useSWR(
+  //   `http://localhost:3000/api/user/request-member`,
+  //   fetcher
+  // )
+
+  // if (error) {
+  //   return router.push("/404")
+  // } else {
+  //   if (!data) {
+  //     return <>loading</>
+  //   } else {
+  //     users = data.data.users.filter((item) => item.id !== user.id)
+  //   }
+  // }
 
   return (
     <>
