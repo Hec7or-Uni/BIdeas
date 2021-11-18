@@ -91,11 +91,11 @@ export default function Profile({ user, owns, participates }) {
             {owns.map((item) => {
               return (
                 <TeUsCard
-                  key={item.idProject}
-                  img={item.project.avatar}
-                  title={item.project.teamName}
-                  desc={item.project.description}
-                  url={item.project.teamName}
+                  key={item.id}
+                  img={item.avatar}
+                  title={item.teamName}
+                  desc={item.description}
+                  url={item.teamName}
                   isUser={false}
                 />
               )
@@ -103,11 +103,11 @@ export default function Profile({ user, owns, participates }) {
             {participates.map((item) => {
               return (
                 <TeUsCard
-                  key={item.idProject}
-                  img={item.project.avatar}
-                  title={item.project.teamName}
-                  desc={item.project.description}
-                  url={item.project.teamName}
+                  key={item.id}
+                  img={item.avatar}
+                  title={item.teamName}
+                  desc={item.description}
+                  url={item.teamName}
                   isUser={false}
                 />
               )
@@ -402,7 +402,11 @@ export async function getServerSideProps({ req }) {
   }
 
   const { user, projects } = res.data
-  const { owns, participates } = projects
+  const { owns, ...resProjects } = projects
+  let participates = resProjects.participates.map((item) => item.project)
+  try {
+    participates = participates.filter((item) => item.id !== owns[0].id)
+  } catch (error) {}
 
   return {
     props: {
