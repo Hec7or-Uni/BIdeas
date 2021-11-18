@@ -1,5 +1,5 @@
 import status from "../../../libs/status"
-import { Projects } from "prisma/queries/SELECT/projects"
+import { ProjectsLite } from "prisma/queries/SELECT/projects"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -13,7 +13,7 @@ export default async (req, res) => {
   } else {
     if (req.method === "GET") {
       res.status(200).json({
-        data: { teams: await Projects() },
+        data: { teams: await ProjectsLite() },
         status: status(200, ""),
       })
     } else {

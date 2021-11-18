@@ -6,13 +6,13 @@ const secret = process.env.SECRET
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    handlePOST(JSON.parse(req.body), res)
+    handlePOST(res, JSON.parse(req.body))
   } else if (req.method === "PUT") {
     existSession(req, res)
-    handlePUT(JSON.parse(req.body), res)
+    handlePUT(res, JSON.parse(req.body))
   } else if (req.method === "GET") {
     existSession(req, res)
-    handleGET(req.query, res)
+    handleGET(res, req.query)
   } else if (req.method === "DELETE") {
     // const query = req.url
     // const delUser = await prisma.users.delete({
@@ -39,7 +39,7 @@ async function existSession(req, res) {
 }
 
 // POST /api/user/
-async function handlePOST(query, res) {
+async function handlePOST(res, query) {
   const newUser = await prisma.users.create({ data: query })
 
   res.json({
@@ -49,7 +49,7 @@ async function handlePOST(query, res) {
 }
 
 // PUT /api/user/
-async function handlePUT(query, res) {
+async function handlePUT(res, query) {
   const updatedUser = await prisma.users.update({
     data: query,
     where: { id: query.id },
@@ -62,7 +62,7 @@ async function handlePUT(query, res) {
 }
 
 // GET /api/user/
-async function handleGET(query, res) {
+async function handleGET(res, query) {
   const qUser = await prisma.users.findUnique({
     select: {
       id: true,
