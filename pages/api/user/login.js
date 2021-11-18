@@ -1,5 +1,5 @@
-import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
+import { Credentials } from "../../../prisma/queries/SELECT/credentials"
 
 export default async (req, res) => {
   if (req.method !== "POST") {
@@ -9,23 +9,8 @@ export default async (req, res) => {
   }
 
   const query = JSON.parse(req.body)
-  const dataUser = await prisma.users.findUnique({
-    select: {
-      id: true,
-      name: true,
-      lastName: true,
-      userName: true,
-      email: true,
-      salt: true,
-      passwd: true,
-    },
-    where: {
-      email: query.email,
-    },
-  })
-
   res.status(200).json({
-    data: { user: dataUser },
+    data: { user: await Credentials(query.id) },
     status: status(200, ""),
   })
 }

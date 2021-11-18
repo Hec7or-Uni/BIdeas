@@ -1,4 +1,4 @@
-import prisma from "../../libs/prisma"
+import prisma from "../../../libs/prisma"
 
 export async function ReqProjects({ id }) {
   return await prisma.RequestJoin.findUnique({

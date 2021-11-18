@@ -1,6 +1,6 @@
-import prisma from "../../libs/prisma"
+import prisma from "../../../libs/prisma"
 
-export async function Project({ id }) {
+export async function Project(id) {
   return await prisma.projects.findUnique({
     select: {
       id: true, // ---------- Identification
@@ -19,12 +19,12 @@ export async function Project({ id }) {
       updatedAt: true,
     },
     where: {
-      id: id,
+      teamName: id,
     },
   })
 }
 
-export async function ProjectLite({ id }) {
+export async function ProjectLite(id) {
   return await prisma.users.findUnique({
     select: {
       id: true, // ---------- Identification
@@ -37,7 +37,7 @@ export async function ProjectLite({ id }) {
       updatedAt: true,
     },
     where: {
-      id: id,
+      teamName: id,
     },
   })
 }

@@ -1,6 +1,10 @@
-import prisma from "../../libs/prisma"
+import prisma from "../../../libs/prisma"
 
-export async function User(id) {
+export async function Credentials(id) {
+  const regex = /@/
+  const isEmail = regex.test(id)
+  const filter = isEmail ? { email: id } : { userName: id }
+
   return await prisma.users.findUnique({
     select: {
       id: true, // ---------- Identification
@@ -11,8 +15,6 @@ export async function User(id) {
       createdAt: true, // --- Info
       updatedAt: true,
     },
-    where: {
-      OR: [{ email: id }, { userName: id }],
-    },
+    where: filter,
   })
 }

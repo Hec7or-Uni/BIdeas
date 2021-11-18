@@ -1,36 +1,33 @@
-import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
+import { Projects } from "prisma/queries/SELECT/projects"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
 
 export default async (req, res) => {
   if (req.method !== "GET") {
-    res.status(405).json({
-      status: status(405, ""),
-    })
+    throw new Error(
+      `The HTTP ${req.method} method is not supported at this route.`
+    )
   }
 
+  existSession(req, res)
+  handleGET(res)
+}
+
+async function existSession(req, res) {
   const token = await getToken({ req, secret })
   if (!token) {
     res.status(401).json({
       status: status(401, ""),
     })
   }
+}
 
-  const projects = await prisma.projects.findMany({
-    select: {
-      id: true,
-      avatar: true,
-      teamName: true,
-      motto: true,
-      createdAt: true,
-    },
-    take: 1000,
-  })
-
+// GET /api/teams/
+async function handleGET(res) {
   res.status(200).json({
-    data: { projects: projects },
+    data: { teams: await Projects() },
     status: status(200, ""),
   })
 }

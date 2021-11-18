@@ -14,13 +14,12 @@ export default function Login({ csrfToken }) {
           className="mt-4"
         >
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-          <label type="email" className="block">
+          <label type="id" className="block">
             <span className="text-sm text-gray-700">Email</span>
             <input
-              id="email"
-              type="email"
-              name="email"
-              autoComplete="username"
+              id="id"
+              type="id"
+              name="id"
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />
@@ -31,7 +30,6 @@ export default function Login({ csrfToken }) {
               id="password"
               type="password"
               name="password"
-              autoComplete="current-password"
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
               required
             />

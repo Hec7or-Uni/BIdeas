@@ -17,7 +17,7 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const query = { email: credentials.email }
+        const query = { id: credentials.id }
         const res = await fetch(`http://localhost:3000/api/user/login`, {
           method: "POST",
           headers: { "Content-Type": "text/plain" },
