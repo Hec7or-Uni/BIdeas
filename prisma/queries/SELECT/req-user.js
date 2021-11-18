@@ -1,6 +1,6 @@
 import prisma from "../../../libs/prisma"
 
-export async function ReqUser({ id }) {
+export async function ReqUser(id) {
   return await prisma.RequestRecruit.findMany({
     user: {
       select: {
@@ -48,7 +48,7 @@ export async function ReqUser({ id }) {
   })
 }
 
-export async function ReqUserLite({ id }) {
+export async function ReqUserLite(id) {
   return await prisma.RequestJoin.findMany({
     include: {
       user: {

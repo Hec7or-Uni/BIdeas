@@ -1,27 +1,9 @@
 import prisma from "../../../libs/prisma"
 
-export async function ReqProjects(id) {
-  return await prisma.RequestJoin.findUnique({
+export async function InProgress(id) {
+  return await prisma.participates.findMany({
     include: {
       user: {
-        select: {
-          id: true, // ---------- Identification
-          teamName: true,
-          owner: true,
-          avatar: true, // ------ Profile
-          motto: true,
-          description: true,
-          xp: true,
-          respect: true,
-          maxMembers: true, // -- Account state
-          discord: true, // ----- Social
-          facebook: true,
-          twitter: true,
-          createdAt: true, // --- Info
-          updatedAt: true,
-        },
-      },
-      project: {
         select: {
           id: true, // ---------- Identification
           userName: true,
@@ -45,13 +27,31 @@ export async function ReqProjects(id) {
           updatedAt: true,
         },
       },
+      project: {
+        select: {
+          id: true, // ---------- Identification
+          teamName: true,
+          owner: true,
+          avatar: true, // ------ Profile
+          motto: true,
+          description: true,
+          xp: true,
+          respect: true,
+          maxMembers: true, // -- Account state
+          discord: true, // ----- Social
+          facebook: true,
+          twitter: true,
+          createdAt: true, // --- Info
+          updatedAt: true,
+        },
+      },
     },
     where: { OR: [{ idUser: id }, { idProject: id }] },
   })
 }
 
-export async function ReqProjectsLite(id) {
-  return await prisma.RequestJoin.findUnique({
+export async function InProgressLite(id) {
+  return await prisma.participates.findMany({
     include: {
       user: {
         select: {
