@@ -48,8 +48,8 @@ export async function InProgress(idUser, idProject) {
     },
     where: {
       OR: [
-        { idUser: { equals: idUser || undefined } },
-        { idProject: { equals: idProject || undefined } },
+        { idUser: { equals: Number(idUser) || undefined } },
+        { idProject: { equals: Number(idProject) || undefined } },
       ],
     },
   })
@@ -88,8 +88,8 @@ export async function InProgressLite(idUser, idProject) {
     },
     where: {
       OR: [
-        { idUser: { equals: idUser || undefined } },
-        { idProject: { equals: idProject || undefined } },
+        { idUser: { equals: Number(idUser) || undefined } },
+        { idProject: { equals: Number(idProject) || undefined } },
       ],
     },
   })

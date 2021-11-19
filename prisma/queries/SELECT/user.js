@@ -36,7 +36,7 @@ export async function User(id) {
 }
 
 export async function UserLite(id) {
-  const query = await prisma.users.findUnique({
+  const query = await prisma.users.findMany({
     select: {
       id: true, // ---------- Identification
       userName: true,

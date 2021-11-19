@@ -29,7 +29,7 @@ export async function Project(id) {
 }
 
 export async function ProjectLite(id) {
-  const query = await prisma.users.findMany({
+  const query = await prisma.projects.findMany({
     select: {
       id: true, // ---------- Identification
       teamName: true,

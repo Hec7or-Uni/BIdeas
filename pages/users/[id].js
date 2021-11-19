@@ -18,7 +18,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Profile() {
   const router = useRouter()
   let user = null
-  let projects = null
+  let ownsCli = null
+  let participatesCli = null
 
   const { data, error } = useSWR(
     `http://localhost:3000/api/users/${router.query.id}`,
@@ -32,7 +33,8 @@ export default function Profile() {
       return <>loading</>
     } else {
       user = data.data.user
-      projects = data.data.projects
+      ownsCli = data.data.projects.owns
+      participatesCli = data.data.projects.participates
     }
   }
 
@@ -94,15 +96,27 @@ export default function Profile() {
         </div>
 
         <div className="flex flex-col gap-x-5 mt-12">
-          {projects.map((item) => {
+          {ownsCli.map((item) => {
             return (
               <TeUsCard
-                key={item.idProject}
-                img={item.project.avatar}
-                title={item.project.teamName}
-                desc={item.project.description}
+                key={item.id}
+                img={item.avatar}
+                title={item.teamName}
+                desc={item.description}
                 isUser={false}
-                url={item.project.teamName}
+                url={item.teamName}
+              />
+            )
+          })}
+          {participatesCli.map((item) => {
+            return (
+              <TeUsCard
+                key={item.id}
+                img={item.avatar}
+                title={item.teamName}
+                desc={item.description}
+                isUser={false}
+                url={item.teamName}
               />
             )
           })}

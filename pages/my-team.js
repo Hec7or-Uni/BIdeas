@@ -377,8 +377,23 @@ export async function getServerSideProps({ req }) {
 
   const { team, users } = res.data
 
-  const user = users.owner
+  let user = users.owner
   const workers = users.workers
+
+  if (Object.entries(user).length === 0) {
+    const params = new URLSearchParams({ id: session.token.id })
+    const url = `http://localhost:3000/api/user/lite?${params.toString()}`
+
+    res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
+      },
+    }).then((res) => {
+      return res.json()
+    })
+    user = res.data.user
+  }
 
   return {
     props: {

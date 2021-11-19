@@ -25,10 +25,8 @@ const data = [
   },
 ]
 
-export default function Profile({ user, projects }) {
+export default function Profile({ user, owns, participates }) {
   const [isActive] = useLMenu()
-  const owns = projects.filter((item) => item.owner === user.id)
-  const participates = projects.filter((item) => item.owner !== user.id)
 
   return (
     <div className="w-full px-8 py-3">
@@ -402,13 +400,15 @@ export async function getServerSideProps({ req }) {
     })
   }
 
-  const { user, projects } = res.data
+  const { user, ...data } = res.data
+  const { owns, participates } = data.projects
 
   return {
     props: {
       session,
       user,
-      projects,
+      owns,
+      participates,
     },
   }
 }

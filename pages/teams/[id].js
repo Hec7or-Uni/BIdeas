@@ -12,8 +12,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Team() {
   const router = useRouter()
   let team = null
-  let users = null
-  let owner = null
+  let ownerCli = null
+  let workersCli = null
 
   const { data, error } = useSWR(
     `http://localhost:3000/api/teams/${router.query.id}`,
@@ -26,20 +26,22 @@ export default function Team() {
     if (!data) {
       return <>loading</>
     } else {
-      team = data.data.project
-      users = data.data.users.filter((item) => item.id !== team.owner)
-      owner = data.data.users.filter((item) => item.id === team.owner)[0]
+      const { project, users } = data.data
+      const { owner, workers } = users
+      team = project
+      ownerCli = owner
+      workersCli = workers
     }
   }
 
   return (
     <div className="px-8 py-3">
       <Header
-        avatar={owner.avatar}
-        username={owner.userName}
-        id={owner.id}
-        studies={owner.studies}
-        plan={owner.plan}
+        avatar={ownerCli.avatar}
+        username={ownerCli.userName}
+        id={ownerCli.id}
+        studies={ownerCli.studies}
+        plan={ownerCli.plan}
       />
       <div className="w-full mt-6">
         <div className="flex items-start justify-between">
@@ -78,7 +80,7 @@ export default function Team() {
           />
           <Statistics
             icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
-            points={users.length}
+            // points={users.length}
             desc={"users"}
           />
           <Statistics
@@ -89,7 +91,7 @@ export default function Team() {
         </div>
 
         <div className="flex flex-col gap-x-5 mt-12">
-          {users.map((item) => {
+          {workersCli.map((item) => {
             return (
               <TeUsCard
                 key={item.id}

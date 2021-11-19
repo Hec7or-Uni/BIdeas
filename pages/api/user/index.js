@@ -34,7 +34,7 @@ export default async (req, res) => {
       const user = await User(req.query.id)
       const PROJECTS = await Projects()
       const projsOwned = PROJECTS.filter((item) => item.owner === user.id)
-      const projsInProgress = await InProgress(143)
+      const projsInProgress = await InProgress(req.query.id)
       const projsRecommended = PROJECTS.filter((item) => item.owner !== user.id)
 
       res.json({
@@ -42,7 +42,7 @@ export default async (req, res) => {
           user: user,
           projects: {
             owns: projsOwned,
-            participates: projsInProgress,
+            participates: projsInProgress !== undefined ? projsInProgress : [],
             recommended: projsRecommended,
           },
         },

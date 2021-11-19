@@ -15,10 +15,22 @@ export default async (req, res) => {
     if (req.method === "GET") {
       const project = await Project(req.url.substring(11))
       const users = await InProgress(undefined, project.id)
+
+      const owner = users
+        .filter((item) => item.idUser === item.project.owner)
+        .map((item) => item.user)[0]
+      const workers = users
+        .filter((item) => item.idUser !== item.project.owner)
+        .map((item) => item.user)
+
       res.status(200).json({
         data: {
           project: project,
-          users: users.map((item) => item.user),
+          users: {
+            owner: owner,
+            workers: workers,
+          },
+          // users.map((item) => item.user),
         },
         status: status(200, ""),
       })
