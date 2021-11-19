@@ -100,8 +100,8 @@ export default function Professionals({ user }) {
                 img={item.avatar}
                 title={item.name + " " + item.lastName}
                 subtitle={item.studies}
-                accion1={"view job"}
-                accion2={"apply for job"}
+                accion1={"view profile"}
+                accion2={"contact"}
                 isUser={true}
                 url={item.userName}
                 createdAt={item.createdAt}
