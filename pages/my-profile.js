@@ -25,8 +25,10 @@ const data = [
   },
 ]
 
-export default function Profile({ user, owns, participates }) {
+export default function Profile({ user, projects }) {
   const [isActive] = useLMenu()
+  const owns = projects.filter((item) => item.owner === user.id)
+  const participates = projects.filter((item) => item.owner !== user.id)
 
   return (
     <div className="w-full px-8 py-3">
@@ -388,8 +390,7 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
-    const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/user?${params.toString()}`
+    const url = `http://localhost:3000/api/users/${session.token.id}`
 
     res = await fetch(url, {
       method: "GET",
@@ -403,18 +404,11 @@ export async function getServerSideProps({ req }) {
 
   const { user, projects } = res.data
 
-  const { owns, ...resProjects } = projects
-  let participates = resProjects.participates.map((item) => item.project)
-  try {
-    participates = participates.filter((item) => item.id !== owns[0].id)
-  } catch (error) {}
-
   return {
     props: {
       session,
       user,
-      owns,
-      participates,
+      projects,
     },
   }
 }

@@ -34,21 +34,34 @@ export default async (req, res) => {
       })
     } else if (req.method === "GET") {
       const team = await Project(req.query.id)
-      let USERS = await InProgress(undefined, team.id)
-      USERS = USERS.map((item) => item.user)
-      const owner = USERS.filter((item) => item.id === team.owner)
-      const workers = USERS.filter((item) => item.id !== team.owner)
+      if (team) {
+        let USERS = await InProgress(undefined, team.id)
+        USERS = USERS.map((item) => item.user)
+        const owner = USERS.filter((item) => item.id === team.owner)
+        const workers = USERS.filter((item) => item.id !== team.owner)
 
-      res.json({
-        data: {
-          team: team,
-          users: {
-            owner: owner[0],
-            workers: workers,
+        res.json({
+          data: {
+            team: team,
+            users: {
+              owner: owner[0],
+              workers: workers,
+            },
           },
-        },
-        status: status(200, ""),
-      })
+          status: status(200, ""),
+        })
+      } else {
+        res.json({
+          data: {
+            team: [],
+            users: {
+              owner: {},
+              workers: [],
+            },
+          },
+          status: status(200, ""),
+        })
+      }
     } else if (req.method === "DELETE") {
       // const query = JSON.parse(req.body)
       // const prisma = new PrismaClient()

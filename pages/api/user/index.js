@@ -1,6 +1,7 @@
 import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
 import { getToken } from "next-auth/jwt"
+import { createUser } from "../../../prisma/queries/CREATE/user"
 import { User } from "../../../prisma/queries/SELECT/user"
 import { Projects } from "../../../prisma/queries/SELECT/projects"
 import { InProgress } from "../../../prisma/queries/SELECT/in-progress"
@@ -9,7 +10,11 @@ const secret = process.env.SECRET
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    handlePOST(res, JSON.parse(req.body))
+    const user = await createUser(JSON.parse(req.body))
+    res.json({
+      data: { user: user },
+      status: status(200, ""),
+    })
   } else if (req.method === "PUT") {
     const token = await getToken({ req, secret })
     if (!token) {
@@ -68,16 +73,6 @@ export default async (req, res) => {
   }
 }
 
-// POST /api/user/
-async function handlePOST(res, query) {
-  const newUser = await prisma.users.create({ data: query })
-
-  res.json({
-    data: { user: newUser },
-    status: status(200, ""),
-  })
-}
-
 // PUT /api/user/
 async function handlePUT(res, query) {
   const updatedUser = await prisma.users.update({
@@ -90,11 +85,3 @@ async function handlePUT(res, query) {
     status: status(405, ""),
   })
 }
-
-// DELETE /api/user/:id
-// async function handleDELETE(postId, res) {
-//   const post = await prisma.post.delete({
-//     where: { id: Number(postId) },
-//   })
-//   res.json(post)
-// }
