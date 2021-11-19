@@ -98,11 +98,11 @@ export default function Team({ team, user, workers }) {
             {workers.map((item) => {
               return (
                 <TeUsCard
-                  key={item.idUser}
-                  img={item.user.avatar}
-                  title={item.user.name + " " + item.user.lastName}
-                  desc={item.user.description}
-                  url={item.user.userName}
+                  key={item.id}
+                  img={item.avatar}
+                  title={item.name + " " + item.lastName}
+                  desc={item.description}
+                  url={item.userName}
                   isUser={true}
                 />
               )
@@ -376,7 +376,8 @@ export async function getServerSideProps({ req }) {
   }
 
   const { team, users } = res.data
-  const user = users.owner.user
+
+  const user = users.owner
   const workers = users.workers
 
   return {

@@ -402,6 +402,7 @@ export async function getServerSideProps({ req }) {
   }
 
   const { user, projects } = res.data
+
   const { owns, ...resProjects } = projects
   let participates = resProjects.participates.map((item) => item.project)
   try {

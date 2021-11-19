@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function Project(id) {
-  return await prisma.projects.findUnique({
+  const query = await prisma.projects.findMany({
     select: {
       id: true, // ---------- Identification
       teamName: true,
@@ -19,13 +19,17 @@ export async function Project(id) {
       updatedAt: true,
     },
     where: {
-      teamName: id,
+      OR: [
+        { owner: { equals: Number(id) || undefined } },
+        { teamName: { equals: id || undefined } },
+      ],
     },
   })
+  return query[0]
 }
 
 export async function ProjectLite(id) {
-  return await prisma.users.findUnique({
+  const query = await prisma.users.findMany({
     select: {
       id: true, // ---------- Identification
       teamName: true,
@@ -37,7 +41,11 @@ export async function ProjectLite(id) {
       updatedAt: true,
     },
     where: {
-      teamName: id,
+      OR: [
+        { owner: { equals: Number(id) || undefined } },
+        { teamName: { equals: id || undefined } },
+      ],
     },
   })
+  return query[0]
 }
