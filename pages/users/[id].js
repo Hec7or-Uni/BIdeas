@@ -63,12 +63,21 @@ export default function Profile() {
               </div>
             </div>
             <div>
-              <p className="text-lg font-bold">Noob</p>
+              <p className="text-lg font-bold">
+                { Number((user.xp-49)/100).toFixed() == 0 && "Newbie"}
+                { Number((user.xp-49)/100).toFixed() == 1 && "Entrepeneur"}
+                { Number((user.xp-49)/100).toFixed() == 2 && "Veteran"}
+                { Number((user.xp-49)/100).toFixed() == 3 && "Businessman"}
+                { Number((user.xp-49)/100).toFixed() == 4 && "Your own Boss"}
+                { Number((user.xp-49)/100).toFixed() >= 5 && (
+                  <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+                )}
+              </p>
               <p className="text-lg font-normal">rank</p>
             </div>
           </div>
           <div className="flex flex-col self-start w-2/4 leading-snug">
-            <p>{user.description ? user.description : "Introduzca texto"}</p>
+          <p>{user.description ? user.description : "This user does not have a description yet!"}</p>
           </div>
         </div>
 

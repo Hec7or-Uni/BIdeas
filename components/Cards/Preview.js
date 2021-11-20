@@ -31,7 +31,7 @@ export default function Preview({
         <div className="h-16 w-16 rounded-xl bg-blue-500 mr-3">
           {/* img */}
           <img
-            src={img}
+            src={img || (isUser ? "/personas/DefaultAvatar.jpg" : "/personas/DefaultAvatar.jpg")}
             alt="img de la oferta"
             className="h-full w-full object-cover object-center rounded-xl"
           />

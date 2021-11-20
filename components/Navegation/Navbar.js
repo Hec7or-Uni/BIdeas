@@ -46,7 +46,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
         <div className="flex items-center gap-x-2.5 h-12">
           <div className="w-10 h-10 rounded-full">
             <img
-              src={avatar || "/personas/HectorToralPallas.jpg"}
+              src={avatar || "/personas/DefaultAvatar.jpg"}
               className="w-full h-full rounded-full object-cover center"
             />
           </div>
