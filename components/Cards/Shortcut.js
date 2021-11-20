@@ -9,7 +9,7 @@ export default function Shortcut({ img, title, desc, url }) {
             img
           ) : (
             <img
-              src={img}
+            src={img || "/personas/DefaultAvatar.jpg"}
               alt={title + " team profile image"}
               className="w-full h-full object-cover object-center rounded-xl"
             />

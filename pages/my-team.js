@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { getSession } from "next-auth/react"
 import Header from "components/Header"
 import Statistics from "../components/Cards/Statistics"
@@ -36,6 +37,69 @@ const data = [
 export default function Team({ team, user, workers }) {
   const [isActive] = useLMenu()
 
+  const [values, setValues] = useState({
+    teamName: "",
+    motto: "",
+    country: "",
+    maxMembers: "",
+    avatar: "",
+    description: "",
+    discord: "",
+    twitter: "",
+    facebook: "",
+  })
+
+  const handleAvatar = (e) => {
+    setValues({ ...values, avatar: e.target.value })
+  }
+  const handleTeamname = (e) => {
+    setValues({ ...values, teamName: e.target.value })
+  }
+  const handleMotto = (e) => {
+    setValues({ ...values, motto: e.target.value })
+  }
+  const handleCountry = (e) => {
+    setValues({ ...values, country: e.target.value })
+  }
+  const handleMaxMembers = (e) => {
+    setValues({ ...values, maxMembers: e.target.value })
+  }
+  const handleDescription = (e) => {
+    setValues({ ...values, description: e.target.value })
+  }
+  const handleDiscord = (e) => {
+    setValues({ ...values, discord: e.target.value })
+  }
+  const handleTwitter = (e) => {
+    setValues({ ...values, twitter: e.target.value })
+  }
+  const handleFacebook = (e) => {
+    setValues({ ...values, facebook: e.target.value })
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+  
+    const query = {
+      teamName: values.teamName,
+      motto: values.motto,
+      country: values.country,
+      maxMembers: values.maxMembers,
+      avatar: values.avatar,
+      description: values.description,
+      discord: values.discord,
+      twitter: values.twitter,
+      facebook: values.facebook,
+    }
+    await fetch(`http://localhost:3000/api/team`, {
+      method: "PUT",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(query),
+    }).then((res) => {
+      return res.json()
+    })
+  }
+
   return (
     <div className="px-8 py-3">
       <Header
@@ -44,6 +108,7 @@ export default function Team({ team, user, workers }) {
         id={user.id}
         studies={user.studies}
         plan={user.plan}
+        xp={user.xp}
       />
       <LineMenu data={data} />
       {isActive === 1 && (
@@ -118,14 +183,14 @@ export default function Team({ team, user, workers }) {
             <p className="text-base font-bold">Team Avatar</p>
           </div>
 
-          <div className="flex gap-x-52 mt-5 items-center">
+          <div className="flex gap-x-48 mt-5 items-center">
             <div className="flex gap-x-12 px-6 items-center">
-              <div className="flex w-32 h-32 rounded-full items-center justify-center cursor-pointer hover:brightness-75">
+              <div className="flex w-32 h-32 rounded-full items-center justify-center">
                 <img
-                  src="/anuncios/anuncio3.jpg"
+                  src={team.avatar || "/personas/DefaultAvatar.jpg"}
                   className="w-32 h-32 rounded-full object-cover relative"
                 />
-                <div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
+                {/*<div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -141,10 +206,26 @@ export default function Team({ team, user, workers }) {
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                   </svg>
-                </div>
+                </div>*/}
               </div>
 
-              <button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase hover:animate-pulse rounded-sm">
+                <label>
+                  <span className="text-xs font-semibold uppercase">
+                    avatar url
+                  </span>
+                  <div>
+                    <input
+                      id="avatarUrl"
+                      type="url"
+                      name="avatarUrl"
+                      placeholder={ team.avatar || "https://avatar..." }
+                      onChange={handleAvatar}
+                      className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+                    />
+                  </div>
+                </label>
+              
+              {/*<button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
                 <div className="flex gap-x-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -162,11 +243,11 @@ export default function Team({ team, user, workers }) {
                   </svg>
                   upload avatar
                 </div>
-              </button>
+              </button>}*/}
             </div>
             <div>
-              <button className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase hover:animate-pulse rounded-full">
-                <div className="flex gap-x-2 items-center ml-2">
+              <button type="submit" form="form-profile" className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full">
+                <div className="flex gap-x-2 ml-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="18"
@@ -187,6 +268,7 @@ export default function Team({ team, user, workers }) {
               </button>
             </div>
           </div>
+
           {/* General Info Edit */}
           <div className="px-8 mt-8">
             <p className="text-base font-bold">Team Information</p>
@@ -203,9 +285,9 @@ export default function Team({ team, user, workers }) {
                           id="username"
                           type="username"
                           name="username"
-                          placeholder="Los Languis"
-                          className="mt-1 h-8 w-72 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75"
-                          required
+                          placeholder={team.teamName || "Team Name"}
+                          onSubmit={handleTeamname}
+                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                         />
                       </div>
                     </label>
@@ -216,7 +298,8 @@ export default function Team({ team, user, workers }) {
                         country
                       </span>
                       <div>
-                        <select className="mt-1 h-8 w-72 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75">
+                        <select className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 opacity-75">
+                        <option value="">{user.country || "Select a country"}</option>
                           {Object.entries(countryList).map(([key, value]) => (
                             <option key={key} value={key}>
                               {value}
@@ -233,7 +316,7 @@ export default function Team({ team, user, workers }) {
                           max members
                         </span>
                         <div>
-                          <select className="mt-1 h-8 w-24 bg-gray-200 p-2 rounded-md text-xs opacity-75">
+                          <select className="block w-24 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 opacity-75">
                             {Object.entries(numMaxMembers).map(
                               ([key, value]) => (
                                 <option key={key} value={key}>
@@ -253,11 +336,12 @@ export default function Team({ team, user, workers }) {
                   </span>
                   <div>
                     <input
-                      id="description"
+                      id="motto"
                       type="textarea"
-                      name="description"
-                      placeholder="Create a brand new motto for your team!"
-                      className="mt-1 h-8 w-7/12 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75 align-baseline"
+                      name="motto"
+                      placeholder={team.motto || "Create a brand new motto for your team!"}
+                      onSubmit={handleMotto}
+                      className="resize-none w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
                   </div>
                 </label>
@@ -270,8 +354,9 @@ export default function Team({ team, user, workers }) {
                       id="description"
                       type="textarea"
                       name="description"
-                      placeholder="Tell us about you!"
-                      className="resize-none mt-1 h-28 w-7/12 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75 align-baseline"
+                      placeholder={team.description || "Tell us about you!"}
+                      onSubmit={handleDescription}
+                      className="resize-y min-h-32 w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
                   </div>
                 </label>
@@ -294,9 +379,9 @@ export default function Team({ team, user, workers }) {
                         id="discord"
                         type="text"
                         name="discord"
-                        placeholder="https//www.discord.me"
-                        className="mt-1 h-8 w-96 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75"
-                        required
+                        placeholder={team.discord || "https://discord.gg/"}
+                        onSubmit={handleDiscord}
+                        className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                       />
                     </div>
                   </label>
@@ -312,9 +397,9 @@ export default function Team({ team, user, workers }) {
                           id="twitter"
                           type="text"
                           name="twitter"
-                          placeholder="@Ismati5"
-                          className="mt-1 h-8 w-96 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75"
-                          required
+                          placeholder={team.twitter || "@TwitterUser"}
+                          onSubmit={handleTwitter}
+                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                         />
                       </div>
                     </label>
@@ -329,9 +414,9 @@ export default function Team({ team, user, workers }) {
                           id="facebook"
                           type="text"
                           name="facebook"
-                          placeholder="Ismati5"
-                          className="mt-1 h-8 w-96 form-input bg-gray-200 p-2 rounded-md text-xs opacity-75"
-                          required
+                          placeholder={team.facebook || "FacebookUser"}
+                          onSubmit={handleFacebook}
+                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                         />
                       </div>
                     </label>
