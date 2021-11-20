@@ -1,6 +1,7 @@
 import status from "../../../libs/status"
-import { ProjectLite } from "prisma/queries/SELECT/project"
-import { ReqUsersLite } from "prisma/queries/SELECT/req-users"
+import { ProjectLite } from "../../../prisma/queries/SELECT/project"
+import { ReqUsersLite } from "../../../prisma/queries/SELECT/req-users"
+import { createReqUser } from "../../../prisma/queries/CREATE/req-user"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -13,12 +14,18 @@ export default async (req, res) => {
     })
   } else {
     if (req.method === "POST") {
-      // const query = JSON.parse(req.body)
-      // const newMember = await prisma.requestRecruit.create({ data: query })
-      // res.status(200).json({
-      //   data: { user: newMember },
-      //   status: status(200, ""),
-      // })
+      const userId = token.id.toString()
+      const body = JSON.parse(req.body)
+      const { id } = await ProjectLite(userId)
+
+      const request = await createReqUser({
+        idUser: body.id,
+        idProject: id,
+      })
+      res.status(200).json({
+        data: { request: request },
+        status: status(200, ""),
+      })
     } else if (req.method === "GET") {
       const ownerId = req.query.id
       const team = await ProjectLite(ownerId)

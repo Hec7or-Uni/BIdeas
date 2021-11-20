@@ -11,7 +11,7 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   if (req.method === "POST") {
     const user = await createUser(JSON.parse(req.body))
-    res.json({
+    res.status(200).json({
       data: { user: user },
       status: status(200, ""),
     })

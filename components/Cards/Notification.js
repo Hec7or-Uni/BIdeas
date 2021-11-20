@@ -16,7 +16,7 @@ export default function Notification({
         <Link href={urlLeft}>
           <a className="w-12 h-12">
             <img
-              src={imgLeft || "/personas/DefaultAvatar.jpg"}
+              src={imgLeft}
               alt="imagen"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -30,7 +30,7 @@ export default function Notification({
         <Link href={urlRight}>
           <a className="w-12 h-12">
             <img
-              src={imgRight || "/personas/DefaultAvatar.jpg"}
+              src={imgRight}
               alt="imagen"
               className="w-full h-full object-cover rounded-lg"
             />

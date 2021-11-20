@@ -7,6 +7,7 @@ import useDateTimeFormat from "hooks/useDateTimeFormat"
 import { FiCheck } from "react-icons/fi"
 
 export default function Preview({
+  id,
   img,
   title,
   subtitle,
@@ -21,6 +22,38 @@ export default function Preview({
   const timeago = useTimeAgo(createdAt)
   const createdAtFormated = useDateTimeFormat(createdAt)
 
+  async function contact() {
+    console.log("hola")
+    const url = `http://localhost:3000/api/user/request-member`
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+    console.log(res)
+  }
+
+  async function applyJob() {
+    console.log("hola")
+    const url = `http://localhost:3000/api/user/request-join`
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+    console.log(res)
+  }
+
   return (
     <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
       <a
@@ -31,7 +64,12 @@ export default function Preview({
         <div className="h-16 w-16 rounded-xl bg-blue-500 mr-3">
           {/* img */}
           <img
-            src={img || (isUser ? "/personas/DefaultAvatar.jpg" : "/personas/DefaultAvatar.jpg")}
+            src={
+              img ||
+              (isUser
+                ? "/personas/DefaultAvatar.jpg"
+                : "/personas/DefaultAvatar.jpg")
+            }
             alt="img de la oferta"
             className="h-full w-full object-cover object-center rounded-xl"
           />
@@ -63,7 +101,21 @@ export default function Preview({
                 }/${url}`}
                 text={accion1}
               />
-              {!applied && <ButtonP url={"/"} text={accion2} />}
+              {applied ? (
+                <ButtonP
+                  // func={isUser ? deleteUserReq : deleteProjectReq}
+                  url={""}
+                  text={"remove"}
+                  className={"bg-red-600 hover:bg-red-700"}
+                />
+              ) : (
+                <ButtonP
+                  func={isUser ? contact : applyJob}
+                  url={""}
+                  text={accion2}
+                  className={""}
+                />
+              )}
             </div>
           </div>
         ) : (

@@ -100,6 +100,7 @@ export default function Teams({ user, myProjects }) {
             return (
               <Preview
                 key={item.id}
+                id={item.id}
                 img={item.avatar}
                 title={item.teamName}
                 subtitle={item.motto}
