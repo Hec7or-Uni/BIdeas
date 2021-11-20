@@ -1,4 +1,4 @@
-import Link from "next/Link"
+import Link from "next/link"
 
 export default function ButtonP({ func, text, url, className }) {
   return (

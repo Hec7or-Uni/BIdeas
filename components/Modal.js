@@ -3,11 +3,11 @@ import Notification from "./Cards/Notification"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Modal({ userName }) {
-  let user = []
+export default function Modal() {
+  let user = {}
   let teams = []
 
-  let team = []
+  let team = {}
   let users = []
 
   const res1 = useSWR(
@@ -35,13 +35,20 @@ export default function Modal({ userName }) {
     } else {
       team = res2.data.data.team
       users = res2.data.data.users
+      console.log(team, users)
     }
   }
 
   return (
     <div className="absolute top-0 right-0 z-50 mt-16 bg-neutral rounded-xl mr-8">
       <div className="flex flex-col p-2">
-        <h2 className="font-bold text-base mb-2">Notifications</h2>
+        {users.length !== 0 && teams.length !== 0 ? (
+          <h2 className="font-bold text-base mb-2">Notifications</h2>
+        ) : (
+          <p className="w-72 font-normal text-sm mb-1">
+            It seems that there is no news.
+          </p>
+        )}
         {/* tarjeta */}
         <div className="flex flex-col gap-y-1 overflow-y-auto max-h-60 ">
           {users.length !== 0 && (

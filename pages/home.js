@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
-import Link from "next/Link"
+import Link from "next/link"
 import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"

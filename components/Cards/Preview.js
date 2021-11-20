@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Link from "next/Link"
+import Link from "next/link"
 import ButtonP from "../Buttons/ButtonP"
 import ButtonS from "../Buttons/ButtonS"
 import useTimeAgo from "hooks/useTimeAgo"

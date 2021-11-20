@@ -93,7 +93,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           </div>
         </div>
       </div>
-      {isModal && <Modal userName={userName} />}
+      {isModal && <Modal />}
     </div>
   )
 }
