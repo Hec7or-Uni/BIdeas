@@ -1,4 +1,3 @@
-import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
 import { UserLite } from "../../../prisma/queries/SELECT/user"
 import { ReqProjectsLite } from "../../../prisma/queries/SELECT/req-projs"
@@ -14,15 +13,15 @@ export default async (req, res) => {
     })
   } else {
     if (req.method === "POST") {
-      const query = JSON.parse(req.body)
-      res.status(200).json({
-        data: {
-          user: await prisma.requestJoin.create({
-            data: query,
-          }),
-        },
-        status: status(200, ""),
-      })
+      // const query = JSON.parse(req.body)
+      // res.status(200).json({
+      //   data: {
+      //     user: await prisma.requestJoin.create({
+      //       data: query,
+      //     }),
+      //   },
+      //   status: status(200, ""),
+      // })
     } else if (req.method === "GET") {
       const userId = req.query.id || "143"
       const user = await UserLite(userId)
