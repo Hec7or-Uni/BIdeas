@@ -118,8 +118,7 @@ export default function Teams({ user, myProjects }) {
         <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Job Board</p>
           <p className="text-base font-normal mb-4">
-            you applied for <span>{projects.length}</span>{" "}
-            {projects.length === 0 ? "job" : "jobs"}
+            you applied for <span>{appliedJobs.length}</span> jobs
           </p>
           {appliedJobs.map((item) => {
             return (
@@ -172,7 +171,7 @@ export async function getServerSideProps({ req }) {
     })
   }
   const { user, projects } = resUser.data
-  const myProjects = projects.owns || undefined
+  const myProjects = projects.owns || {}
 
   return {
     props: {

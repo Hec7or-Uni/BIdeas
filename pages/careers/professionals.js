@@ -113,8 +113,7 @@ export default function Professionals({ user }) {
         <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Proffesional Board</p>
           <p className="text-base font-normal mb-4">
-            You have contacted <span>{contactedUsers.length}</span>{" "}
-            {contactedUsers.length === 0 ? "person" : "people"}
+            You have contacted <span>{contactedUsers.length}</span> people
           </p>
           {contactedUsers.map((item) => {
             return (

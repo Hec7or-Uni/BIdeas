@@ -22,8 +22,11 @@ export default async (req, res) => {
     } else if (req.method === "GET") {
       const ownerId = req.query.id
       const team = await ProjectLite(ownerId)
-      const contactedUsersRaw = await ReqUsersLite(team.id)
-      const contactedUsers = contactedUsersRaw.map((item) => item.user)
+      let contactedUsers = []
+      if (team !== undefined) {
+        const contactedUsersRaw = await ReqUsersLite(team.id)
+        contactedUsers = contactedUsersRaw.map((item) => item.user)
+      }
 
       res.status(200).json({
         data: {
