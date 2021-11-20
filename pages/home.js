@@ -111,22 +111,53 @@ export default function Home({ user, projects }) {
                   </div>
                 </div>
                 <div className="flex flex-col ml-5">
-                  <p className="text-base font-bold capitalize">entrepreneur</p>
-                  <hr className="h-1 w-3/4 my-1.5 bg-gray-700 rounded-full" />
+                  {/* Nombre rango parte superior */}
+                  <p className="text-base font-bold capitalize">
+                    { Number((user.xp-49)/100).toFixed() == 0 && "Newbie"}
+                    { Number((user.xp-49)/100).toFixed() == 1 && "Entrepeneur"}
+                    { Number((user.xp-49)/100).toFixed() == 2 && "Veteran"}
+                    { Number((user.xp-49)/100).toFixed() == 3 && "Businessman"}
+                    { Number((user.xp-49)/100).toFixed() == 4 && "Your own Boss"}
+                    { Number((user.xp-49)/100).toFixed() >= 5 && (
+                      <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+                      )}
+                  </p>
+
+                  {/* Barra rango */}
+                  <div className="w-40 bg-gray-200 rounded-full h-1 my-1.5">
+                    { Number((user.xp-49)/100).toFixed() < 5 && (
+                        <div className="bg-gray-800 h-1 rounded-full" style={{width : Number((user.xp)%100).toFixed().toString() + "%"}}></div>
+                    )}
+                    { Number((user.xp-49)/100).toFixed() >= 5 && (
+                        <div className="bg-gray-800 h-1 rounded-full" style={{width : "100%"}}></div>
+                    )}
+                  </div>
+
+                  {/* Your own boss */}
                   <p className="text-sm font-semibold">
-                    0% towards your own boss
+                    { Number((user.xp-49)/100).toFixed() == 0 && Number((user.xp)%100).toFixed().toString() + "% towards entrepeneur"}
+                    { Number((user.xp-49)/100).toFixed() == 1 && Number((user.xp)%100).toFixed().toString() + "% towards veteran"}
+                    { Number((user.xp-49)/100).toFixed() == 2 && Number((user.xp)%100).toFixed().toString() + "% towards businessman"}
+                    { Number((user.xp-49)/100).toFixed() == 3 && Number((user.xp)%100).toFixed().toString() + "% towards your own boss"}
+                    { Number((user.xp-49)/100).toFixed() == 4 && Number((user.xp)%100).toFixed().toString() + "% towards goat"}
+                    { Number((user.xp-49)/100).toFixed() >= 5 && "You are a GOAT"}
                   </p>
                 </div>
               </div>
               {/* Historial */}
               {/* Rank */}
-              <div className="flex items-center absolute bottom-0 mb-10">
-                <p className="text-base font-bold capitalize">rank up - 0</p>
-                <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
-                  <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />
-                  <div className="w-full h-full rounded-full bg-green-200 absolute filter blur-sm" />
+              
+              { Number((user.xp-49)/100 +1).toFixed() < 5 && (
+                <div className="flex items-center absolute bottom-0 mb-10">
+                  <p className="text-base font-bold capitalize">
+                    rank up - {Number((user.xp-49)/100 +1).toFixed()}
+                  </p>
+                  <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
+                    <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />
+                    <div className="w-full h-full rounded-full bg-green-200 absolute filter blur-sm" />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Derecha */}
