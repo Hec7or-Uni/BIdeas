@@ -168,18 +168,17 @@ export default function Home({ user, projects }) {
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards goat"}
-                    {Math.trunc((user.xp - 49) / 100).toFixed() >= 5 &&
-                      "You are a GOAT"}
+                    {Math.trunc((user.xp - 49) / 100) >= 5 && "You are a GOAT"}
                   </p>
                 </div>
               </div>
               {/* Historial */}
               {/* Rank */}
 
-              {Number((user.xp - 49) / 100 + 1).toFixed() < 5 && (
+              {Math.trunc((user.xp - 49) / 100 + 1) < 5 && (
                 <div className="flex items-center absolute bottom-0 mb-10">
                   <p className="text-base font-bold capitalize">
-                    rank up - {Number((user.xp - 49) / 100 + 1).toFixed()}
+                    rank up - {Math.trunc((user.xp - 49) / 100 + 1)}
                   </p>
                   <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
                     <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />

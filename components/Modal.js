@@ -3,23 +3,18 @@ import Notification from "./Cards/Notification"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Modal({ id }) {
+export default function Modal({ userName }) {
   let user = []
   let teams = []
 
   let team = []
   let users = []
 
-  const params = new URLSearchParams({ id: id })
   const res1 = useSWR(
-    `http://localhost:3000/api/user/requested-member?${params.toString()}`,
+    `http://localhost:3000/api/user/requested-member`,
     fetcher
   )
-
-  const res2 = useSWR(
-    `http://localhost:3000/api/user/requested-join?${params.toString()}`,
-    fetcher
-  )
+  const res2 = useSWR(`http://localhost:3000/api/user/requested-join`, fetcher)
 
   if (res1.error) {
     // return router.push("/404")
@@ -29,7 +24,6 @@ export default function Modal({ id }) {
     } else {
       user = res1.data.data.user
       teams = res1.data.data.teams
-      console.log(user, teams)
     }
   }
 
@@ -50,40 +44,48 @@ export default function Modal({ id }) {
         <h2 className="font-bold text-base mb-2">Notifications</h2>
         {/* tarjeta */}
         <div className="flex flex-col gap-y-1 overflow-y-auto max-h-60 ">
-          <p className="w-72 font-normal text-sm mb-1">
-            Hey! it looks like someone wants to join your team.
-          </p>
-          {users.map((item) => {
-            return (
-              <Notification
-                key={item.id}
-                type={0}
-                title={item.userName}
-                subtitle={item.studies}
-                urlLeft={team.teamName}
-                urlRight={item.userName}
-                imgLeft={team.avatar}
-                imgRight={item.avatar}
-              />
-            )
-          })}
-          <p className="w-72 font-normal text-sm mt-2 mb-1">
-            Hey! Looks like someone wants you to join their team!
-          </p>
-          {teams.map((item) => {
-            return (
-              <Notification
-                key={item.id}
-                type={1}
-                title={item.teamName}
-                subtitle={item.motto}
-                urlLeft={user.userName}
-                urlRight={item.teamName}
-                imgLeft={user.avatar}
-                imgRight={item.avatar}
-              />
-            )
-          })}
+          {users.length !== 0 && (
+            <>
+              <p className="w-72 font-normal text-sm mb-1">
+                Hey! it looks like someone wants to join your team.
+              </p>
+              {users.map((item) => {
+                return (
+                  <Notification
+                    key={item.id}
+                    type={0}
+                    title={item.userName}
+                    subtitle={item.studies}
+                    urlLeft={team.teamName}
+                    urlRight={item.userName}
+                    imgLeft={team.avatar}
+                    imgRight={item.avatar}
+                  />
+                )
+              })}
+            </>
+          )}
+          {teams.length !== 0 && (
+            <>
+              <p className="w-72 font-normal text-sm mt-2 mb-1">
+                Hey! Looks like someone wants you to join their team!
+              </p>
+              {teams.map((item) => {
+                return (
+                  <Notification
+                    key={item.id}
+                    type={1}
+                    title={item.teamName}
+                    subtitle={item.motto}
+                    urlLeft={user.userName}
+                    urlRight={item.teamName}
+                    imgLeft={user.avatar}
+                    imgRight={item.avatar}
+                  />
+                )
+              })}
+            </>
+          )}
         </div>
       </div>
     </div>
