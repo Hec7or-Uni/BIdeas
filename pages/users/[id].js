@@ -64,20 +64,26 @@ export default function Profile() {
             </div>
             <div>
               <p className="text-lg font-bold">
-                { Number((user.xp-49)/100).toFixed() == 0 && "Newbie"}
-                { Number((user.xp-49)/100).toFixed() == 1 && "Entrepeneur"}
-                { Number((user.xp-49)/100).toFixed() == 2 && "Veteran"}
-                { Number((user.xp-49)/100).toFixed() == 3 && "Businessman"}
-                { Number((user.xp-49)/100).toFixed() == 4 && "Your own Boss"}
-                { Number((user.xp-49)/100).toFixed() >= 5 && (
-                  <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+                {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
+                {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
+                {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
+                {Math.trunc((user.xp - 49) / 100) === 3 && "Businessman"}
+                {Math.trunc((user.xp - 49) / 100) === 4 && "Your own Boss"}
+                {Math.trunc((user.xp - 49) / 100) >= 5 && (
+                  <span className="text-yellow-500 animate-pulse duration-700">
+                    GOAT
+                  </span>
                 )}
               </p>
               <p className="text-lg font-normal">rank</p>
             </div>
           </div>
           <div className="flex flex-col self-start w-2/4 leading-snug">
-          <p>{user.description ? user.description : "This user does not have a description yet!"}</p>
+            <p>
+              {user.description
+                ? user.description
+                : "This user does not have a description yet!"}
+            </p>
           </div>
         </div>
 

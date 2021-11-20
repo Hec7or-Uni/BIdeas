@@ -58,12 +58,12 @@ export default function Team({ team, user, workers }) {
   const handleMotto = (e) => {
     setValues({ ...values, motto: e.target.value })
   }
-  const handleCountry = (e) => {
-    setValues({ ...values, country: e.target.value })
-  }
-  const handleMaxMembers = (e) => {
-    setValues({ ...values, maxMembers: e.target.value })
-  }
+  // const handleCountry = (e) => {
+  //   setValues({ ...values, country: e.target.value })
+  // }
+  // const handleMaxMembers = (e) => {
+  //   setValues({ ...values, maxMembers: e.target.value })
+  // }
   const handleDescription = (e) => {
     setValues({ ...values, description: e.target.value })
   }
@@ -77,28 +77,28 @@ export default function Team({ team, user, workers }) {
     setValues({ ...values, facebook: e.target.value })
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-  
-    const query = {
-      teamName: values.teamName,
-      motto: values.motto,
-      country: values.country,
-      maxMembers: values.maxMembers,
-      avatar: values.avatar,
-      description: values.description,
-      discord: values.discord,
-      twitter: values.twitter,
-      facebook: values.facebook,
-    }
-    await fetch(`http://localhost:3000/api/team`, {
-      method: "PUT",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(query),
-    }).then((res) => {
-      return res.json()
-    })
-  }
+  // async function handleSubmit(e) {
+  //   e.preventDefault()
+
+  //   const query = {
+  //     teamName: values.teamName,
+  //     motto: values.motto,
+  //     country: values.country,
+  //     maxMembers: values.maxMembers,
+  //     avatar: values.avatar,
+  //     description: values.description,
+  //     discord: values.discord,
+  //     twitter: values.twitter,
+  //     facebook: values.facebook,
+  //   }
+  //   await fetch(`http://localhost:3000/api/team`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "text/plain" },
+  //     body: JSON.stringify(query),
+  //   }).then((res) => {
+  //     return res.json()
+  //   })
+  // }
 
   return (
     <div className="px-8 py-3">
@@ -190,7 +190,7 @@ export default function Team({ team, user, workers }) {
                   src={team.avatar || "/personas/DefaultAvatar.jpg"}
                   className="w-32 h-32 rounded-full object-cover relative"
                 />
-                {/*<div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
+                {/* <div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -206,26 +206,26 @@ export default function Team({ team, user, workers }) {
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                   </svg>
-                </div>*/}
+                </div> */}
               </div>
 
-                <label>
-                  <span className="text-xs font-semibold uppercase">
-                    avatar url
-                  </span>
-                  <div>
-                    <input
-                      id="avatarUrl"
-                      type="url"
-                      name="avatarUrl"
-                      placeholder={ team.avatar || "https://avatar..." }
-                      onChange={handleAvatar}
-                      className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
-                    />
-                  </div>
-                </label>
-              
-              {/*<button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
+              <label>
+                <span className="text-xs font-semibold uppercase">
+                  avatar url
+                </span>
+                <div>
+                  <input
+                    id="avatarUrl"
+                    type="url"
+                    name="avatarUrl"
+                    placeholder={team.avatar || "https://avatar..."}
+                    onChange={handleAvatar}
+                    className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+                  />
+                </div>
+              </label>
+
+              {/* <button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
                 <div className="flex gap-x-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -243,10 +243,14 @@ export default function Team({ team, user, workers }) {
                   </svg>
                   upload avatar
                 </div>
-              </button>}*/}
+              </button>} */}
             </div>
             <div>
-              <button type="submit" form="form-profile" className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full">
+              <button
+                type="submit"
+                form="form-profile"
+                className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full"
+              >
                 <div className="flex gap-x-2 ml-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +303,9 @@ export default function Team({ team, user, workers }) {
                       </span>
                       <div>
                         <select className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 opacity-75">
-                        <option value="">{user.country || "Select a country"}</option>
+                          <option value="">
+                            {user.country || "Select a country"}
+                          </option>
                           {Object.entries(countryList).map(([key, value]) => (
                             <option key={key} value={key}>
                               {value}
@@ -339,7 +345,9 @@ export default function Team({ team, user, workers }) {
                       id="motto"
                       type="textarea"
                       name="motto"
-                      placeholder={team.motto || "Create a brand new motto for your team!"}
+                      placeholder={
+                        team.motto || "Create a brand new motto for your team!"
+                      }
                       onSubmit={handleMotto}
                       className="resize-none w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
