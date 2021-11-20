@@ -30,7 +30,7 @@ export default async (req, res) => {
 
       res.status(200).json({
         data: {
-          teams: team,
+          team: team,
           users: contactedUsers,
         },
         status: status(200, ""),

@@ -56,7 +56,6 @@ export default function Teams({ user, myProjects }) {
       return <>loading</>
     } else {
       appliedJobs = res2.data.data.teams
-      console.log(appliedJobs)
     }
   }
 
