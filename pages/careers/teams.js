@@ -21,13 +21,21 @@ const links = [
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Teams({ myProjects }) {
+export default function Teams({ user, myProjects }) {
   let projects = null
+  let appliedJobs = null
+
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
   const res1 = useSWR(`http://localhost:3000/api/teams/lite`, fetcher)
+
+  const params = new URLSearchParams({ id: user.id })
+  const res2 = useSWR(
+    `http://localhost:3000/api/user/request-join?${params.toString()}`,
+    fetcher
+  )
 
   if (res1.error) {
     return router.push("/404")
@@ -38,6 +46,17 @@ export default function Teams({ myProjects }) {
       projects = res1.data.data.teams.filter(
         (item) => item.id !== myProjects.id
       )
+    }
+  }
+
+  if (res2.error) {
+    return router.push("/404")
+  } else {
+    if (!res2.data) {
+      return <>loading</>
+    } else {
+      appliedJobs = res2.data.data.teams
+      console.log(appliedJobs)
     }
   }
 
@@ -102,17 +121,22 @@ export default function Teams({ myProjects }) {
             you applied for <span>{projects.length}</span>{" "}
             {projects.length === 0 ? "job" : "jobs"}
           </p>
-          <Preview
-            img={"/anuncios/anuncio3.jpg"}
-            title={"Space X goes to mars"}
-            subtitle={"engineer required"}
-            accion1={"view job"}
-            accion2={"apply for job"}
-            applied={true}
-            isUser={false}
-            url={"item.teamName"}
-            createdAt={"2021-11-15T21:10:03.340Z"}
-          />
+          {appliedJobs.map((item) => {
+            return (
+              <Preview
+                key={item.id}
+                img={item.avatar}
+                title={item.teamName}
+                subtitle={item.motto}
+                accion1={"view job"}
+                accion2={"apply for job"}
+                applied={true}
+                isUser={false}
+                url={item.teamName}
+                createdAt={item.createdAt}
+              />
+            )
+          })}
         </div>
       )}
     </>

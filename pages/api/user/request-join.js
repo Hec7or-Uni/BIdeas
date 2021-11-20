@@ -1,5 +1,7 @@
 import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
+import { UserLite } from "../../../prisma/queries/SELECT/user"
+import { ReqProjectsLite } from "../../../prisma/queries/SELECT/req-projs"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -22,28 +24,16 @@ export default async (req, res) => {
         status: status(200, ""),
       })
     } else if (req.method === "GET") {
+      const userId = req.query.id || "143"
+      const user = await UserLite(userId)
+      const appliedTeamsRaw = await ReqProjectsLite(user.id)
+      const appliedTeams = appliedTeamsRaw.map((item) => item.project)
+
       res.status(200).json({
-        solicitudes: await prisma.participates.findMany({
-          include: {
-            project: {
-              select: {
-                id: true,
-                teamName: true,
-                description: true,
-              },
-            },
-            user: {
-              select: {
-                id: true,
-                userName: true,
-                description: true,
-              },
-            },
-          },
-          where: {
-            OR: [{ idUser: 133 }, { idProject: 37 }],
-          },
-        }),
+        data: {
+          user: user,
+          teams: appliedTeams,
+        },
         status: status(200, ""),
       })
     } else {

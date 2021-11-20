@@ -125,6 +125,7 @@ export default function Professionals({ user }) {
                 subtitle={item.studies}
                 accion1={"view profile"}
                 accion2={"contact"}
+                applied={true}
                 isUser={true}
                 url={item.userName}
                 createdAt={item.createdAt}

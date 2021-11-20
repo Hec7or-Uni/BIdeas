@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function ReqProjects(id) {
-  return await prisma.RequestJoin.findUnique({
+  return await prisma.requestJoin.findMany({
     include: {
       user: {
         select: {
@@ -46,12 +46,12 @@ export async function ReqProjects(id) {
         },
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: { idUser: Number(id) },
   })
 }
 
 export async function ReqProjectsLite(id) {
-  return await prisma.RequestJoin.findUnique({
+  return await prisma.requestJoin.findMany({
     include: {
       user: {
         select: {
@@ -81,6 +81,6 @@ export async function ReqProjectsLite(id) {
         },
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: { idUser: Number(id) },
   })
 }
