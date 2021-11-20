@@ -23,10 +23,8 @@ export default function Preview({
   const createdAtFormated = useDateTimeFormat(createdAt)
 
   async function contact() {
-    console.log("hola")
     const url = `http://localhost:3000/api/user/request-member`
-
-    const res = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -35,14 +33,11 @@ export default function Preview({
     }).then((res) => {
       return res.json()
     })
-    console.log(res)
   }
 
   async function applyJob() {
-    console.log("hola")
     const url = `http://localhost:3000/api/user/request-join`
-
-    const res = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -51,7 +46,17 @@ export default function Preview({
     }).then((res) => {
       return res.json()
     })
-    console.log(res)
+  }
+
+  async function remove() {
+    const params = new URLSearchParams({ id: id })
+    const url = isUser
+      ? `http://localhost:3000/api/user/request-member?${params.toString()}`
+      : `http://localhost:3000/api/user/request-join?${params.toString()}`
+
+    await fetch(url, { method: "DELETE" }).then((res) => {
+      return res.json()
+    })
   }
 
   return (
@@ -103,7 +108,7 @@ export default function Preview({
               />
               {applied ? (
                 <ButtonP
-                  // func={isUser ? deleteUserReq : deleteProjectReq}
+                  func={remove}
                   url={""}
                   text={"remove"}
                   className={"bg-red-600 hover:bg-red-700"}

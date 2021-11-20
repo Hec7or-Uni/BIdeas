@@ -120,15 +120,16 @@ export default function Professionals({ user }) {
             return (
               <Preview
                 key={item.id}
-                img={item.avatar}
-                title={item.name + " " + item.lastName}
-                subtitle={item.studies}
+                id={item.id}
+                img={item.user.avatar}
+                title={item.user.name + " " + item.user.lastName}
+                subtitle={item.user.studies}
                 accion1={"view profile"}
                 accion2={"contact"}
                 applied={true}
                 isUser={true}
-                url={item.userName}
-                createdAt={item.createdAt}
+                url={item.user.userName}
+                createdAt={item.user.createdAt}
               />
             )
           })}
