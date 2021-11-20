@@ -22,39 +22,34 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Professionals({ user }) {
   let users = null
+  let contactedUsers = null
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/users/lite`,
-    fetcher
-  )
+  const res1 = useSWR(`http://localhost:3000/api/users/lite`, fetcher)
 
-  if (error) {
+  const res2 = useSWR(`http://localhost:3000/api/user/request-member`, fetcher)
+
+  if (res1.error) {
     return router.push("/404")
   } else {
-    if (!data) {
+    if (!res1.data) {
       return <>loading</>
     } else {
-      users = data.data.users.filter((item) => item.id !== user.id)
+      users = res1.data.data.users.filter((item) => item.id !== user.id)
     }
   }
 
-  // const { data, error } = useSWR(
-  //   `http://localhost:3000/api/user/request-member`,
-  //   fetcher
-  // )
-
-  // if (error) {
-  //   return router.push("/404")
-  // } else {
-  //   if (!data) {
-  //     return <>loading</>
-  //   } else {
-  //     users = data.data.users.filter((item) => item.id !== user.id)
-  //   }
-  // }
+  if (res2.error) {
+    return router.push("/404")
+  } else {
+    if (!res2.data) {
+      return <>loading</>
+    } else {
+      contactedUsers = res2.data.data.users
+    }
+  }
 
   return (
     <>
@@ -114,19 +109,24 @@ export default function Professionals({ user }) {
         <div className="container px-8 mx-auto">
           <p className="text-lg font-bold">Proffesional Board</p>
           <p className="text-base font-normal mb-4">
-            You have contacted <span>{users.length}</span>{" "}
-            {users.length === 0 ? "person" : "people"}
+            You have contacted <span>{contactedUsers.length}</span>{" "}
+            {contactedUsers.length === 0 ? "person" : "people"}
           </p>
-          <Preview
-            img={"/personas/CarlotaLopezSoria.jpg"}
-            title={"Juan Rodriguez"}
-            subtitle={"System Engineer"}
-            accion1={"view profile"}
-            accion2={"contact"}
-            isUser={true}
-            url={"item.userName"}
-            createdAt={"2021-11-15T21:10:03.340Z"}
-          />
+          {contactedUsers.map((item) => {
+            return (
+              <Preview
+                key={item.id}
+                img={item.avatar}
+                title={item.name + " " + item.lastName}
+                subtitle={item.studies}
+                accion1={"view profile"}
+                accion2={"contact"}
+                isUser={true}
+                url={item.userName}
+                createdAt={item.createdAt}
+              />
+            )
+          })}
         </div>
       )}
     </>

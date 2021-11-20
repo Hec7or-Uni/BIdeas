@@ -44,12 +44,12 @@ export async function ReqUser(id) {
         updatedAt: true,
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: { idUser: Number(id) },
   })
 }
 
 export async function ReqUserLite(id) {
-  return await prisma.RequestJoin.findMany({
+  return await prisma.RequestRecruit.findMany({
     include: {
       user: {
         select: {
@@ -79,6 +79,6 @@ export async function ReqUserLite(id) {
         },
       },
     },
-    where: { OR: [{ idUser: id }, { idProject: id }] },
+    where: { idUser: Number(id) },
   })
 }
