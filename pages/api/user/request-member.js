@@ -20,7 +20,7 @@ export default async (req, res) => {
       //   status: status(200, ""),
       // })
     } else if (req.method === "GET") {
-      const ownerId = req.query.id || "143"
+      const ownerId = req.query.id
       const team = await ProjectLite(ownerId)
       const contactedUsersRaw = await ReqUsersLite(team.id)
       const contactedUsers = contactedUsersRaw.map((item) => item.user)

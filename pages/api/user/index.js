@@ -41,7 +41,7 @@ export default async (req, res) => {
         data: {
           user: user,
           projects: {
-            owns: projsOwned,
+            owns: projsOwned[0],
             participates: projsInProgress !== undefined ? projsInProgress : [],
             recommended: projsRecommended,
           },

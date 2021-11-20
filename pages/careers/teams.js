@@ -27,18 +27,17 @@ export default function Teams({ myProjects }) {
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/teams/lite`,
-    fetcher
-  )
+  const res1 = useSWR(`http://localhost:3000/api/teams/lite`, fetcher)
 
-  if (error) {
+  if (res1.error) {
     return router.push("/404")
   } else {
-    if (!data) {
+    if (!res1.data) {
       return <>loading</>
     } else {
-      projects = data.data.teams
+      projects = res1.data.data.teams.filter(
+        (item) => item.id !== myProjects.id
+      )
     }
   }
 
@@ -149,7 +148,7 @@ export async function getServerSideProps({ req }) {
     })
   }
   const { user, projects } = resUser.data
-  const myProjects = projects.owns || null
+  const myProjects = projects.owns || undefined
 
   return {
     props: {

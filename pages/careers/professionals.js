@@ -29,7 +29,11 @@ export default function Professionals({ user }) {
 
   const res1 = useSWR(`http://localhost:3000/api/users/lite`, fetcher)
 
-  const res2 = useSWR(`http://localhost:3000/api/user/request-member`, fetcher)
+  const params = new URLSearchParams({ id: user.id })
+  const res2 = useSWR(
+    `http://localhost:3000/api/user/request-member?${params.toString()}`,
+    fetcher
+  )
 
   if (res1.error) {
     return router.push("/404")
