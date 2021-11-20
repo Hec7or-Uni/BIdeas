@@ -24,6 +24,7 @@ export default function Modal() {
     } else {
       user = res1.data.data.user
       teams = res1.data.data.teams
+      console.log(user)
     }
   }
 
@@ -42,7 +43,7 @@ export default function Modal() {
   return (
     <div className="absolute top-0 right-0 z-50 mt-16 bg-neutral rounded-xl mr-8">
       <div className="flex flex-col p-2">
-        {users.length !== 0 && teams.length !== 0 ? (
+        {users.length !== 0 || teams.length !== 0 ? (
           <h2 className="font-bold text-base mb-2">Notifications</h2>
         ) : (
           <p className="w-72 font-normal text-sm mb-1">
@@ -63,8 +64,8 @@ export default function Modal() {
                     type={0}
                     title={item.userName}
                     subtitle={item.studies}
-                    urlLeft={team.teamName}
-                    urlRight={item.userName}
+                    urlLeft={"/teams/" + team.teamName}
+                    urlRight={"/users/" + item.userName}
                     imgLeft={team.avatar}
                     imgRight={item.avatar}
                   />
@@ -84,8 +85,8 @@ export default function Modal() {
                     type={1}
                     title={item.teamName}
                     subtitle={item.motto}
-                    urlLeft={user.userName}
-                    urlRight={item.teamName}
+                    urlLeft={"/users/" + user.userName}
+                    urlRight={"/teams/" + item.teamName}
                     imgLeft={user.avatar}
                     imgRight={item.avatar}
                   />
