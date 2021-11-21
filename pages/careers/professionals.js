@@ -4,6 +4,7 @@ import useSWR from "swr"
 import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
+import Meta from "components/Meta"
 import { useLMenu } from "../../context/LMenuContext"
 import { useA4Hired } from "../../context/A4HiredContext"
 
@@ -57,6 +58,7 @@ export default function Professionals({ user }) {
 
   return (
     <>
+      <Meta title="Professionals"/>
       <div className="px-8">
         <p className="text-lg font-bold">Lot of Professionals</p>
         <p className="text-base font-normal">

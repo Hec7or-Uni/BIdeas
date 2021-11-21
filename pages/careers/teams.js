@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react"
 import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
+import Meta from "components/Meta"
 import { useLMenu } from "../../context/LMenuContext"
 import { useA4Hired } from "../../context/A4HiredContext"
 
@@ -61,6 +62,7 @@ export default function Teams({ user, myProjects }) {
 
   return (
     <>
+      <Meta title="Teams"/>
       <div className="px-8 top-0">
         <p className="text-lg font-bold">Lot of Jobs</p>
         <p className="text-base font-normal">

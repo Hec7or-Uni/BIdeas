@@ -5,8 +5,10 @@ import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"
 import Layout from "../components/layout"
+import Meta from "../components/Meta"
 import { useLMenu } from "../context/LMenuContext"
-import { GoOrganization, GoTelescope } from "react-icons/go"
+import { GoOrganization, GoTelescope} from "react-icons/go"
+import { RiBlazeLine} from "react-icons/ri"
 import {
   FiChevronUp,
   FiHexagon,
@@ -17,6 +19,7 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi"
+import Footer from "components/Navegation/Footer"
 
 const links = [
   {
@@ -82,6 +85,7 @@ export default function Home({ user, projects }) {
     <>
       <div className="px-8 pt-3">
         {/* Cabecera */}
+        <Meta title="Home"/>
         <Cabecera />
 
         {/* Anuncio & estadisticas */}
@@ -89,8 +93,8 @@ export default function Home({ user, projects }) {
           {/* anuncio */}
           <div className="rounded-xl w-full lg:w-left">
             <img
-              src="/anuncios/anuncio2.jpg"
-              className="h-auto w-full object-fill object-center rounded-xl"
+              src="/anuncios/anuncio8.jpg"
+              className="h-auto w-full object-fill object-center rounded-xl cursor-pointer shadow"
             />
           </div>
           <div className="flex gap-x-0.5 rounded-xl w-full h-72 lg:h-auto lg:w-right shadow">
@@ -219,14 +223,14 @@ export default function Home({ user, projects }) {
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Shortcut
               key={0}
-              img={<GoOrganization className="h-3/4 w-3/4" />}
+              img={<GoOrganization className="h-3/5 w-3/5" />}
               title={"create a team"}
               desc={"Start developing your new idea now"}
               url={"/home"}
             />
             <Shortcut
               key={1}
-              img={<GoTelescope className="h-3/4 w-3/4" />}
+              img={<GoTelescope className="h-3/5 w-3/5" />}
               title={"join a team"}
               desc={"Looking for amazing projects? join one now!"}
               url={"/home"}
@@ -261,9 +265,35 @@ export default function Home({ user, projects }) {
                 />
               )
             })}
+            {projects.participates == 0 && (
+              <div className="container pb-32 py-3">
+                <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
+                  <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600"/>
+                  <p className="text-base font-semibold text-justify">
+                    Oops! Looks like you don't have a team yet!
+                  </p>
+                  <p className="text-sm font-normal text-justify">
+                    You can {" "}
+                    <Link href="/my-team">
+                      <a className="hover:underline text-blue-600">
+                        create one
+                      </a>
+                    </Link>
+                    {" "} or you can {" "}
+                    <Link href="/careers/teams">
+                      <a className="hover:underline text-blue-600">
+                        join
+                      </a>
+                    </Link>
+                    {" "} an already created team.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
+      <Footer/>
     </>
   )
 }

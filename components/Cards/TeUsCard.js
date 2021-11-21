@@ -8,7 +8,7 @@ export default function TeUsCard({ img, title, desc, url, isUser }) {
           <img
             src={img}
             alt={"Profile img of " + title}
-            className="w-full h-full object-cover rounded-xl"
+            className="w-full h-full object-cover rounded-2xl p-2"
           />
         </div>
         <div className="self-start w-3/5 overflow-ellipsis overflow-hidden mt-2">
@@ -21,7 +21,7 @@ export default function TeUsCard({ img, title, desc, url, isUser }) {
 }
 
 TeUsCard.defaultProps = {
-  img: "/anuncios/anuncio3.jpg",
+  img: "/personas/DefaultAvatar.jpg",
   title: "EUROAVIA MISION",
   desc: "Pellentesque lectus mauris, blandit vulputate condime ntum commodo, libero mattis molestie fermentum platea sagittis sit eu lacus, morbi arcu in tempor, tincidunt malesuada curabitur venenatis aliquet tempus, magna laoreet egestas congue iaculis ipsum eu semper et in sapien.",
   url: "hec7orci7o",

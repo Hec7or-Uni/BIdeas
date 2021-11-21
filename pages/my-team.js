@@ -1,13 +1,17 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
+import Link from "next/Link"
 import Header from "components/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "components/Navegation/LineMenu"
 import Layout from "../components/layout"
+import Footer from "components/Navegation/Footer"
+import Meta from "components/Meta"
 import { useLMenu } from "../context/LMenuContext"
 import { countryList } from "../data/countryList"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
+import { RiBlazeLine} from "react-icons/ri"
 
 const numMaxMembers = {
   2: "2",
@@ -102,6 +106,7 @@ export default function Team({ team, user, workers }) {
 
   return (
     <div className="px-8 py-3">
+      <Meta title="My Team"/>
       <Header
         avatar={user.avatar}
         username={user.userName}
@@ -111,7 +116,7 @@ export default function Team({ team, user, workers }) {
         xp={user.xp}
       />
       <LineMenu data={data} />
-      {isActive === 1 && (
+      {isActive === 1 && team.teamName && (
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
@@ -175,6 +180,32 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
+      {isActive === 1 && !team.teamName && (
+
+        <div className="container py-32">
+          <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
+            <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600"/>
+            <p className="text-lg font-semibold text-justify">
+              Oops! Looks like you don't have a team yet!
+            </p>
+            <p className="text-lg font-normal text-justify">
+              You can {" "}
+              <Link href="">
+                <a className="hover:underline text-blue-600">
+                  create one
+                </a>
+              </Link>
+              {" "} or you can {" "}
+              <Link href="/careers/teams">
+                <a className="hover:underline text-blue-600">
+                  join
+                </a>
+              </Link>
+              {" "} an already created team.
+            </p>
+          </div>
+        </div>
+      )}
       {/* Profile Settings */}
       {isActive === 2 && (
         <div>
@@ -187,7 +218,7 @@ export default function Team({ team, user, workers }) {
             <div className="flex gap-x-12 px-6 items-center">
               <div className="flex w-32 h-32 rounded-full items-center justify-center">
                 <img
-                  src={team.avatar || "/personas/DefaultAvatar.jpg"}
+                  src={team.avatar || "/personas/DefaultTeamAvatar.png"}
                   className="w-32 h-32 rounded-full object-cover relative"
                 />
                 {/*<div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
@@ -427,6 +458,7 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   )
 }

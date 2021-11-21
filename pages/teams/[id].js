@@ -5,6 +5,7 @@ import Header from "../../components/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
 import Layout from "../../components/layout"
+import Meta from "components/Meta"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -24,7 +25,8 @@ export default function Team() {
     return router.push("/404")
   } else {
     if (!data) {
-      return <>loading</>
+      return <>
+        Loading...</>
     } else {
       const { project, users } = data.data
       const { owner, workers } = users
@@ -36,19 +38,21 @@ export default function Team() {
 
   return (
     <div className="px-8 py-3">
+      <Meta title={team.teamName}/>
       <Header
         avatar={ownerCli.avatar}
         username={ownerCli.userName}
         id={ownerCli.id}
         studies={ownerCli.studies}
         plan={ownerCli.plan}
+        xp={ownerCli.xp}
       />
-      <div className="w-full mt-6">
+      <div className="w-full mt-16">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-x-6">
             <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
               <img
-                src={team.avatar || "/anuncios/anuncio2.jpg"}
+                src={team.avatar || "/personas/DefaultTeamAvatar.png"}
                 alt=""
                 className="w-full h-full rounded-full object-cover"
               />
