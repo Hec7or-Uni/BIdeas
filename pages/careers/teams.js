@@ -102,6 +102,7 @@ export default function Teams({ user, myProjects }) {
             return (
               <Preview
                 key={item.id}
+                id={item.id}
                 img={item.avatar}
                 title={item.teamName}
                 subtitle={item.motto}
@@ -125,15 +126,16 @@ export default function Teams({ user, myProjects }) {
             return (
               <Preview
                 key={item.id}
-                img={item.avatar}
-                title={item.teamName}
-                subtitle={item.motto}
+                id={item.id}
+                img={item.project.avatar}
+                title={item.project.teamName}
+                subtitle={item.project.motto}
                 accion1={"view job"}
                 accion2={"apply for job"}
                 applied={true}
                 isUser={false}
-                url={item.teamName}
-                createdAt={item.createdAt}
+                url={item.project.teamName}
+                createdAt={item.project.createdAt}
               />
             )
           })}

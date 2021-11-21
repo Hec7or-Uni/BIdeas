@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
-import Link from "next/Link"
+import Link from "next/link"
 import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"
@@ -117,44 +117,72 @@ export default function Home({ user, projects }) {
                 <div className="flex flex-col ml-5">
                   {/* Nombre rango parte superior */}
                   <p className="text-base font-bold capitalize">
-                    { Number((user.xp-49)/100).toFixed() == 0 && "Newbie"}
-                    { Number((user.xp-49)/100).toFixed() == 1 && "Entrepeneur"}
-                    { Number((user.xp-49)/100).toFixed() == 2 && "Veteran"}
-                    { Number((user.xp-49)/100).toFixed() == 3 && "Businessman"}
-                    { Number((user.xp-49)/100).toFixed() == 4 && "Your own Boss"}
-                    { Number((user.xp-49)/100).toFixed() >= 5 && (
-                      <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+                    {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
+                    {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
+                    {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
+                    {Math.trunc((user.xp - 49) / 100) === 3 && "Businessman"}
+                    {Math.trunc((user.xp - 49) / 100) === 4 && "Your own Boss"}
+                    {Math.trunc((user.xp - 49) / 100) >= 5 && (
+                      <span className="text-yellow-500 animate-pulse duration-700">
+                        GOAT
+                      </span>
                     )}
                   </p>
 
                   {/* Barra rango */}
                   <div className="w-40 bg-gray-200 rounded-full h-1 my-1.5">
-                    { Number((user.xp-49)/100).toFixed() < 5 && (
-                        <div className="bg-gray-800 h-1 rounded-full" style={{width : Number((user.xp)%100).toFixed().toString() + "%"}}></div>
+                    {Number((user.xp - 49) / 100).toFixed() < 5 && (
+                      <div
+                        className="bg-gray-800 h-1 rounded-full"
+                        style={{
+                          width:
+                            Number(user.xp % 100)
+                              .toFixed()
+                              .toString() + "%",
+                        }}
+                      ></div>
                     )}
-                    { Number((user.xp-49)/100).toFixed() >= 5 && (
-                        <div className="bg-gray-800 h-1 rounded-full" style={{width : "100%"}}></div>
+                    {Number((user.xp - 49) / 100).toFixed() >= 5 && (
+                      <div
+                        className="bg-gray-800 h-1 rounded-full"
+                        style={{ width: "100%" }}
+                      ></div>
                     )}
                   </div>
 
                   {/* Your own boss */}
                   <p className="text-sm font-semibold">
-                    { Number((user.xp-49)/100).toFixed() == 0 && Number((user.xp)%100).toFixed().toString() + "% towards entrepeneur"}
-                    { Number((user.xp-49)/100).toFixed() == 1 && Number((user.xp)%100).toFixed().toString() + "% towards veteran"}
-                    { Number((user.xp-49)/100).toFixed() == 2 && Number((user.xp)%100).toFixed().toString() + "% towards businessman"}
-                    { Number((user.xp-49)/100).toFixed() == 3 && Number((user.xp)%100).toFixed().toString() + "% towards your own boss"}
-                    { Number((user.xp-49)/100).toFixed() == 4 && Number((user.xp)%100).toFixed().toString() + "% towards goat"}
-                    { Number((user.xp-49)/100).toFixed() >= 5 && "You are a GOAT"}
+                    {Math.trunc((user.xp - 49) / 100) === 0.0 &&
+                      Number(user.xp % 100)
+                        .toFixed()
+                        .toString() + "% towards entrepeneur"}
+                    {Math.trunc((user.xp - 49) / 100) === 1.0 &&
+                      Number(user.xp % 100)
+                        .toFixed()
+                        .toString() + "% towards veteran"}
+                    {Math.trunc((user.xp - 49) / 100) === 2.0 &&
+                      Number(user.xp % 100)
+                        .toFixed()
+                        .toString() + "% towards businessman"}
+                    {Math.trunc((user.xp - 49) / 100) === 3.0 &&
+                      Number(user.xp % 100)
+                        .toFixed()
+                        .toString() + "% towards your own boss"}
+                    {Math.trunc((user.xp - 49) / 100) === 4.0 &&
+                      Number(user.xp % 100)
+                        .toFixed()
+                        .toString() + "% towards goat"}
+                    {Math.trunc((user.xp - 49) / 100) >= 5 && "You are a GOAT"}
                   </p>
                 </div>
               </div>
               {/* Historial */}
               {/* Rank */}
-              
-              { Number((user.xp-49)/100 +1).toFixed() < 5 && (
+
+              {Math.trunc((user.xp - 49) / 100 + 1) < 5 && (
                 <div className="flex items-center absolute bottom-0 mb-10">
                   <p className="text-base font-bold capitalize">
-                      rank up - {Number((user.xp-49)/100 +1).toFixed()}
+                    rank up - {Math.trunc((user.xp - 49) / 100 + 1)}
                   </p>
                   <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
                     <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />

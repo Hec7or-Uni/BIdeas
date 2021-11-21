@@ -28,12 +28,12 @@ export default function Professionals({ user }) {
   const [isToggled, Toggle] = useA4Hired()
   const [isActive] = useLMenu()
 
-  const res1 = useSWR(`http://localhost:3000/api/users/lite`, fetcher)
+  const res1 = useSWR(`http://localhost:3000/api/users/lite`, { fetcher })
 
   const params = new URLSearchParams({ id: user.id })
   const res2 = useSWR(
     `http://localhost:3000/api/user/request-member?${params.toString()}`,
-    fetcher
+    { fetcher }
   )
 
   if (res1.error) {
@@ -98,6 +98,7 @@ export default function Professionals({ user }) {
             return (
               <Preview
                 key={item.id}
+                id={item.id}
                 img={item.avatar}
                 title={item.name + " " + item.lastName}
                 subtitle={item.studies}
@@ -121,15 +122,16 @@ export default function Professionals({ user }) {
             return (
               <Preview
                 key={item.id}
-                img={item.avatar}
-                title={item.name + " " + item.lastName}
-                subtitle={item.studies}
+                id={item.id}
+                img={item.user.avatar}
+                title={item.user.name + " " + item.user.lastName}
+                subtitle={item.user.studies}
                 accion1={"view profile"}
                 accion2={"contact"}
                 applied={true}
                 isUser={true}
-                url={item.userName}
-                createdAt={item.createdAt}
+                url={item.user.userName}
+                createdAt={item.user.createdAt}
               />
             )
           })}

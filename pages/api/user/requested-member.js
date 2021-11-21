@@ -12,12 +12,11 @@ export default async (req, res) => {
     })
   } else {
     if (req.method === "GET") {
-      const userId = req.query.id || "143"
+      const userId = token.id.toString()
       const data = await ReqUserLite(userId)
-      let user
+      let user = {}
       let teams = []
-      console.log(user, teams)
-      if (data !== undefined) {
+      if (data.length !== 0) {
         user = data[0].user
         teams = data.map((item) => item.project)
       }

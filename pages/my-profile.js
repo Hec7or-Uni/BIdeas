@@ -74,31 +74,31 @@ export default function Profile({ user, owns, participates }) {
     setValues({ ...values, facebook: e.target.value })
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-  
-    const salt = crypto.randomBytes(16).toString("hex")
-    const query = {
-      name: values.name,
-      lastName: values.lastName,
-      userName: values.username,
-      email: values.email,
-      website: values.website,
-      twitter: values.twitter,
-      facebook: values.facebook,
-      description: values.description,
-      avatar: values.avatar,
-      salt: salt,
-      passwd: CryptoJS.SHA512(salt + values.password).toString(),
-    }
-    await fetch(`http://localhost:3000/api/user`, {
-      method: "PUT",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(query),
-    }).then((res) => {
-      return res.json()
-    })
-  }
+  // async function handleSubmit(e) {
+  //   e.preventDefault()
+
+  //   const salt = crypto.randomBytes(16).toString("hex")
+  //   const query = {
+  //     name: values.name,
+  //     lastName: values.lastName,
+  //     userName: values.username,
+  //     email: values.email,
+  //     website: values.website,
+  //     twitter: values.twitter,
+  //     facebook: values.facebook,
+  //     description: values.description,
+  //     avatar: values.avatar,
+  //     salt: salt,
+  //     passwd: CryptoJS.SHA512(salt + values.password).toString(),
+  //   }
+  //   await fetch(`http://localhost:3000/api/user`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "text/plain" },
+  //     body: JSON.stringify(query),
+  //   }).then((res) => {
+  //     return res.json()
+  //   })
+  // }
 
   return (
     <div className="w-full px-8 py-3">
@@ -130,20 +130,26 @@ export default function Profile({ user, owns, participates }) {
               </div>
               <div>
                 <p className="text-lg font-bold">
-                  { Number((user.xp-49)/100).toFixed() == 0 && "Newbie"}
-                  { Number((user.xp-49)/100).toFixed() == 1 && "Entrepeneur"}
-                  { Number((user.xp-49)/100).toFixed() == 2 && "Veteran"}
-                  { Number((user.xp-49)/100).toFixed() == 3 && "Businessman"}
-                  { Number((user.xp-49)/100).toFixed() == 4 && "Your own Boss"}
-                  { Number((user.xp-49)/100).toFixed() >= 5 && (
-                    <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+                  {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
+                  {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
+                  {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
+                  {Math.trunc((user.xp - 49) / 100) === 3 && "Businessman"}
+                  {Math.trunc((user.xp - 49) / 100) === 4 && "Your own Boss"}
+                  {Number((user.xp - 49) / 100).toFixed() >= 5 && (
+                    <span className="text-yellow-500 animate-pulse duration-700">
+                      GOAT
+                    </span>
                   )}
                 </p>
                 <p className="text-lg font-normal">rank</p>
               </div>
             </div>
             <div className="flex flex-col self-start w-2/4 leading-snug">
-              <p>{user.description ? user.description : "Your account does not have a description yet!"}</p>
+              <p>
+                {user.description
+                  ? user.description
+                  : "Your account does not have a description yet!"}
+              </p>
             </div>
           </div>
 
@@ -213,7 +219,7 @@ export default function Profile({ user, owns, participates }) {
                   src={user.avatar || "/personas/DefaultAvatar.jpg"}
                   className="w-32 h-32 rounded-full object-cover relative"
                 />
-                {/*<div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
+                {/* <div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -229,26 +235,26 @@ export default function Profile({ user, owns, participates }) {
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                   </svg>
-                </div>*/}
+                </div> */}
               </div>
 
-                <label>
-                  <span className="text-xs font-semibold uppercase">
-                    avatar url
-                  </span>
-                  <div>
-                    <input
-                      id="avatarUrl"
-                      type="url"
-                      name="avatarUrl"
-                      placeholder={ user.avatar || "https://avatar..." }
-                      onChange={handleAvatar}
-                      className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
-                    />
-                  </div>
-                </label>
-              
-              {/*<button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
+              <label>
+                <span className="text-xs font-semibold uppercase">
+                  avatar url
+                </span>
+                <div>
+                  <input
+                    id="avatarUrl"
+                    type="url"
+                    name="avatarUrl"
+                    placeholder={user.avatar || "https://avatar..."}
+                    onChange={handleAvatar}
+                    className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+                  />
+                </div>
+              </label>
+
+              {/* <button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
                 <div className="flex gap-x-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -266,10 +272,14 @@ export default function Profile({ user, owns, participates }) {
                   </svg>
                   upload avatar
                 </div>
-              </button>}*/}
+              </button>} */}
             </div>
             <div>
-              <button type="submit" form="form-profile" className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full">
+              <button
+                type="submit"
+                form="form-profile"
+                className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full"
+              >
                 <div className="flex gap-x-2 ml-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -296,8 +306,7 @@ export default function Profile({ user, owns, participates }) {
           <div className="px-8 mt-8">
             <p className="text-base font-bold">General Information</p>
             <div className="mt-4">
-              <form id="form-profile" >
-
+              <form id="form-profile">
                 <div className="flex gap-x-4">
                   <div>
                     <label>
@@ -338,7 +347,9 @@ export default function Profile({ user, owns, participates }) {
                 <div className="flex gap-x-4">
                   <div>
                     <label className="block mt-3">
-                    <span className="text-xs font-semibold uppercase text-gray-700">Username</span>
+                      <span className="text-xs font-semibold uppercase text-gray-700">
+                        Username
+                      </span>
                       <div>
                         <input
                           id="username"
@@ -358,7 +369,9 @@ export default function Profile({ user, owns, participates }) {
                       </span>
                       <div>
                         <select className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 opacity-75">
-                          <option value="">{user.country || "Select a country"}</option>
+                          <option value="">
+                            {user.country || "Select a country"}
+                          </option>
                           {Object.entries(countryList).map(([key, value]) => (
                             <option key={key} value={key}>
                               {value}
@@ -404,21 +417,21 @@ export default function Profile({ user, owns, participates }) {
                     </label>
                   </div>
                 </div>
-                  <label type="text" className="block mt-3">
-                    <span className="text-xs font-semibold uppercase">
-                      profile description
-                    </span>
-                    <div>
-                      <textarea
-                        id="description"
-                        type="textarea"
-                        name="description"
-                        placeholder={user.description || "Tell us about you!"}
-                        onChange={handleDescription}
-                        className="resize-y min-h-32 min h-32 w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 align-baseline"
-                      />
-                    </div>
-                  </label>
+                <label type="text" className="block mt-3">
+                  <span className="text-xs font-semibold uppercase">
+                    profile description
+                  </span>
+                  <div>
+                    <textarea
+                      id="description"
+                      type="textarea"
+                      name="description"
+                      placeholder={user.description || "Tell us about you!"}
+                      onChange={handleDescription}
+                      className="resize-y min-h-32 min h-32 w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 align-baseline"
+                    />
+                  </div>
+                </label>
               </form>
             </div>
           </div>

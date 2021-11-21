@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Link from "next/Link"
+import Link from "next/link"
 import ButtonP from "../Buttons/ButtonP"
 import ButtonS from "../Buttons/ButtonS"
 import useTimeAgo from "hooks/useTimeAgo"
@@ -7,6 +7,7 @@ import useDateTimeFormat from "hooks/useDateTimeFormat"
 import { FiCheck } from "react-icons/fi"
 
 export default function Preview({
+  id,
   img,
   title,
   subtitle,
@@ -20,6 +21,43 @@ export default function Preview({
   const [hover, setHover] = useState(false)
   const timeago = useTimeAgo(createdAt)
   const createdAtFormated = useDateTimeFormat(createdAt)
+
+  async function contact() {
+    const url = `http://localhost:3000/api/user/request-member`
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+  }
+
+  async function applyJob() {
+    const url = `http://localhost:3000/api/user/request-join`
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+  }
+
+  async function remove() {
+    const params = new URLSearchParams({ id: id })
+    const url = isUser
+      ? `http://localhost:3000/api/user/request-member?${params.toString()}`
+      : `http://localhost:3000/api/user/request-join?${params.toString()}`
+
+    await fetch(url, { method: "DELETE" }).then((res) => {
+      return res.json()
+    })
+  }
 
   return (
     <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
@@ -63,7 +101,21 @@ export default function Preview({
                 }/${url}`}
                 text={accion1}
               />
-              {!applied && <ButtonP url={"/"} text={accion2} />}
+              {applied ? (
+                <ButtonP
+                  func={remove}
+                  url={""}
+                  text={"remove"}
+                  className={"bg-red-600 hover:bg-red-700"}
+                />
+              ) : (
+                <ButtonP
+                  func={isUser ? contact : applyJob}
+                  url={""}
+                  text={accion2}
+                  className={""}
+                />
+              )}
             </div>
           </div>
         ) : (
