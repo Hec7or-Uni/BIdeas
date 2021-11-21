@@ -5,6 +5,7 @@ import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "components/Navegation/LineMenu"
 import Layout from "../components/layout"
+import Meta from "components/Meta"
 import { useLMenu } from "../context/LMenuContext"
 import { countryList } from "../data/countryList"
 import {
@@ -101,6 +102,7 @@ export default function Profile({ user, owns, participates }) {
 
   return (
     <div className="w-full px-8 py-3">
+      <Meta title="My Profile"/>
       <Header
         avatar={user.avatar}
         username={user.userName}

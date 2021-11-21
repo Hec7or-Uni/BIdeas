@@ -66,15 +66,10 @@ export default function Preview({
         onMouseLeave={() => setHover(false)}
         className="flex items-center h-20 w-2/3 rounded-xl bg-white shadow mb-8 p-2 relative cursor-default"
       >
-        <div className="h-16 w-16 rounded-xl bg-blue-500 mr-3">
+        <div className="h-16 w-16 rounded-xl mr-3">
           {/* img */}
           <img
-            src={
-              img ||
-              (isUser
-                ? "/personas/DefaultAvatar.jpg"
-                : "/personas/DefaultAvatar.jpg")
-            }
+            src={img || (isUser ? "/personas/DefaultAvatar.jpg" : "/personas/DefaultTeamAvatar.png")}
             alt="img de la oferta"
             className="h-full w-full object-cover object-center rounded-xl"
           />

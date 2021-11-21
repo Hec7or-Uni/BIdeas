@@ -69,7 +69,7 @@ export default function Footer() {
             <a href="">Mercuthio</a>
           </span>{" "}
           <span className="px-1 hover:text-gray-800">
-            <a href="">Ismati5</a>
+            <a href="https://twitter.com/Ismati5">Ismati5</a>
           </span>
         </div>
       </div>

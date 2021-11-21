@@ -5,6 +5,7 @@ import Header from "../../components/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
 import Layout from "../../components/layout"
+import Meta from "components/Meta"
 import {
   FiHexagon,
   FiAward,
@@ -40,6 +41,7 @@ export default function Profile() {
 
   return (
     <div className="w-full px-8 py-3">
+      <Meta title={user.userName}/>
       <Header
         avatar={user.avatar}
         username={user.userName}
