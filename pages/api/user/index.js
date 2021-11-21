@@ -11,7 +11,7 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   if (req.method === "POST") {
     const user = await createUser(JSON.parse(req.body))
-    res.json({
+    res.status(200).json({
       data: { user: user },
       status: status(200, ""),
     })
@@ -41,9 +41,9 @@ export default async (req, res) => {
         data: {
           user: user,
           projects: {
-            owns: projsOwned[0],
-            participates: projsInProgress !== undefined ? projsInProgress : [],
-            recommended: projsRecommended,
+            owns: projsOwned.length !== 0 ? projsOwned : {},
+            participates: projsInProgress.length !== 0 ? projsInProgress : [],
+            recommended: projsRecommended.length !== 0 ? projsRecommended : [],
           },
         },
         status: status(200, ""),

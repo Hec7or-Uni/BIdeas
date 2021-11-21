@@ -1,4 +1,4 @@
-import Link from "next/Link"
+import Link from "next/link"
 import { useSidebar } from "../../context/SideBarContext"
 
 export default function NewButton({ url, icon, text, current }) {

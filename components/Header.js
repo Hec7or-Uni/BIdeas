@@ -36,13 +36,15 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
         <div className="flex flex-col uppercase mr-16">
           <p className="text-sm font-medium">rank</p>
           <p className="text-lg font-bold">
-            { Number((xp-49)/100).toFixed() == 0 && "Newbie"}
-            { Number((xp-49)/100).toFixed() == 1 && "Entrepeneur"}
-            { Number((xp-49)/100).toFixed() == 2 && "Veteran"}
-            { Number((xp-49)/100).toFixed() == 3 && "Businessman"}
-            { Number((xp-49)/100).toFixed() == 4 && "Your own Boss"}
-            { Number((xp-49)/100).toFixed() >= 5 && (
-              <span className="text-yellow-500 animate-pulse duration-700">GOAT</span>
+            {Math.trunc((xp - 49) / 100) === 0 && "Newbie"}
+            {Math.trunc((xp - 49) / 100) === 1 && "Entrepeneur"}
+            {Math.trunc((xp - 49) / 100) === 2 && "Veteran"}
+            {Math.trunc((xp - 49) / 100) === 3 && "Businessman"}
+            {Math.trunc((xp - 49) / 100) === 4 && "Your own Boss"}
+            {Math.trunc((xp - 49) / 100) >= 5 && (
+              <span className="text-yellow-500 animate-pulse duration-700">
+                GOAT
+              </span>
             )}
           </p>
         </div>

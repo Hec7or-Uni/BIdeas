@@ -1,4 +1,4 @@
-import Link from "next/Link"
+import Link from "next/link"
 
 export default function TeUsCard({ img, title, desc, url, isUser }) {
   return (

@@ -13,16 +13,14 @@ export default async (req, res) => {
     })
   } else {
     if (req.method === "GET") {
-      const userId = req.query.id || "143"
-      const { id } = await ProjectLite(userId)
+      const ownerId = token.id.toString()
+      const { id } = await ProjectLite(ownerId)
       let team = {}
       let users = []
 
       const data = await ReqProjectLite(id)
 
       if (data.length !== 0) {
-        console.log(typeof data)
-
         team = data[0].project
         users = data.map((item) => item.user)
       }
