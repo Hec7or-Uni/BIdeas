@@ -466,7 +466,6 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
-      <Footer/>
     </div>
   )
 }

@@ -321,7 +321,6 @@ export default function Home({ user, projects }) {
           </div>
         )}
       </div>
-      <Footer/>
     </>
   )
 }
