@@ -18,11 +18,14 @@ export default function Layout({ children }) {
           userName={user.userName}
           plan={user.plan}
         />
-        <div className="flex w-full" style={{ height: "calc(100vh - 4rem)" }}>
+        <div
+          className="flex w-full dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2"
+          style={{ height: "calc(100vh - 4rem)" }}
+        >
           <Sidebar />
           <LMenuProvider>
             <A4HProvider>
-              <div className="flex-auto overflow-y-auto">
+              <div className="flex-auto overflow-y-auto ">
                 <main className="py-3">{children}</main>
               </div>
             </A4HProvider>

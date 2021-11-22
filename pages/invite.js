@@ -50,8 +50,8 @@ export default function Invite() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5">
-      <div className="w-full max-w-md p-4 bg-white rounded-md shadow-md sm:p-6">
+    <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5  dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
+      <div className="w-full max-w-md p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
         <div className="flex items-center justify-center">
           <span className="text-xl font-medium text-gray-900">
             Create your account.
@@ -67,7 +67,7 @@ export default function Invite() {
                 name="name"
                 autoComplete="name"
                 onChange={handleName}
-                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
                 required
               />
             </label>
@@ -79,7 +79,7 @@ export default function Invite() {
                 name="lastName"
                 autoComplete="last name"
                 onChange={handleLastName}
-                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+                className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
                 required
               />
             </label>
@@ -92,7 +92,7 @@ export default function Invite() {
               name="username"
               autoComplete="username"
               onChange={handleUsername}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>
@@ -104,7 +104,7 @@ export default function Invite() {
               name="email"
               autoComplete="email"
               onChange={handleEmail}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>
@@ -116,7 +116,7 @@ export default function Invite() {
               name="password"
               autoComplete="current-password"
               onChange={handlePassword}
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>

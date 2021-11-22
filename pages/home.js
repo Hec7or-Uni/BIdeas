@@ -7,8 +7,8 @@ import Cabecera from "components/Cabeceras/Cabecera"
 import Layout from "../components/layout"
 import Meta from "../components/Meta"
 import { useLMenu } from "../context/LMenuContext"
-import { GoOrganization, GoTelescope} from "react-icons/go"
-import { RiBlazeLine} from "react-icons/ri"
+import { GoOrganization, GoTelescope } from "react-icons/go"
+import { RiBlazeLine } from "react-icons/ri"
 import {
   FiChevronUp,
   FiHexagon,
@@ -19,7 +19,6 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi"
-import Footer from "components/Navegation/Footer"
 
 const links = [
   {
@@ -40,22 +39,22 @@ const Stats = [
   {
     id: 0,
     name: "points",
-    icon: <FiAward className="h-5 w-5" />,
+    icon: <FiAward className="h-5 w-5 dark:text-gray-100" />,
   },
   {
     id: 1,
     name: "teams owned",
-    icon: <FiFlag className="h-5 w-5" />,
+    icon: <FiFlag className="h-5 w-5 dark:text-gray-100" />,
   },
   {
     id: 2,
     name: "teams",
-    icon: <FiBriefcase className="h-5 w-5" />,
+    icon: <FiBriefcase className="h-5 w-5 dark:text-gray-100" />,
   },
   {
     id: 3,
     name: "respect",
-    icon: <FiHeart className="h-5 w-5" />,
+    icon: <FiHeart className="h-5 w-5 dark:text-gray-100" />,
   },
 ]
 
@@ -85,7 +84,7 @@ export default function Home({ user, projects }) {
     <>
       <div className="px-8 pt-3">
         {/* Cabecera */}
-        <Meta title="Home"/>
+        <Meta title="Home" />
         <Cabecera />
 
         {/* Anuncio & estadisticas */}
@@ -99,24 +98,24 @@ export default function Home({ user, projects }) {
           </div>
           <div className="flex gap-x-0.5 rounded-xl w-full h-72 lg:h-auto lg:w-right shadow">
             {/* Izquierda */}
-            <div className="h-full w-right rounded-tl-xl rounded-bl-xl p-6 bg-white relative">
+            <div className="h-full w-right rounded-tl-xl rounded-bl-xl p-6 bg-color-light-neutral-1 dark:bg-color-neutral-2 relative">
               {/* Parte superior */}
               <div className="flex items-center">
                 <div className="flex justify-center items-center h-28 w-28">
                   <FiHexagon
-                    className="h-full w-full relative"
+                    className="h-full w-full relative text-black dark:text-gray-100"
                     style={{ strokeWidth: "0.6" }}
                   />
                   <div className="h-10 w-10 rounded absolute">
                     <img
                       src={`/ranks/${0}.jpg`}
-                      className="w-full h-full border border-black object-cover object-center rounded"
+                      className="w-full h-full border border-black dark:border-white object-cover object-center rounded"
                     />
                   </div>
                 </div>
                 <div className="flex flex-col ml-5">
                   {/* Nombre rango parte superior */}
-                  <p className="text-base font-bold capitalize">
+                  <p className="text-base font-bold capitalize text-gray-900 dark:text-gray-100">
                     {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
                     {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
                     {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
@@ -151,7 +150,7 @@ export default function Home({ user, projects }) {
                   </div>
 
                   {/* Your own boss */}
-                  <p className="text-sm font-semibold">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                     {Math.trunc((user.xp - 49) / 100) === 0.0 &&
                       Number(user.xp % 100)
                         .toFixed()
@@ -181,12 +180,12 @@ export default function Home({ user, projects }) {
 
               {Math.trunc((user.xp - 49) / 100 + 1) < 5 && (
                 <div className="flex items-center absolute bottom-0 mb-10">
-                  <p className="text-base font-bold capitalize">
+                  <p className="text-base font-bold capitalize text-gray-900 dark:text-gray-100">
                     rank up - {Math.trunc((user.xp - 49) / 100 + 1)}
                   </p>
                   <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
                     <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />
-                    <div className="w-full h-full rounded-full bg-green-200 absolute filter blur-sm" />
+                    <div className="w-full h-full rounded-full bg-green-200 absolute filter blur" />
                   </div>
                 </div>
               )}
@@ -195,28 +194,30 @@ export default function Home({ user, projects }) {
             {/* Derecha */}
             <div className="flex flex-col gap-y-0.5 h-full w-left">
               {/* Parte Superior */}
-              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-white relative">
-                <p className="text-lg font-bold capitalize">
+              <div className="h-7/10 w-full rounded-tr-xl p-6 bg-color-light-neutral-1 dark:bg-color-neutral-2 relative">
+                <p className="text-lg font-bold capitalize text-gray-900 dark:text-gray-100">
                   {user.userName}{" "}
-                  <span className="font-medium capitalize">- {stat.name}</span>
+                  <span className="font-medium capitalize text-gray-900 dark:text-gray-100">
+                    - {stat.name}
+                  </span>
                 </p>
                 <div className="flex gap-x-1 absolute bottom-0 mb-6">
                   <button
                     onClick={() => handleDecrement()}
-                    className="bg-gray-700 p-0.5 rounded"
+                    className="bg-color-neutral-3 dark:bg-color-light-neutral-4 p-0.5 rounded"
                   >
                     <FiChevronLeft className="h-5 w-5 text-white" />
                   </button>
                   <button
                     onClick={() => handleIncrement()}
-                    className="bg-gray-700 p-0.5 rounded"
+                    className="bg-color-neutral-3 dark:bg-color-light-neutral-4 p-0.5 rounded"
                   >
                     <FiChevronRight className="h-5 w-5 text-white" />
                   </button>
                 </div>
                 <div className="flex items-center gap-x-1 absolute bottom-0 right-0 mb-6 mr-6">
                   {stat.icon}
-                  <p className="p-0.5 text-xl font-bold">
+                  <p className="p-0.5 text-xl font-bold text-gray-900 dark:text-gray-100">
                     {stat.id === 0 && user.xp}
                     {stat.id === 1 && projects.owns.length}
                     {stat.id === 2 && projects.participates.length}
@@ -225,10 +226,12 @@ export default function Home({ user, projects }) {
                 </div>
               </div>
               {/* Parte Inferior */}
-              <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-white">
+              <div className="flex justify-between items-center h-3/10 w-full rounded-br-xl p-6 bg-color-light-neutral-1 dark:bg-color-neutral-2">
                 <div className="flex flex-col">
-                  <p className="text-xs font-bold uppercase">plan</p>
-                  <p className="text-xl font-bold capitalize">
+                  <p className="text-xs font-bold uppercase text-gray-900 dark:text-gray-100">
+                    plan
+                  </p>
+                  <p className="text-xl font-bold capitalize text-gray-900 dark:text-gray-100">
                     {user.plan === 0 ? "free" : "vip"}
                   </p>
                 </div>
@@ -251,14 +254,16 @@ export default function Home({ user, projects }) {
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Shortcut
               key={0}
-              img={<GoOrganization className="h-3/5 w-3/5" />}
+              img={
+                <GoOrganization className="h-3/5 w-3/5 dark:text-gray-100" />
+              }
               title={"create a team"}
               desc={"Start developing your new idea now"}
               url={"/home"}
             />
             <Shortcut
               key={1}
-              img={<GoTelescope className="h-3/5 w-3/5" />}
+              img={<GoTelescope className="h-3/5 w-3/5 dark:text-gray-100" />}
               title={"join a team"}
               desc={"Looking for amazing projects? join one now!"}
               url={"/home"}
@@ -293,27 +298,25 @@ export default function Home({ user, projects }) {
                 />
               )
             })}
-            {projects.participates == 0 && (
+            {projects.participates === 0 && (
               <div className="container pb-32 py-3">
                 <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
-                  <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600"/>
+                  <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600" />
                   <p className="text-base font-semibold text-justify">
-                    Oops! Looks like you don't have a team yet!
+                    Oops! Looks like you don&apos;t have a team yet!
                   </p>
                   <p className="text-sm font-normal text-justify">
-                    You can {" "}
+                    You can{" "}
                     <Link href="/my-team">
                       <a className="hover:underline text-blue-600">
                         create one
                       </a>
-                    </Link>
-                    {" "} or you can {" "}
+                    </Link>{" "}
+                    or you can{" "}
                     <Link href="/careers/teams">
-                      <a className="hover:underline text-blue-600">
-                        join
-                      </a>
-                    </Link>
-                    {" "} an already created team.
+                      <a className="hover:underline text-blue-600">join</a>
+                    </Link>{" "}
+                    an already created team.
                   </p>
                 </div>
               </div>

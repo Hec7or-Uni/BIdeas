@@ -41,12 +41,14 @@ export default function Modal() {
   }
 
   return (
-    <div className="absolute top-0 right-0 z-50 mt-16 bg-neutral rounded-xl mr-8">
+    <div className="absolute top-2 right-0 z-50 mt-16 bg-white shadow dark:bg-cm-color rounded-xl mr-8">
       <div className="flex flex-col p-2">
         {users.length !== 0 || teams.length !== 0 ? (
-          <h2 className="font-bold text-base mb-2">Notifications</h2>
+          <h2 className="font-bold text-base mb-2 text-gray-900 dark:text-gray-100">
+            Notifications
+          </h2>
         ) : (
-          <p className="w-72 font-normal text-sm mb-1">
+          <p className="w-72 font-normal text-sm mb-1 text-gray-500 dark:text-gray-300">
             It seems that there is no news.
           </p>
         )}
@@ -54,7 +56,7 @@ export default function Modal() {
         <div className="flex flex-col gap-y-1 overflow-y-auto max-h-60 ">
           {users.length !== 0 && (
             <>
-              <p className="w-72 font-normal text-sm mb-1">
+              <p className="w-72 font-normal text-sm mb-1 text-gray-500 dark:text-gray-300">
                 Hey! it looks like someone wants to join your team.
               </p>
               {users.map((item) => {
@@ -75,7 +77,7 @@ export default function Modal() {
           )}
           {teams.length !== 0 && (
             <>
-              <p className="w-72 font-normal text-sm mt-2 mb-1">
+              <p className="w-72 font-normal text-sm mt-2 mb-1 text-gray-500 dark:text-gray-300">
                 Hey! Looks like someone wants you to join their team!
               </p>
               {teams.map((item) => {

@@ -58,29 +58,33 @@ export default function Professionals({ user }) {
 
   return (
     <>
-      <Meta title="Professionals"/>
+      <Meta title="Professionals" />
       <div className="px-8">
-        <p className="text-lg font-bold">Lot of Professionals</p>
-        <p className="text-base font-normal">
+        <p className="text-lg font-bold dark:text-gray-100">
+          Lot of Professionals
+        </p>
+        <p className="text-base font-normal dark:text-gray-100">
           Here you will be able to find many motivated people to complete your
           team.
         </p>
       </div>
-      <div className="flex items-center gap-x-5 w-full bg-white shadow-sm px-8 my-8 py-5">
+      <div className="flex items-center gap-x-5 w-full bg-color-light-neutral-1 dark:bg-gray-900 shadow-sm px-8 my-8 py-5">
         <div
-          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out opacity-75
+          className={`flex w-12 h-5 rounded-full shadow-inner transition duration-200 ease-in-out
           ${isToggled ? "bg-green-400" : "bg-red-400"}`}
         >
           <button
             onClick={() => Toggle(!isToggled)}
-            className={`self-center w-6 h-6 bg-gray-100 rounded-full transition duration-500 
+            className={`self-center w-6 h-6 bg-white rounded-full transition duration-500 
             ${isToggled ? "transform translate-x-full" : ""}`}
           />
         </div>
 
         <div>
-          <p className="text-lg font-semibold">Available for hire</p>
-          <p className="text-base font-normal">
+          <p className="text-lg font-semibold text-black dark:text-white">
+            Available for hire
+          </p>
+          <p className="text-base font-normal text-black dark:text-white">
             Make my profile available for hire
           </p>
         </div>
@@ -90,51 +94,61 @@ export default function Professionals({ user }) {
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold">Proffesional Board</p>
-          <p className="text-base font-normal mb-4">
-            <span>{users.length}</span> users available for hire
+          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
+            Proffesional Board
           </p>
-          {users.map((item) => {
-            return (
-              <Preview
-                key={item.id}
-                id={item.id}
-                img={item.avatar}
-                title={item.name + " " + item.lastName}
-                subtitle={item.studies}
-                accion1={"view profile"}
-                accion2={"contact"}
-                isUser={true}
-                url={item.userName}
-                createdAt={item.createdAt}
-              />
-            )
-          })}
+          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
+            <span>{users.length}</span> {users.length === 1 ? "user" : "users"}{" "}
+            available for hire
+          </p>
+          <div className="flex flex-col gap-y-4">
+            {users.map((item) => {
+              return (
+                <Preview
+                  key={item.id}
+                  id={item.id}
+                  img={item.avatar}
+                  title={item.name + " " + item.lastName}
+                  subtitle={item.studies}
+                  accion1={"view profile"}
+                  accion2={"contact"}
+                  isUser={true}
+                  url={item.userName}
+                  createdAt={item.createdAt}
+                />
+              )
+            })}
+          </div>
         </div>
       )}
       {isActive === 2 && (
         <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold">Proffesional Board</p>
-          <p className="text-base font-normal mb-4">
-            You have contacted <span>{contactedUsers.length}</span> people
+          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
+            Proffesional Board
           </p>
-          {contactedUsers.map((item) => {
-            return (
-              <Preview
-                key={item.id}
-                id={item.id}
-                img={item.user.avatar}
-                title={item.user.name + " " + item.user.lastName}
-                subtitle={item.user.studies}
-                accion1={"view profile"}
-                accion2={"contact"}
-                applied={true}
-                isUser={true}
-                url={item.user.userName}
-                createdAt={item.user.createdAt}
-              />
-            )
-          })}
+          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
+            You have contacted <span>{contactedUsers.length}</span>{" "}
+            {contactedUsers.length === 1 ? "person" : "people"}
+          </p>
+          <div className="flex flex-col gap-y-4">
+            {contactedUsers.map((item) => {
+              return (
+                <Preview
+                  key={item.id}
+                  id={item.id}
+                  img={item.user.avatar}
+                  title={item.user.name + " " + item.user.lastName}
+                  subtitle={item.user.studies}
+                  accion1={"view profile"}
+                  accion2={"contact"}
+                  applied={true}
+                  isUser={true}
+                  url={item.user.userName}
+                  createdAt={item.user.createdAt}
+                />
+              )
+            })}
+          </div>
         </div>
       )}
     </>

@@ -6,12 +6,11 @@ import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "components/Navegation/LineMenu"
 import Layout from "../components/layout"
-import Footer from "components/Navegation/Footer"
 import Meta from "components/Meta"
 import { useLMenu } from "../context/LMenuContext"
 import { countryList } from "../data/countryList"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
-import { RiBlazeLine} from "react-icons/ri"
+import { RiBlazeLine } from "react-icons/ri"
 
 const numMaxMembers = {
   2: "2",
@@ -106,7 +105,7 @@ export default function Team({ team, user, workers }) {
 
   return (
     <div className="px-8 py-3">
-      <Meta title="My Team"/>
+      <Meta title="My Team" />
       <Header
         avatar={user.avatar}
         username={user.userName}
@@ -120,7 +119,7 @@ export default function Team({ team, user, workers }) {
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
-              <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
+              <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full">
                 <img
                   src={team.avatar || "/anuncios/anuncio2.jpg"}
                   alt=""
@@ -129,20 +128,24 @@ export default function Team({ team, user, workers }) {
               </div>
               <div className="flex flex-col gap-y-1">
                 <div className="flex items-center gap-x-2">
-                  <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full bg-gray-100">
+                  <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full">
                     <img
                       src="/banderas/spain.png"
                       alt=""
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
-                  <p className="text-lg font-bold">{team.teamName}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                    {team.teamName}
+                  </p>
                 </div>
-                <p className="text-base font-medium">{team.motto}</p>
+                <p className="text-base font-medium text-gray-900 dark:text-gray-100">
+                  {team.motto}
+                </p>
               </div>
             </div>
           </div>
-          <p className="flex flex-col self-center w-2/4 leading-snug my-5">
+          <p className="flex flex-col self-center w-2/4 leading-snug my-5 text-gray-900 dark:text-gray-100">
             {team.description}
           </p>
 
@@ -181,27 +184,22 @@ export default function Team({ team, user, workers }) {
         </div>
       )}
       {isActive === 1 && !team.teamName && (
-
         <div className="container py-32">
           <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
-            <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600"/>
+            <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600" />
             <p className="text-lg font-semibold text-justify">
-              Oops! Looks like you don't have a team yet!
+              Oops! Looks like you don&apos;t have a team yet!
             </p>
             <p className="text-lg font-normal text-justify">
-              You can {" "}
+              You can{" "}
               <Link href="">
-                <a className="hover:underline text-blue-600">
-                  create one
-                </a>
-              </Link>
-              {" "} or you can {" "}
+                <a className="hover:underline text-blue-600">create one</a>
+              </Link>{" "}
+              or you can{" "}
               <Link href="/careers/teams">
-                <a className="hover:underline text-blue-600">
-                  join
-                </a>
-              </Link>
-              {" "} an already created team.
+                <a className="hover:underline text-blue-600">join</a>
+              </Link>{" "}
+              an already created team.
             </p>
           </div>
         </div>

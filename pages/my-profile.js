@@ -102,7 +102,7 @@ export default function Profile({ user, owns, participates }) {
 
   return (
     <div className="w-full px-8 py-3">
-      <Meta title="My Profile"/>
+      <Meta title="My Profile" />
       <Header
         avatar={user.avatar}
         username={user.userName}
@@ -115,21 +115,21 @@ export default function Profile({ user, owns, participates }) {
       {isActive === 1 && (
         <div className="container mt-6">
           <div className="flex gap-x-5">
-            <div className="flex gap-x-1 items-center justify-center w-1/4 h-44 bg-neutral">
+            <div className="flex gap-x-1 items-center justify-center w-1/4 h-44 bg-color-light-neutral-1 dark:bg-color-neutral-2 shadow-sm">
               <div className="flex justify-center items-center h-28 w-28 relative">
                 <FiHexagon
-                  className="h-full w-full relative"
+                  className="h-full w-full relative dark:text-gray-100"
                   style={{ strokeWidth: "0.6" }}
                 />
                 <div className="h-10 w-10 rounded absolute">
                   <img
                     src={`/ranks/${0}.jpg`}
-                    className="w-full h-full object-cover object-center rounded border border-black"
+                    className="w-full h-full object-cover object-center rounded border border-black dark:border-gray-100"
                   />
                 </div>
               </div>
               <div>
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
                   {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
                   {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
                   {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
@@ -141,11 +141,13 @@ export default function Profile({ user, owns, participates }) {
                     </span>
                   )}
                 </p>
-                <p className="text-lg font-normal">rank</p>
+                <p className="text-lg font-normal text-gray-900 dark:text-gray-100">
+                  rank
+                </p>
               </div>
             </div>
             <div className="flex flex-col self-start w-2/4 leading-snug">
-              <p>
+              <p className="text-gray-900 dark:text-gray-100">
                 {user.description
                   ? user.description
                   : "Your account does not have a description yet!"}
@@ -176,7 +178,7 @@ export default function Profile({ user, owns, participates }) {
             />
           </div>
 
-          <div className="flex flex-col gap-x-5 mt-12">
+          <div className="flex flex-col gap-y-4 mt-12">
             {owns.map((item) => {
               return (
                 <TeUsCard
