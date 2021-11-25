@@ -3,9 +3,10 @@ import { getSession } from "next-auth/react"
 import Link from "next/link"
 import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
-import Cabecera from "components/Cabeceras/Cabecera"
+import Info from "components/Cabeceras/Info"
 import Layout from "../components/layout"
 import Meta from "../components/Meta"
+import { links4home } from "data/LineMenu"
 import { GoOrganization, GoTelescope } from "react-icons/go"
 import { RiBlazeLine } from "react-icons/ri"
 import {
@@ -18,21 +19,6 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi"
-
-const links = [
-  {
-    id: 1,
-    name: "overview",
-  },
-  {
-    id: 2,
-    name: "recommended",
-  },
-  {
-    id: 3,
-    name: "in progress",
-  },
-]
 
 const Stats = [
   {
@@ -57,7 +43,7 @@ const Stats = [
   },
 ]
 
-export default function Home({ user, projects }) {
+export default function Home({ user, owns, recommended, participates }) {
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
   const [stat, setStat] = useState(Stats[0])
@@ -85,7 +71,7 @@ export default function Home({ user, projects }) {
       <div className="px-8 pt-3">
         {/* Cabecera */}
         <Meta title="Home" />
-        <Cabecera />
+        <Info />
 
         {/* Anuncio & estadisticas */}
         <div className="flex flex-col lg:flex-row w-full gap-x-6 gap-y-4 my-5">
@@ -116,12 +102,12 @@ export default function Home({ user, projects }) {
                 <div className="flex flex-col ml-5">
                   {/* Nombre rango parte superior */}
                   <p className="text-base font-bold capitalize text-gray-900 dark:text-gray-100">
-                    {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
-                    {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
-                    {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
-                    {Math.trunc((user.xp - 49) / 100) === 3 && "Businessman"}
-                    {Math.trunc((user.xp - 49) / 100) === 4 && "Your own Boss"}
-                    {Math.trunc((user.xp - 49) / 100) >= 5 && (
+                    {Math.trunc(user.xp / 100) === 0 && "Newbie"}
+                    {Math.trunc(user.xp / 100) === 1 && "Entrepeneur"}
+                    {Math.trunc(user.xp / 100) === 2 && "Veteran"}
+                    {Math.trunc(user.xp / 100) === 3 && "Businessman"}
+                    {Math.trunc(user.xp / 100) === 4 && "Your own Boss"}
+                    {Math.trunc(user.xp / 100) >= 5 && (
                       <span className="text-yellow-500 animate-pulse duration-700">
                         GOAT
                       </span>
@@ -130,7 +116,7 @@ export default function Home({ user, projects }) {
 
                   {/* Barra rango */}
                   <div className="w-40 bg-gray-200 rounded-full h-1 my-1.5">
-                    {Number((user.xp - 49) / 100).toFixed() < 5 && (
+                    {Number(user.xp / 100).toFixed() < 5 && (
                       <div
                         className="bg-gray-800 h-1 rounded-full"
                         style={{
@@ -141,7 +127,7 @@ export default function Home({ user, projects }) {
                         }}
                       ></div>
                     )}
-                    {Number((user.xp - 49) / 100).toFixed() >= 5 && (
+                    {Number(user.xp / 100).toFixed() >= 5 && (
                       <div
                         className="bg-gray-800 h-1 rounded-full"
                         style={{ width: "100%" }}
@@ -151,37 +137,37 @@ export default function Home({ user, projects }) {
 
                   {/* Your own boss */}
                   <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {Math.trunc((user.xp - 49) / 100) === 0.0 &&
+                    {Math.trunc(user.xp / 100) === 0.0 &&
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards entrepeneur"}
-                    {Math.trunc((user.xp - 49) / 100) === 1.0 &&
+                    {Math.trunc(user.xp / 100) === 1.0 &&
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards veteran"}
-                    {Math.trunc((user.xp - 49) / 100) === 2.0 &&
+                    {Math.trunc(user.xp / 100) === 2.0 &&
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards businessman"}
-                    {Math.trunc((user.xp - 49) / 100) === 3.0 &&
+                    {Math.trunc(user.xp / 100) === 3.0 &&
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards your own boss"}
-                    {Math.trunc((user.xp - 49) / 100) === 4.0 &&
+                    {Math.trunc(user.xp / 100) === 4.0 &&
                       Number(user.xp % 100)
                         .toFixed()
                         .toString() + "% towards goat"}
-                    {Math.trunc((user.xp - 49) / 100) >= 5 && "You are a GOAT"}
+                    {Math.trunc(user.xp / 100) >= 5 && "You are a GOAT"}
                   </p>
                 </div>
               </div>
               {/* Historial */}
               {/* Rank */}
 
-              {Math.trunc((user.xp - 49) / 100 + 1) < 5 && (
+              {Math.trunc(user.xp / 100 + 1) < 5 && (
                 <div className="flex items-center absolute bottom-0 mb-10">
                   <p className="text-base font-bold capitalize text-gray-900 dark:text-gray-100">
-                    rank up - {Math.trunc((user.xp - 49) / 100 + 1)}
+                    rank up - {Math.trunc(user.xp / 100 + 1)}
                   </p>
                   <div className="flex items-center h-7 w-7 ml-3 rounded-full relative">
                     <FiChevronUp className="h-5 w-5 mx-auto text-green-600 z-10" />
@@ -219,8 +205,8 @@ export default function Home({ user, projects }) {
                   {stat.icon}
                   <p className="p-0.5 text-xl font-bold text-gray-900 dark:text-gray-100">
                     {stat.id === 0 && user.xp}
-                    {stat.id === 1 && projects.owns.length}
-                    {stat.id === 2 && projects.participates.length}
+                    {stat.id === 1 && owns.length}
+                    {stat.id === 2 && participates.length}
                     {stat.id === 3 && user.respect}
                   </p>
                 </div>
@@ -249,7 +235,11 @@ export default function Home({ user, projects }) {
       </div>
 
       <div className="mt-3 px-8">
-        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+        <LineMenu
+          handleMenu={handleMenu}
+          data={links4home}
+          isActive={isActive}
+        />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Shortcut
@@ -272,7 +262,7 @@ export default function Home({ user, projects }) {
         )}
         {isActive === 2 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            {projects.recommended.map((item) => {
+            {recommended.map((item) => {
               return (
                 <Shortcut
                   key={item.id}
@@ -287,7 +277,7 @@ export default function Home({ user, projects }) {
         )}
         {isActive === 3 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            {projects.participates.map((item) => {
+            {participates.map((item) => {
               return (
                 <Shortcut
                   key={item.project.id}
@@ -298,7 +288,7 @@ export default function Home({ user, projects }) {
                 />
               )
             })}
-            {projects.participates === 0 && (
+            {participates === 0 && (
               <div className="container pb-32 py-3">
                 <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
                   <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600" />
@@ -358,12 +348,19 @@ export async function getServerSideProps({ req }) {
   }
 
   const { user, projects } = res.data
+  let { owns, recommended, participates } = projects
+  const participatesCopy = participates.map((item) => item.idProject)
+  recommended = recommended.filter(
+    (item) => !participatesCopy.includes(item.id)
+  )
 
   return {
     props: {
       session,
       user,
-      projects,
+      owns,
+      recommended,
+      participates,
     },
   }
 }

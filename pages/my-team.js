@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
 import Link from "next/link"
-import Header from "components/Header"
+import Header from "components/Cabeceras/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import Layout from "../components/layout"
 import Meta from "components/Meta"
 import LineMenu from "../components/Navegation/LineMenu"
 import { countryList } from "../data/countryList"
+import { links4myteam } from "data/LineMenu"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 import { RiBlazeLine } from "react-icons/ri"
 
@@ -24,17 +25,6 @@ const numMaxMembers = {
   20: "20",
   unlimited: "Unlimited",
 }
-
-const links = [
-  {
-    id: 1,
-    name: "team",
-  },
-  {
-    id: 2,
-    name: "team settings",
-  },
-]
 
 export default function Team({ team, user, workers }) {
   const [isActive, setActive] = useState(1)
@@ -114,7 +104,11 @@ export default function Team({ team, user, workers }) {
         plan={user.plan}
         xp={user.xp}
       />
-      <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+      <LineMenu
+        handleMenu={handleMenu}
+        data={links4myteam}
+        isActive={isActive}
+      />
       {isActive === 1 && team.teamName && (
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
