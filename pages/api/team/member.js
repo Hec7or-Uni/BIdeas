@@ -18,13 +18,11 @@ export default async (req, res) => {
       let data
 
       if (Number(query.type) === 0) {
-        console.log("<team> <- <user>", query)
         // Elimina la request: <team> <- <user> con id: <query.id>
         // Añade a la lista de participantes del team: <idProject> al user: <idUser>
         await deleteReqProject(query.id)
         data = await createUserTeam(query.idUser, query.idProject)
       } else {
-        console.log("<user> -> <team>", query)
         // Elimina la request: <user> -> <team> con id: <query.id>
         // Añade al user: <idUser> al team: <idProject>
         await deleteReqUser(query.id)

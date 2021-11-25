@@ -36,16 +36,6 @@ export default function Professionals({ user }) {
     { fetcher }
   )
 
-  if (res1.error) {
-    return router.push("/404")
-  } else {
-    if (!res1.data) {
-      return <>loading</>
-    } else {
-      users = res1.data.data.users.filter((item) => item.id !== user.id)
-    }
-  }
-
   if (res2.error) {
     return router.push("/404")
   } else {
@@ -53,6 +43,16 @@ export default function Professionals({ user }) {
       return <>loading</>
     } else {
       contactedUsers = res2.data.data.users
+    }
+  }
+
+  if (res1.error) {
+    return router.push("/404")
+  } else {
+    if (!res1.data) {
+      return <>loading</>
+    } else {
+      users = res1.data.data.users.filter((item) => item.id !== user.id)
     }
   }
 

@@ -25,6 +25,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Teams({ user, myProjects }) {
   let projects = null
   let appliedJobs = null
+  let current = null
 
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
@@ -38,15 +39,19 @@ export default function Teams({ user, myProjects }) {
     fetcher
   )
 
-  if (res1.error) {
+  const params2 = new URLSearchParams({ id: user.id })
+  const res3 = useSWR(
+    `http://localhost:3000/api/user/participates?${params2.toString()}`,
+    fetcher
+  )
+
+  if (res3.error) {
     return router.push("/404")
   } else {
-    if (!res1.data) {
+    if (!res3.data) {
       return <>loading</>
     } else {
-      projects = res1.data.data.teams.filter(
-        (item) => item.id !== myProjects.id
-      )
+      current = res3.data.data.current.map((item) => item.project.id)
     }
   }
 
@@ -57,6 +62,18 @@ export default function Teams({ user, myProjects }) {
       return <>loading</>
     } else {
       appliedJobs = res2.data.data.teams
+    }
+  }
+
+  if (res1.error) {
+    return router.push("/404")
+  } else {
+    if (!res1.data) {
+      return <>loading</>
+    } else {
+      projects = res1.data.data.teams
+        .filter((item) => item.id !== myProjects.id)
+        .filter((item) => !current.includes(item.id))
     }
   }
 
