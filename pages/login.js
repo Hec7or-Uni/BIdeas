@@ -3,8 +3,8 @@ import { getCsrfToken } from "next-auth/react"
 
 export default function Login({ csrfToken }) {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5">
-      <div className="w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-6">
+    <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5 dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
+      <div className="w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
         <div className="flex items-center justify-center">
           <span className="text-xl font-medium text-gray-900">Login</span>
         </div>
@@ -15,12 +15,12 @@ export default function Login({ csrfToken }) {
         >
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <label type="id" className="block">
-            <span className="text-sm text-gray-700">Email</span>
+            <span className="text-sm text-gray-700">Username or Email</span>
             <input
               id="id"
               type="id"
               name="id"
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>
@@ -30,7 +30,7 @@ export default function Login({ csrfToken }) {
               id="password"
               type="password"
               name="password"
-              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
+              className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>

@@ -13,7 +13,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
   const [isToggle, ToggleSidebar] = useSidebar()
 
   return (
-    <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-white">
+    <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-color-light-neutral-1 dark:bg-cm-color">
       {/* Logotipo */}
       <Link href="/">
         <a
@@ -34,11 +34,11 @@ export default function NewNavbar({ avatar, userName, plan }) {
               setActive(false)
             }}
           >
-            <FiMail className="h-5 w-5 hover:text-blue-500" />
+            <FiMail className="h-5 w-5 hover:text-blue-500 dark:text-white" />
           </button>
           <Link href="/faq">
             <a>
-              <FiHelpCircle className="h-5 w-5 hover:text-green-500" />
+              <FiHelpCircle className="h-5 w-5 hover:text-green-500 dark:text-white" />
             </a>
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
               className="w-full h-full rounded-full object-cover center"
             />
           </div>
-          <p className="text-lg font-normal text-black capitalize">
+          <p className="text-lg font-normal text-black dark:text-white capitalize">
             {userName}
           </p>
           <div>
@@ -61,19 +61,19 @@ export default function NewNavbar({ avatar, userName, plan }) {
               }}
             >
               <FiChevronUp
-                className={`mt-2 transition duration-500 
+                className={`mt-2 transition duration-500 dark:text-white
                 ${isActive ? "-rotate-180" : ""}`}
               />
             </button>
             {isActive && (
-              <div className="flex flex-col w-52 mt-6 rounded-md bg-neutral absolute right-0 z-50 py-1">
+              <div className="p-2 flex flex-col gap-y-2 w-52 mt-16 rounded-md bg-white shadow dark:bg-cm-color absolute top-0 right-0 z-50">
                 {links.map((item) => {
                   return item.name === "go vip" && plan === 1 ? (
                     <></>
                   ) : (
                     <Link href={item.url} key={1}>
-                      <a className="px-3 py-1.5 hover:bg-basic">
-                        <p className="text-base font-semibold text-black capitalize">
+                      <a className="px-3 py-1.5 hover:bg-color-light-neutral-1 dark:hover:bg-color-neutral-3 rounded-lg">
+                        <p className="text-base font-semibold text-black dark:text-white capitalize">
                           {item.name}
                         </p>
                       </a>
@@ -82,9 +82,9 @@ export default function NewNavbar({ avatar, userName, plan }) {
                 })}
                 <button
                   onClick={() => signOut()}
-                  className="px-3 py-1.5 hover:bg-neutral bg-gray-50"
+                  className="px-3 py-1.5 bg-white hover:bg-red-200 rounded-lg"
                 >
-                  <p className="text-base font-semibold text-black capitalize">
+                  <p className="text-base font-semibold text-red-600 capitalize">
                     Logout
                   </p>
                 </button>

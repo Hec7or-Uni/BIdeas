@@ -4,19 +4,19 @@ export const cat1 = [
   {
     id: 1,
     url: "/home",
-    icon: <FiMonitor className={`w-full h-full`} />,
+    icon: <FiMonitor className={`w-full h-full dark:text-white`} />,
     text: "home",
   },
   {
     id: 2,
     url: "/my-profile",
-    icon: <FiUser className={`w-full h-full`} />,
+    icon: <FiUser className={`w-full h-full dark:text-white`} />,
     text: "My Profile",
   },
   {
     id: 3,
     url: "/my-team",
-    icon: <FiUsers className={`w-full h-full`} />,
+    icon: <FiUsers className={`w-full h-full dark:text-white`} />,
     text: "My Team",
   },
 ]
@@ -24,7 +24,7 @@ export const cat1 = [
 export const cat2 = [
   {
     id: 1,
-    icon: <FiBriefcase className={`w-full h-full`} />,
+    icon: <FiBriefcase className={`w-full h-full dark:text-white`} />,
     text: "carrers",
     sub: [
       {

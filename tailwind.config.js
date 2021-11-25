@@ -1,12 +1,31 @@
 module.exports = {
   mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "media", // or 'media' or 'class'
   theme: {
+    gradientColorStops: (theme) => ({
+      ...theme("colors"),
+      "cm-color": "#17171a",
+      "cm-color2": "#222531",
+    }),
     extend: {
       backgroundColor: {
         neutral: "#eff2f5",
         basic: "#f8fafd",
+        "color-light-neutral-1": "#f8fafd",
+        "color-light-neutral-2": "#eff2f5",
+        "color-light-neutral-3": "#a6b0c3",
+        "color-light-neutral-4": "#808a9d",
+        "color-light-neutral-5": "#58667e",
+        "color-light-neutral-6": "#eff2f5",
+        "color-neutral-1": "#171924",
+        "color-neutral-2": "#222531",
+        "color-neutral-3": "#323546",
+        "color-neutral-4": "#646b80",
+        "color-neutral-5": "#858ca2",
+        "color-neutral-6": "#a1a7bb",
+        "cm-color": "#17171a",
+        "cm-color2": "#222531",
       },
       width: {
         left: "42%",
@@ -30,7 +49,7 @@ module.exports = {
         3.5: "3.5rem",
       },
       minHeight: {
-        32: "8rem", 
+        32: "8rem",
       },
       maxWidth: {},
       maxHeight: {

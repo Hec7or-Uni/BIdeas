@@ -6,13 +6,13 @@ export default function NewButton({ url, icon, text, current }) {
   return (
     <Link href={url}>
       <a
-        className={`flex items-center h-9 w-full px-2.5 py-2.5 rounded hover:bg-neutral relative
-        ${current ? "bg-neutral" : ""}`}
+        className={`flex items-center h-9 w-full px-2.5 py-2.5 rounded hover:bg-color-light-neutral-2 dark:hover:bg-color-neutral-3 relative
+        ${current ? "bg-color-light-neutral-2 dark:bg-color-neutral-3" : ""}`}
         onClick={() => ToggleSidebar(false)}
       >
         <div className="w-5 h-5">{icon}</div>
         {!isToggle && (
-          <p className="ml-1.5 max-w-40 text-base font-medium text-left text-black capitalize truncate overflow-clip overflow-hidden tracking-tight">
+          <p className="ml-1.5 max-w-40 text-base font-medium text-left text-black dark:text-white capitalize truncate overflow-clip overflow-hidden tracking-tight">
             {text}
           </p>
         )}

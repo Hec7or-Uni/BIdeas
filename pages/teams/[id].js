@@ -5,6 +5,7 @@ import Header from "../../components/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
 import Layout from "../../components/layout"
+import Meta from "components/Meta"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -24,7 +25,7 @@ export default function Team() {
     return router.push("/404")
   } else {
     if (!data) {
-      return <>loading</>
+      return <>Loading...</>
     } else {
       const { project, users } = data.data
       const { owner, workers } = users
@@ -36,39 +37,45 @@ export default function Team() {
 
   return (
     <div className="px-8 py-3">
+      <Meta title={team.teamName} />
       <Header
         avatar={ownerCli.avatar}
         username={ownerCli.userName}
         id={ownerCli.id}
         studies={ownerCli.studies}
         plan={ownerCli.plan}
+        xp={ownerCli.xp}
       />
-      <div className="w-full mt-6">
+      <div className="w-full mt-16">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-x-6">
-            <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full bg-gray-100">
+            <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full">
               <img
-                src={team.avatar || "/anuncios/anuncio2.jpg"}
+                src={team.avatar || "/personas/DefaultTeamAvatar.png"}
                 alt=""
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
             <div className="flex flex-col gap-y-1">
               <div className="flex items-center gap-x-2">
-                <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full bg-gray-100">
+                <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full">
                   <img
                     src="/banderas/spain.png"
                     alt=""
                     className="w-full h-full rounded-full object-cover"
                   />
                 </div>
-                <p className="text-lg font-bold">{team.teamName}</p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  {team.teamName}
+                </p>
               </div>
-              <p className="text-base font-medium">{team.motto}</p>
+              <p className="text-base font-medium text-gray-900 dark:text-white">
+                {team.motto}
+              </p>
             </div>
           </div>
         </div>
-        <p className="flex flex-col self-center w-2/4 leading-snug my-5">
+        <p className="flex flex-col self-center w-2/4 leading-snug my-5 text-gray-900 dark:text-white">
           {team.description}
         </p>
 
@@ -90,7 +97,7 @@ export default function Team() {
           />
         </div>
 
-        <div className="flex flex-col gap-x-5 mt-12">
+        <div className="flex flex-col gap-y-4 mt-12">
           {workersCli.map((item) => {
             return (
               <TeUsCard

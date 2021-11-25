@@ -5,7 +5,7 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
       {/* Profile */}
       <div className="flex items-center">
-        <div className="w-16 h-16 rounded-full relative bg-green-500">
+        <div className="w-16 h-16 rounded-full relative">
           <img
             src={avatar || "/personas/DefaultAvatar.jpg"}
             className="w-full h-full rounded-full object-cover center"
@@ -20,12 +20,14 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
 
         <div className="ml-8">
           <div className="flex items-end">
-            <p className="text-lg font-bold text-black capitalize">
+            <p className="text-lg font-bold text-gray-900 dark:text-gray-100 capitalize">
               {username}
             </p>
-            <p className="ml-2 text-base font-semibold text-black">#{id}</p>
+            <p className="ml-2 text-base font-semibold text-gray-900 dark:text-gray-100">
+              #{id}
+            </p>
           </div>
-          <p className="text-base font-semibold text-gray-800 capitalize">
+          <p className="text-base font-semibold text-gray-700 dark:text-gray-100 capitalize">
             {studies}
           </p>
         </div>
@@ -34,8 +36,10 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
       <div className="flex gap-4 absolute right-0 mr-16">
         {/* Rank */}
         <div className="flex flex-col uppercase mr-16">
-          <p className="text-sm font-medium">rank</p>
-          <p className="text-lg font-bold">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            rank
+          </p>
+          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
             {Math.trunc((xp - 49) / 100) === 0 && "Newbie"}
             {Math.trunc((xp - 49) / 100) === 1 && "Entrepeneur"}
             {Math.trunc((xp - 49) / 100) === 2 && "Veteran"}
@@ -51,8 +55,12 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
 
         {/* Plan Type */}
         <div className="flex flex-col uppercase">
-          <p className="text-sm font-medium">plan type</p>
-          <p className="text-lg font-bold">{plan === 0 ? "free" : "vip"}</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            plan type
+          </p>
+          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
+            {plan === 0 ? "free" : "vip"}
+          </p>
           {plan === 0 && (
             <Link href="#">
               <a className="text-sm font-medium text-blue-600 hover:underline">
