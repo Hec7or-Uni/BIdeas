@@ -5,7 +5,7 @@ import { useSidebar } from "../../context/SideBarContext"
 import { FiChevronUp, FiHelpCircle, FiMail } from "react-icons/fi"
 import { links } from "../../data/Navbar"
 import Logo from "../Logo"
-import Modal from "../Modal"
+import Modal from "../Modals/Modal"
 
 export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)

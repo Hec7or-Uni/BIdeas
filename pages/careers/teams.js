@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react"
 import Layout from "../../components/layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
+import Careers from "components/Content/careers"
 
 import useSWR from "swr"
 
@@ -62,64 +63,56 @@ export default function Teams({ user, myProjects }) {
         handleMenu={handleMenu}
         isActive={isActive}
       />
-      {isActive === 1 && (
-        <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            Job Board
-          </p>
-          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
-            <span>{projects.length}</span> active{" "}
-            {projects.length === 1 ? "job opportunity" : "jobs opportunities"}
-          </p>
-          <div className="flex flex-col gap-y-4">
-            {projects.map((item) => {
-              return (
-                <Preview
-                  key={item.id}
-                  id={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  subtitle={item.motto}
-                  accion1={"view job"}
-                  accion2={"apply for job"}
-                  isUser={false}
-                  url={item.teamName}
-                  createdAt={item.createdAt}
-                />
-              )
-            })}
-          </div>
-        </div>
-      )}
-      {isActive === 2 && (
-        <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            Job Board
-          </p>
-          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
-            you applied for <span>{appliedJobs.length}</span>{" "}
-            {appliedJobs.length === 1 ? "job" : "jobs"}
-          </p>
-          <div className="flex flex-col gap-y-4">
-            {appliedJobs.map((item) => {
-              return (
-                <Preview
-                  key={item.id}
-                  id={item.id}
-                  img={item.project.avatar}
-                  title={item.project.teamName}
-                  subtitle={item.project.motto}
-                  accion1={"view job"}
-                  accion2={"apply for job"}
-                  applied={true}
-                  isUser={false}
-                  url={item.project.teamName}
-                  createdAt={item.project.createdAt}
-                />
-              )
-            })}
-          </div>
-        </div>
+      {isActive === 1 ? (
+        <Careers
+          title={"Job Board"}
+          text={
+            projects.length +
+            " active " +
+            (projects.length === 1 ? " job opportunity" : " jobs opportunities")
+          }
+          lista={projects.map((item, idx) => {
+            return (
+              <Preview
+                key={idx}
+                id={item.id}
+                img={item.avatar}
+                title={item.teamName}
+                subtitle={item.motto}
+                url={item.teamName}
+                createdAt={item.createdAt}
+                isUser={false}
+                accion1={"view job"}
+                accion2={"apply for job"}
+              />
+            )
+          })}
+        />
+      ) : (
+        <Careers
+          title={"Job Board"}
+          text={
+            "you applied for " +
+            appliedJobs.length +
+            (appliedJobs.length === 1 ? "job" : "jobs")
+          }
+          lista={appliedJobs.map((item, idx) => {
+            return (
+              <Preview
+                key={idx}
+                id={item.id}
+                img={item.project.avatar}
+                title={item.project.teamName}
+                subtitle={item.project.motto}
+                url={item.project.teamName}
+                createdAt={item.project.createdAt}
+                isUser={false}
+                accion1={"view job"}
+                accion2={"remove"}
+              />
+            )
+          })}
+        />
       )}
     </>
   )

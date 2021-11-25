@@ -1,5 +1,5 @@
 import useSWR from "swr"
-import Notification from "./Cards/Notification"
+import Notification from "../Cards/Notification"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 

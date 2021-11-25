@@ -5,6 +5,7 @@ import useSWR from "swr"
 import Layout from "../../components/layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
+import Careers from "components/Content/careers"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -44,6 +45,8 @@ export default function Professionals({ user }) {
     .filter((item) => item.id !== user.id)
     .filter((item) => !contactedUsersCopy.includes(item.id))
 
+  console.log(contactedUsers, users)
+
   return (
     <>
       <Preload
@@ -55,64 +58,56 @@ export default function Professionals({ user }) {
         handleMenu={handleMenu}
         isActive={isActive}
       />
-      {isActive === 1 && (
-        <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            Proffesional Board
-          </p>
-          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
-            <span>{users.length}</span> {users.length === 1 ? "user" : "users"}{" "}
-            available for hire
-          </p>
-          <div className="flex flex-col gap-y-4">
-            {users.map((item) => {
-              return (
-                <Preview
-                  key={item.id}
-                  id={item.id}
-                  img={item.avatar}
-                  title={item.name + " " + item.lastName}
-                  subtitle={item.studies}
-                  accion1={"view profile"}
-                  accion2={"contact"}
-                  isUser={true}
-                  url={item.userName}
-                  createdAt={item.createdAt}
-                />
-              )
-            })}
-          </div>
-        </div>
-      )}
-      {isActive === 2 && (
-        <div className="container px-8 mx-auto">
-          <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            Proffesional Board
-          </p>
-          <p className="text-base font-normal mb-4 text-gray-700 dark:text-gray-100">
-            You have contacted <span>{contactedUsers.length}</span>{" "}
-            {contactedUsers.length === 1 ? "person" : "people"}
-          </p>
-          <div className="flex flex-col gap-y-4">
-            {contactedUsers.map((item) => {
-              return (
-                <Preview
-                  key={item.id}
-                  id={item.id}
-                  img={item.user.avatar}
-                  title={item.user.name + " " + item.user.lastName}
-                  subtitle={item.user.studies}
-                  accion1={"view profile"}
-                  accion2={"contact"}
-                  applied={true}
-                  isUser={true}
-                  url={item.user.userName}
-                  createdAt={item.user.createdAt}
-                />
-              )
-            })}
-          </div>
-        </div>
+      {isActive === 1 ? (
+        <Careers
+          title={"Proffesional Board"}
+          text={
+            users.length +
+            (users.length === 1 ? " user " : " users ") +
+            "available for hire"
+          }
+          lista={users.map((item, idx) => {
+            return (
+              <Preview
+                key={idx}
+                id={item.id}
+                img={item.avatar}
+                title={item.name + " " + item.lastName}
+                subtitle={item.studies}
+                url={item.userName}
+                createdAt={item.createdAt}
+                isUser={true}
+                accion1={"view profile"}
+                accion2={"contact"}
+              />
+            )
+          })}
+        />
+      ) : (
+        <Careers
+          title={"Proffesional Board"}
+          text={
+            "You have contacted " +
+            contactedUsers.length +
+            (contactedUsers.length === 1 ? " person" : " people")
+          }
+          lista={contactedUsers.map((item, idx) => {
+            return (
+              <Preview
+                key={idx}
+                id={item.id}
+                img={item.user.avatar}
+                title={item.user.name + " " + item.user.lastName}
+                subtitle={item.user.studies}
+                url={item.user.userName}
+                createdAt={item.user.createdAt}
+                isUser={true}
+                accion1={"view profile"}
+                accion2={"remove"}
+              />
+            )
+          })}
+        />
       )}
     </>
   )
