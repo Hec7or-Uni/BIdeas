@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
 import useSWR from "swr"
@@ -5,7 +6,6 @@ import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
 import Meta from "components/Meta"
-import { useLMenu } from "../../context/LMenuContext"
 import { useA4Hired } from "../../context/A4HiredContext"
 
 const links = [
@@ -22,11 +22,14 @@ const links = [
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Professionals({ user }) {
+  const [isActive, setActive] = useState(1)
+  const handleMenu = (id) => setActive(id)
   let users = null
   let contactedUsers = null
+  let contactedUsersCopy = null
+
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
-  const [isActive] = useLMenu()
 
   const res1 = useSWR(`http://localhost:3000/api/users/lite`, { fetcher })
 
@@ -43,6 +46,7 @@ export default function Professionals({ user }) {
       return <>loading</>
     } else {
       contactedUsers = res2.data.data.users
+      contactedUsersCopy = contactedUsers.map((item) => item.user.id)
     }
   }
 
@@ -52,7 +56,9 @@ export default function Professionals({ user }) {
     if (!res1.data) {
       return <>loading</>
     } else {
-      users = res1.data.data.users.filter((item) => item.id !== user.id)
+      users = res1.data.data.users
+        .filter((item) => item.id !== user.id)
+        .filter((item) => !contactedUsersCopy.includes(item.id))
     }
   }
 
@@ -90,7 +96,7 @@ export default function Professionals({ user }) {
         </div>
       </div>
       <div className="px-8">
-        <LineMenu data={links} />
+        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">

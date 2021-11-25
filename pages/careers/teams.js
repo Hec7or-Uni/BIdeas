@@ -1,10 +1,10 @@
+import { useState } from "react"
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
 import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
 import Meta from "components/Meta"
-import { useLMenu } from "../../context/LMenuContext"
 import { useA4Hired } from "../../context/A4HiredContext"
 
 import useSWR from "swr"
@@ -23,13 +23,16 @@ const links = [
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Teams({ user, myProjects }) {
+  const [isActive, setActive] = useState(1)
+  const handleMenu = (id) => setActive(id)
+
   let projects = null
   let appliedJobs = null
+  let appliedJobsCopy = null
   let current = null
 
   const router = useRouter()
   const [isToggled, Toggle] = useA4Hired()
-  const [isActive] = useLMenu()
 
   const res1 = useSWR(`http://localhost:3000/api/teams/lite`, fetcher)
 
@@ -62,6 +65,7 @@ export default function Teams({ user, myProjects }) {
       return <>loading</>
     } else {
       appliedJobs = res2.data.data.teams
+      appliedJobsCopy = appliedJobs.map((item) => item.project.id)
     }
   }
 
@@ -72,8 +76,8 @@ export default function Teams({ user, myProjects }) {
       return <>loading</>
     } else {
       projects = res1.data.data.teams
-        .filter((item) => item.id !== myProjects.id)
         .filter((item) => !current.includes(item.id))
+        .filter((item) => !appliedJobsCopy.includes(item.id))
     }
   }
 
@@ -111,7 +115,8 @@ export default function Teams({ user, myProjects }) {
         </div>
       </div>
       <div className="px-8">
-        <LineMenu data={links} />
+        {/* <LineMenu data={links} /> */}
+        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">

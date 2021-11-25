@@ -6,7 +6,6 @@ import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"
 import Layout from "../components/layout"
 import Meta from "../components/Meta"
-import { useLMenu } from "../context/LMenuContext"
 import { GoOrganization, GoTelescope } from "react-icons/go"
 import { RiBlazeLine } from "react-icons/ri"
 import {
@@ -59,8 +58,9 @@ const Stats = [
 ]
 
 export default function Home({ user, projects }) {
+  const [isActive, setActive] = useState(1)
+  const handleMenu = (id) => setActive(id)
   const [stat, setStat] = useState(Stats[0])
-  const [isActive] = useLMenu()
 
   const handleIncrement = () => {
     const id = stat.id
@@ -249,7 +249,7 @@ export default function Home({ user, projects }) {
       </div>
 
       <div className="mt-3 px-8">
-        <LineMenu data={links} />
+        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Shortcut

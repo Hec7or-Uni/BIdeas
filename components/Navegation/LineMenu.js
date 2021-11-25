@@ -1,8 +1,4 @@
-import { useLMenu } from "../../context/LMenuContext"
-
-export default function LineMenu({ data }) {
-  const [isActive, setActive] = useLMenu()
-
+export default function LineMenuTest({ data, handleMenu, isActive }) {
   return (
     <div className="mb-4">
       <div className="flex items-start w-full tracking-wide">
@@ -14,8 +10,9 @@ export default function LineMenu({ data }) {
               name={item.id}
               type="button"
               value={item.name}
-              onClick={(e) => setActive(item.id)}
-              className={`flex justify-center w-36 py-3 border-b-2 border-black  dark:text-gray-100 border-opacity-0 text-center text-xs font-black uppercase tracking-wide cursor-pointer ${
+              onClick={(e) => handleMenu(Number(e.target.id))}
+              className={`flex justify-center w-36 py-3 border-b-2 border-black  dark:text-gray-100 border-opacity-0 text-center text-xs font-black uppercase tracking-wide cursor-pointer 
+              ${
                 isActive === item.id
                   ? "border-opacity-100 dark:border-white"
                   : ""

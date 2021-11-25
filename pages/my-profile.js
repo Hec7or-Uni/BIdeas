@@ -3,10 +3,9 @@ import { getSession } from "next-auth/react"
 import Header from "components/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
-import LineMenu from "components/Navegation/LineMenu"
+import LineMenu from "../components/Navegation/LineMenu"
 import Layout from "../components/layout"
 import Meta from "components/Meta"
-import { useLMenu } from "../context/LMenuContext"
 import { countryList } from "../data/countryList"
 import {
   FiHexagon,
@@ -16,7 +15,7 @@ import {
   FiHeart,
 } from "react-icons/fi"
 
-const data = [
+const links = [
   {
     id: 1,
     name: "profile",
@@ -28,7 +27,8 @@ const data = [
 ]
 
 export default function Profile({ user, owns, participates }) {
-  const [isActive] = useLMenu()
+  const [isActive, setActive] = useState(1)
+  const handleMenu = (id) => setActive(id)
 
   const [values, setValues] = useState({
     name: "",
@@ -111,7 +111,7 @@ export default function Profile({ user, owns, participates }) {
         plan={user.plan}
         xp={user.xp}
       />
-      <LineMenu data={data} />
+      <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
       {isActive === 1 && (
         <div className="container mt-6">
           <div className="flex gap-x-5">

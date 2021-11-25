@@ -3,7 +3,6 @@ import Navbar from "./Navegation/Navbar"
 import Sidebar from "./Navegation/Sidebar"
 
 import { SidebarProvider } from "../context/SideBarContext"
-import { LMenuProvider } from "../context/LMenuContext"
 import { A4HProvider } from "../context/A4HiredContext"
 
 export default function Layout({ children }) {
@@ -23,13 +22,11 @@ export default function Layout({ children }) {
           style={{ height: "calc(100vh - 4rem)" }}
         >
           <Sidebar />
-          <LMenuProvider>
-            <A4HProvider>
-              <div className="flex-auto overflow-y-auto ">
-                <main className="py-3">{children}</main>
-              </div>
-            </A4HProvider>
-          </LMenuProvider>
+          <A4HProvider>
+            <div className="flex-auto overflow-y-auto ">
+              <main className="py-3">{children}</main>
+            </div>
+          </A4HProvider>
         </div>
       </SidebarProvider>
     </>

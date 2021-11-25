@@ -4,10 +4,9 @@ import Link from "next/link"
 import Header from "components/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
-import LineMenu from "components/Navegation/LineMenu"
 import Layout from "../components/layout"
 import Meta from "components/Meta"
-import { useLMenu } from "../context/LMenuContext"
+import LineMenu from "../components/Navegation/LineMenu"
 import { countryList } from "../data/countryList"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 import { RiBlazeLine } from "react-icons/ri"
@@ -26,7 +25,7 @@ const numMaxMembers = {
   unlimited: "Unlimited",
 }
 
-const data = [
+const links = [
   {
     id: 1,
     name: "team",
@@ -38,7 +37,8 @@ const data = [
 ]
 
 export default function Team({ team, user, workers }) {
-  const [isActive] = useLMenu()
+  const [isActive, setActive] = useState(1)
+  const handleMenu = (id) => setActive(id)
 
   const [values, setValues] = useState({
     teamName: "",
@@ -114,7 +114,7 @@ export default function Team({ team, user, workers }) {
         plan={user.plan}
         xp={user.xp}
       />
-      <LineMenu data={data} />
+      <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
       {isActive === 1 && team.teamName && (
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
