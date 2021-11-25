@@ -107,6 +107,7 @@ export default function Teams({ user, myProjects }) {
                 url={item.project.teamName}
                 createdAt={item.project.createdAt}
                 isUser={false}
+                applied={true}
                 accion1={"view job"}
                 accion2={"remove"}
               />

@@ -102,6 +102,7 @@ export default function Professionals({ user }) {
                 url={item.user.userName}
                 createdAt={item.user.createdAt}
                 isUser={true}
+                applied={true}
                 accion1={"view profile"}
                 accion2={"remove"}
               />

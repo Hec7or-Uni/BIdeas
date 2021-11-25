@@ -110,21 +110,12 @@ export default function Preview({
                 }/${url}`}
                 text={accion1}
               />
-              {applied ? (
-                <ButtonP
-                  func={remove}
-                  url={""}
-                  text={"remove"}
-                  className={"bg-red-600 hover:bg-red-700"}
-                />
-              ) : (
-                <ButtonP
-                  func={isUser ? contact : applyJob}
-                  url={""}
-                  text={accion2}
-                  className={""}
-                />
-              )}
+              <ButtonP
+                func={isUser ? contact : applied ? applyJob : remove}
+                url={""}
+                text={accion2}
+                className={applied ? "bg-red-600 hover:bg-red-700" : ""}
+              />
             </div>
           </div>
         ) : (
