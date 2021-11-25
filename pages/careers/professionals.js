@@ -12,7 +12,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Professionals({ user }) {
   const router = useRouter()
   const [isActive, setActive] = useState(1)
-  const handleMenu = async (id) => setActive(id)
+  const handleMenu = (id) => setActive(id)
 
   const params = new URLSearchParams({ id: user.id })
   const res1 = useSWR(`http://localhost:3000/api/users/lite`, { fetcher })
@@ -44,8 +44,6 @@ export default function Professionals({ user }) {
   const users = res1.data.data.users
     .filter((item) => item.id !== user.id)
     .filter((item) => !contactedUsersCopy.includes(item.id))
-
-  console.log(contactedUsers, users)
 
   return (
     <>

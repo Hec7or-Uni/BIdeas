@@ -94,7 +94,7 @@ export default function Teams({ user, myProjects }) {
           text={
             "you applied for " +
             appliedJobs.length +
-            (appliedJobs.length === 1 ? "job" : "jobs")
+            (appliedJobs.length === 1 ? " job" : " jobs")
           }
           lista={appliedJobs.map((item, idx) => {
             return (

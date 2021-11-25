@@ -1,5 +1,10 @@
+import Link from "next/link"
+import Clock from "../components/Clock"
+import { useClock } from "../hooks/useClock"
 import { getSession } from "next-auth/react"
 import LayoutOut from "../components/LayoutOut"
+import { FiCheck } from "react-icons/fi"
+import ButtonP from "components/Buttons/ButtonP"
 
 import {
   HiOutlineShare,
@@ -8,6 +13,10 @@ import {
 } from "react-icons/hi"
 
 export default function Root() {
+  const { timerDays, timerHours, timerMinutes, timerSeconds } = useClock(
+    new Date("December 25, 2021 12:00").getTime()
+  )
+
   return (
     <>
       <div className="w-full">
@@ -21,12 +30,15 @@ export default function Root() {
           teamwork skills to the next level through the most engaging, playful
           and practical, hands-on training experience.
         </h2>
-        <div className="w-1/2 h-96 mt-16 rounded-xl mx-auto">
+        <div className="w-1/2 h-96 mt-16 rounded-xl mx-auto relative">
           <img
             src="https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             alt=""
             className="w-full h-full object-cover rounded-xl"
           />
+          <div className="w-full flex justify-center absolute bottom-0 hover:-translate-y-3 duration-700 p-2 -mb-6">
+            <ButtonP text="Join Now" url="/invite" />
+          </div>
         </div>
       </div>
 
@@ -51,17 +63,7 @@ export default function Root() {
                 <li className="mt-6 lg:mt-0">
                   <div className="flex">
                     <span className="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 dark:text-green-400 dark:bg-transparent">
-                      <svg
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
+                      <FiCheck />
                     </span>
                     <span className="ml-4 text-base leading-6 font-medium text-gray-500 dark:text-gray-200">
                       Live modifications
@@ -71,17 +73,7 @@ export default function Root() {
                 <li className="mt-6 lg:mt-0">
                   <div className="flex">
                     <span className="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 dark:text-green-500 dark:bg-transparent">
-                      <svg
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
+                      <FiCheck />
                     </span>
                     <span className="ml-4 text-base leading-6 font-medium text-gray-500 dark:text-gray-200">
                       Data tracker
@@ -91,17 +83,7 @@ export default function Root() {
                 <li className="mt-6 lg:mt-0">
                   <div className="flex">
                     <span className="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 dark:text-green-500 dark:bg-transparent">
-                      <svg
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
+                      <FiCheck />
                     </span>
                     <span className="ml-4 text-base leading-6 font-medium text-gray-500 dark:text-gray-200">
                       24/7 support
@@ -111,17 +93,7 @@ export default function Root() {
                 <li className="mt-6 lg:mt-0">
                   <div className="flex">
                     <span className="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 dark:text-green-500 dark:bg-transparent">
-                      <svg
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
+                      <FiCheck />
                     </span>
                     <span className="ml-4 text-base leading-6 font-medium text-gray-500 dark:text-gray-200">
                       Free tips to improve work time
@@ -180,48 +152,22 @@ export default function Root() {
                 @ 12:00 AM
               </h3>
               <div className="mt-4 w-full md:w-44">
-                <button
-                  type="button"
-                  className="py-2 px-4 text-white dark:text-black bg-black dark:bg-white hover:bg-gray-100 dark:hover:bg-color-neutral-2 focus:ring-indigo-500 focus:ring-offset-indigo-200 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-                >
-                  Beta Access
-                </button>
+                <Link href="/invite">
+                  <a
+                    type="button"
+                    className="py-2 px-4 text-white dark:text-black bg-black dark:bg-white hover:bg-gray-100 dark:hover:bg-color-neutral-2 dark:hover:text-white focus:ring-indigo-500 focus:ring-offset-indigo-200 w-full transition ease-in duration-500 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                  >
+                    Start Now
+                  </a>
+                </Link>
               </div>
             </div>
-            <div className="w-full md:w-auto px-5">
-              <div className="flex justify-center text-black dark:text-white text-center">
-                <div className="w-20 md:w-24 border border-black dark:border-white bg-light-100 rounded-lg py-3 md:py-4 mx-2">
-                  <div className="text-2xl md:text-3xl font-semibold">
-                    <span>0</span>
-                    <span>1</span>
-                  </div>
-                  <div className="opacity-75 text-xs mt-3 uppercase">Day</div>
-                </div>
-                <div className="w-20 md:w-24 border border-black dark:border-white bg-light-100 rounded-lg py-3 md:py-4 mx-2">
-                  <div className="text-2xl md:text-3xl font-semibold">
-                    <span>1</span>
-                    <span>8</span>
-                  </div>
-                  <div className="opacity-75 text-xs mt-3 uppercase">Hour</div>
-                </div>
-                <div className="w-20 md:w-24 border border-black dark:border-white bg-light-100 rounded-lg py-3 md:py-4 mx-2">
-                  <div className="text-2xl md:text-3xl font-semibold">
-                    <span>5</span>
-                    <span>0</span>
-                  </div>
-                  <div className=" opacity-75 text-xs mt-3 uppercase">Min</div>
-                </div>
-                <div className="w-20 md:w-24 border border-black dark:border-white bg-light-100 rounded-lg py-3 md:py-4 mx-2">
-                  <div className="text-2xl md:text-3xl font-semibold">
-                    <span>1</span>
-                    <span>9</span>
-                  </div>
-                  <div className="opacity-75 text-xs mt-3 uppercase">
-                    Second
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Clock
+              timerDays={timerDays}
+              timerHours={timerHours}
+              timerMinutes={timerMinutes}
+              timerSeconds={timerSeconds}
+            />
           </div>
         </div>
       </section>
@@ -237,7 +183,7 @@ export default function Root() {
           interesting you will be for other teams and companies.
         </p>
         <div className="sm:flex flex-wrap justify-center items-center text-center gap-8">
-          <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 bg-color-light-neutral-1 mt-6  shadow-lg rounded-lg dark:bg-color-neutral-2">
+          <div className="transition duration-300 hover:-translate-y-3  w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 bg-color-light-neutral-1 mt-6  shadow-lg rounded-lg dark:bg-color-neutral-2">
             <div className="flex-shrink-0">
               <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
                 <HiOutlineShare className="h-6 w-6" />
@@ -251,7 +197,7 @@ export default function Root() {
               project to the top.
             </p>
           </div>
-          <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-color-light-neutral-1 shadow-lg rounded-lg dark:bg-color-neutral-2">
+          <div className="transition duration-300 hover:-translate-y-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-color-light-neutral-1 shadow-lg rounded-lg dark:bg-color-neutral-2">
             <div className="flex-shrink-0">
               <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
                 <HiOutlineOfficeBuilding className="h-6 w-6" />
@@ -265,7 +211,7 @@ export default function Root() {
               companies and make your project bigger.
             </p>
           </div>
-          <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-color-light-neutral-1 shadow-lg rounded-lg dark:bg-color-neutral-2">
+          <div className="transition duration-300 hover:-translate-y-3  w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-color-light-neutral-1 shadow-lg rounded-lg dark:bg-color-neutral-2">
             <div className="flex-shrink-0">
               <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
                 <HiOutlineTrendingUp className="h-6 w-6" />
