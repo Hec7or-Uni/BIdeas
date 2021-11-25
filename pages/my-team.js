@@ -167,7 +167,7 @@ export default function Team({ team, user, workers }) {
             />
           </div>
 
-          <div className="flex flex-col gap-x-5 mt-12">
+          <div className="flex flex-col gap-y-4 mt-12">
             {workers.map((item) => {
               return (
                 <TeUsCard

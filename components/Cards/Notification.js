@@ -4,12 +4,42 @@ import { FiArrowLeft, FiArrowRight, FiPlus, FiX } from "react-icons/fi"
 export default function Notification({
   title,
   type,
+  id,
+  idUser,
+  idProject,
   urlLeft,
   urlRight,
   imgLeft,
   imgRight,
   subtitle,
 }) {
+  async function accept() {
+    const url = `http://localhost:3000/api/team/member`
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({
+        type: type,
+        id: id,
+        idUser: idUser,
+        idProject: idProject,
+      }),
+    }).then((res) => {
+      return res.json()
+    })
+  }
+
+  async function reject() {
+    const params = new URLSearchParams({ type: type, id: id })
+    const url = `http://localhost:3000/api/team/member?${params.toString()}`
+
+    await fetch(url, { method: "DELETE" }).then((res) => {
+      return res.json()
+    })
+  }
+
   return (
     <div className="w-96 flex items-center gap-x-2 rounded-lg p-2 bg-color-light-neutral-1 shadow-lg dark:bg-color-light-neutral-2 relative">
       <div className="flex items-center gap-x-2">
@@ -42,10 +72,10 @@ export default function Notification({
         <p className="font-normal text-sm text-gray-700">{subtitle}</p>
       </div>
       <div className="absolute right-0 mr-2">
-        <button className="p-1">
+        <button onClick={accept} className="p-1">
           <FiPlus className="w-5 h-5 text-green-500 hover:bg-green-100 rounded-full" />
         </button>
-        <button className="p-1">
+        <button onClick={reject} className="p-1">
           <FiX className="w-5 h-5 text-red-500 hover:bg-red-100 rounded-full" />
         </button>
       </div>

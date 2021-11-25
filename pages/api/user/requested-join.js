@@ -17,12 +17,19 @@ export default async (req, res) => {
       const { id } = await ProjectLite(ownerId)
       let team = {}
       let users = []
-
       const data = await ReqProjectLite(id)
 
       if (data.length !== 0) {
-        team = data[0].project
-        users = data.map((item) => item.user)
+        team = data[0]
+        users = data.map((item) => {
+          return {
+            id: item.id,
+            idUser: item.idUser,
+            idProject: item.idProject,
+            users: item.user,
+          }
+        })
+        delete team.user
       }
 
       res.status(200).json({

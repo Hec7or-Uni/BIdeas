@@ -17,8 +17,16 @@ export default async (req, res) => {
       let user = {}
       let teams = []
       if (data.length !== 0) {
-        user = data[0].user
-        teams = data.map((item) => item.project)
+        user = data[0]
+        teams = data.map((item) => {
+          return {
+            id: item.id,
+            idUser: item.idUser,
+            idProject: item.idProject,
+            projects: item.project,
+          }
+        })
+        delete user.project
       }
 
       res.status(200).json({

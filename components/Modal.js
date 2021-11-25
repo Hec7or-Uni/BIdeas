@@ -24,7 +24,6 @@ export default function Modal() {
     } else {
       user = res1.data.data.user
       teams = res1.data.data.teams
-      console.log(user)
     }
   }
 
@@ -36,7 +35,6 @@ export default function Modal() {
     } else {
       team = res2.data.data.team
       users = res2.data.data.users
-      console.log(team, users)
     }
   }
 
@@ -59,17 +57,20 @@ export default function Modal() {
               <p className="w-72 font-normal text-sm mb-1 text-gray-500 dark:text-gray-300">
                 Hey! it looks like someone wants to join your team.
               </p>
-              {users.map((item) => {
+              {users.map((item, idx) => {
                 return (
                   <Notification
-                    key={item.id}
+                    key={idx}
                     type={0}
-                    title={item.userName}
-                    subtitle={item.studies}
-                    urlLeft={"/teams/" + team.teamName}
-                    urlRight={"/users/" + item.userName}
-                    imgLeft={team.avatar}
-                    imgRight={item.avatar}
+                    id={item.id}
+                    idUser={item.idUser}
+                    idProject={item.idProject}
+                    title={item.users.userName}
+                    subtitle={item.users.studies}
+                    urlLeft={"/teams/" + team.project.teamName}
+                    urlRight={"/users/" + item.users.userName}
+                    imgLeft={team.project.avatar}
+                    imgRight={item.users.avatar}
                   />
                 )
               })}
@@ -80,17 +81,20 @@ export default function Modal() {
               <p className="w-72 font-normal text-sm mt-2 mb-1 text-gray-500 dark:text-gray-300">
                 Hey! Looks like someone wants you to join their team!
               </p>
-              {teams.map((item) => {
+              {teams.map((item, idx) => {
                 return (
                   <Notification
-                    key={item.id}
+                    key={idx}
                     type={1}
-                    title={item.teamName}
-                    subtitle={item.motto}
-                    urlLeft={"/users/" + user.userName}
-                    urlRight={"/teams/" + item.teamName}
-                    imgLeft={user.avatar}
-                    imgRight={item.avatar}
+                    id={item.id}
+                    idUser={item.idUser}
+                    idProject={item.idProject}
+                    title={item.projects.teamName}
+                    subtitle={item.projects.motto}
+                    urlLeft={"/users/" + user.user.userName}
+                    urlRight={"/teams/" + item.projects.teamName}
+                    imgLeft={user.user.avatar}
+                    imgRight={item.projects.avatar}
                   />
                 )
               })}

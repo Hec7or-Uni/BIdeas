@@ -8,7 +8,6 @@ import { getToken } from "next-auth/jwt"
 const secret = process.env.SECRET
 
 export default async (req, res) => {
-  console.log(req.method)
   const token = await getToken({ req, secret })
   if (!token) {
     res.status(401).json({
@@ -53,7 +52,6 @@ export default async (req, res) => {
       })
     } else if (req.method === "DELETE") {
       const { id } = req.query
-      console.log("identificador", id)
       const deleted = await deleteReqUser(id)
       res.status(200).json({
         data: { deleted: deleted },
