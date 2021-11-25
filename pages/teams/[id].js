@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
 import useSWR from "swr"
-import Header from "../../components/Header"
+import Header from "../../components/Cabeceras/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
 import Layout from "../../components/layout"

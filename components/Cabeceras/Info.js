@@ -1,4 +1,4 @@
-export default function Cabecera() {
+export default function Info() {
   return (
     <div className="flex items-center h-12 relative">
       <div className="flex lg:w-1/2 tracking-wide divide-x-2 divide-gray-200">

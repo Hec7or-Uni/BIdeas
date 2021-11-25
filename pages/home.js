@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react"
 import Link from "next/link"
 import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
-import Cabecera from "components/Cabeceras/Cabecera"
+import Info from "components/Cabeceras/Info"
 import Layout from "../components/layout"
 import Meta from "../components/Meta"
 import { links4home } from "data/LineMenu"
@@ -71,7 +71,7 @@ export default function Home({ user, projects }) {
       <div className="px-8 pt-3">
         {/* Cabecera */}
         <Meta title="Home" />
-        <Cabecera />
+        <Info />
 
         {/* Anuncio & estadisticas */}
         <div className="flex flex-col lg:flex-row w-full gap-x-6 gap-y-4 my-5">
