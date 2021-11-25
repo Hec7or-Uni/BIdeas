@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
-import Link from "next/Link"
+import Link from "next/link"
 import Header from "components/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
