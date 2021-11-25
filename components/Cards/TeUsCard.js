@@ -6,7 +6,12 @@ export default function TeUsCard({ img, title, desc, url, isUser }) {
       <a className="flex items-center gap-x-4 h-28 w-1/2 px-2 rounded-xl bg-color-light-neutral-1 dark:bg-color-neutral-1 shadow">
         <div className="w-24 h-24 rounded-xl">
           <img
-            src={img}
+            src={
+              img ||
+              (isUser
+                ? "/personas/DefaultAvatar.jpg"
+                : "/personas/DefaultTeamAvatar.png")
+            }
             alt={"Profile img of " + title}
             className="w-full h-full object-cover rounded-2xl p-2"
           />

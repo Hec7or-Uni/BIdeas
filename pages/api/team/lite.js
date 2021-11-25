@@ -20,8 +20,10 @@ export default async (req, res) => {
     res.status(405).end(`Method ${method} Not Allowed`)
   }
 
+  const data = { teams: await ProjectLite(req.query.id) }
+
   res.status(200).json({
-    data: { teams: await ProjectLite(req.query.id) },
+    data: data,
     status: status(200, ""),
   })
 }
