@@ -50,24 +50,7 @@ export default async (req, res) => {
       })
     }
   } else if (req.method === "DELETE") {
-    const token = await getToken({ req, secret })
-    if (!token) {
-      res.status(401).json({
-        status: status(401, ""),
-      })
-    } else {
-      res.end("ok")
-    }
-    // const query = req.url
-    // const delUser = await prisma.users.delete({
-    //   where: {
-    //     id: 8,
-    //   },
-    // })
-    // res.json({
-    //   data: { delUser: delUser },
-    //   status: status(200, ""),
-    // })
+    res.json({ status: status(200, "") })
   } else {
     res.json({ status: status(405, "") })
   }

@@ -11,17 +11,16 @@ export default async (req, res) => {
       status: status(401, ""),
     })
   }
-  if (req.method === "GET") {
-    const query = req.query.id
-    const projsInProgress = await InProgressLite(query)
-    res.status(200).json({
-      data: {
-        current: projsInProgress,
-      },
-      status: status(200, ""),
-    })
-  } else {
+  if (req.method !== "GET") {
     res.setHeader("Allow", ["GET"])
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
+  const query = req.query.id
+  const projsInProgress = await InProgressLite(query)
+  res.status(200).json({
+    data: {
+      current: projsInProgress,
+    },
+    status: status(200, ""),
+  })
 }
