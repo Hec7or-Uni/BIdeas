@@ -5,20 +5,10 @@ import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
 import Meta from "components/Meta"
+import { links4teams } from "data/LineMenu"
 import { useA4Hired } from "../../context/A4HiredContext"
 
 import useSWR from "swr"
-
-const links = [
-  {
-    id: 1,
-    name: "Jobs",
-  },
-  {
-    id: 2,
-    name: "Applied Jobs",
-  },
-]
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -115,8 +105,11 @@ export default function Teams({ user, myProjects }) {
         </div>
       </div>
       <div className="px-8">
-        {/* <LineMenu data={links} /> */}
-        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+        <LineMenu
+          handleMenu={handleMenu}
+          data={links4teams}
+          isActive={isActive}
+        />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">

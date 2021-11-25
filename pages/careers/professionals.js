@@ -6,24 +6,14 @@ import Layout from "../../components/layout"
 import LineMenu from "../../components/Navegation/LineMenu"
 import Preview from "../../components/Cards/Preview"
 import Meta from "components/Meta"
+import { links4pro } from "data/LineMenu"
 import { useA4Hired } from "../../context/A4HiredContext"
-
-const links = [
-  {
-    id: 1,
-    name: "Proffesionals",
-  },
-  {
-    id: 2,
-    name: "Contacts Requests",
-  },
-]
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Professionals({ user }) {
   const [isActive, setActive] = useState(1)
-  const handleMenu = (id) => setActive(id)
+  const handleMenu = async (id) => setActive(id)
   let users = null
   let contactedUsers = null
   let contactedUsersCopy = null
@@ -96,7 +86,11 @@ export default function Professionals({ user }) {
         </div>
       </div>
       <div className="px-8">
-        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+        <LineMenu
+          handleMenu={handleMenu}
+          data={links4pro}
+          isActive={isActive}
+        />
       </div>
       {isActive === 1 && (
         <div className="container px-8 mx-auto">

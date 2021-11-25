@@ -6,6 +6,7 @@ import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "../components/Navegation/LineMenu"
 import Layout from "../components/layout"
 import Meta from "components/Meta"
+import { links4myprofile } from "data/LineMenu"
 import { countryList } from "../data/countryList"
 import {
   FiHexagon,
@@ -14,17 +15,6 @@ import {
   FiBriefcase,
   FiHeart,
 } from "react-icons/fi"
-
-const links = [
-  {
-    id: 1,
-    name: "profile",
-  },
-  {
-    id: 2,
-    name: "profile settings",
-  },
-]
 
 export default function Profile({ user, owns, participates }) {
   const [isActive, setActive] = useState(1)
@@ -111,7 +101,11 @@ export default function Profile({ user, owns, participates }) {
         plan={user.plan}
         xp={user.xp}
       />
-      <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+      <LineMenu
+        handleMenu={handleMenu}
+        data={links4myprofile}
+        isActive={isActive}
+      />
       {isActive === 1 && (
         <div className="container mt-6">
           <div className="flex gap-x-5">

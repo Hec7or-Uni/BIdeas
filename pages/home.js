@@ -6,6 +6,7 @@ import Shortcut from "../components/Cards/Shortcut"
 import Cabecera from "components/Cabeceras/Cabecera"
 import Layout from "../components/layout"
 import Meta from "../components/Meta"
+import { links4home } from "data/LineMenu"
 import { GoOrganization, GoTelescope } from "react-icons/go"
 import { RiBlazeLine } from "react-icons/ri"
 import {
@@ -18,21 +19,6 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi"
-
-const links = [
-  {
-    id: 1,
-    name: "overview",
-  },
-  {
-    id: 2,
-    name: "recommended",
-  },
-  {
-    id: 3,
-    name: "in progress",
-  },
-]
 
 const Stats = [
   {
@@ -249,7 +235,11 @@ export default function Home({ user, projects }) {
       </div>
 
       <div className="mt-3 px-8">
-        <LineMenu handleMenu={handleMenu} data={links} isActive={isActive} />
+        <LineMenu
+          handleMenu={handleMenu}
+          data={links4home}
+          isActive={isActive}
+        />
         {isActive === 1 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
             <Shortcut
