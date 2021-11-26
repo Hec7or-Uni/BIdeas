@@ -103,6 +103,7 @@ export default function Team({ team, user, workers }) {
         studies={user.studies}
         plan={user.plan}
         xp={user.xp}
+        myProfile={true}
       />
       <LineMenu
         handleMenu={handleMenu}
@@ -181,10 +182,10 @@ export default function Team({ team, user, workers }) {
         <div className="container py-32">
           <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
             <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600" />
-            <p className="text-lg font-semibold text-justify">
+            <p className="text-lg font-semibold text-justify dark:text-gray-100">
               Oops! Looks like you don&apos;t have a team yet!
             </p>
-            <p className="text-lg font-normal text-justify">
+            <p className="text-lg font-normal text-justify dark:text-gray-100">
               You can{" "}
               <Link href="">
                 <a className="hover:underline text-blue-600">create one</a>
@@ -299,7 +300,7 @@ export default function Team({ team, user, workers }) {
           {/* General Info Edit */}
           <div className="px-8 mt-8">
             <p className="text-base font-bold">Team Information</p>
-            <div className="mt-4">
+            <div className="mt-4 bg-yellow-500 w-5/6">
               <form className="">
                 <div className="flex gap-x-4">
                   <div>

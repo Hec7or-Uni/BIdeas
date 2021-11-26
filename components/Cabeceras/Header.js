@@ -1,6 +1,7 @@
 import Link from "next/link"
 
-export default function Header({ avatar, username, id, studies, plan, xp }) {
+export default function Header({ avatar, username, id, studies, plan, xp, myProfile }) {
+  
   return (
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
       {/* Profile */}
@@ -61,7 +62,7 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
           <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
             {plan === 0 ? "free" : "vip"}
           </p>
-          {plan === 0 && (
+          {plan === 0 && myProfile && (
             <Link href="#">
               <a className="text-sm font-medium text-blue-600 hover:underline">
                 go vip
@@ -72,4 +73,8 @@ export default function Header({ avatar, username, id, studies, plan, xp }) {
       </div>
     </div>
   )
+}
+
+Header.defaultProps = {  
+  myProfile: false
 }
