@@ -1,14 +1,11 @@
 import useSWR from "swr"
+import { useRouter } from "next/router"
 import Notification from "../Cards/Notification"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Modal() {
-  let user = {}
-  let teams = []
-
-  let team = {}
-  let users = []
+  const router = useRouter()
 
   const res1 = useSWR(
     `http://localhost:3000/api/user/requested-member`,
@@ -16,27 +13,18 @@ export default function Modal() {
   )
   const res2 = useSWR(`http://localhost:3000/api/user/requested-join`, fetcher)
 
-  if (res1.error) {
-    // return router.push("/404")
-  } else {
-    if (!res1.data) {
-      return <>loading</>
-    } else {
-      user = res1.data.data.user
-      teams = res1.data.data.teams
-    }
+  if (res1.error || res2.error) {
+    return router.push("/404")
   }
 
-  if (res2.error) {
-    // return router.push("/404")
-  } else {
-    if (!res2.data) {
-      return <>loading</>
-    } else {
-      team = res2.data.data.team
-      users = res2.data.data.users
-    }
+  if (!res1.data || !res2.data) {
+    return <>loading</>
   }
+
+  const user = res1.data.data.user
+  const teams = res1.data.data.teams
+  const team = res2.data.data.team
+  const users = res2.data.data.users
 
   return (
     <div className="absolute top-2 right-0 z-50 mt-16 bg-white shadow dark:bg-cm-color rounded-xl mr-8">
