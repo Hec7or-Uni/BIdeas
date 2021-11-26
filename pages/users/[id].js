@@ -48,6 +48,7 @@ export default function Profile() {
         id={user.id}
         studies={user.studies}
         plan={user.plan}
+        xp={user.xp}
       />
       <div className="container mt-6">
         <div className="flex gap-x-5">
