@@ -100,6 +100,7 @@ export default function Profile({ user, owns, participates }) {
         studies={user.studies}
         plan={user.plan}
         xp={user.xp}
+        myProfile={true}
       />
       <LineMenu
         handleMenu={handleMenu}
@@ -299,135 +300,117 @@ export default function Profile({ user, owns, participates }) {
           </div>
 
           {/* General Info Edit */}
-          <div className="px-8 mt-8">
-            <p className="text-base font-bold">General Information</p>
-            <div className="mt-4">
+          <div className="px-8 mt-8 w-5/6">
+            <p className="text-base font-bold dark:text-gray-100">General Information</p>
+            <div className="mt-4 px-2">
               <form id="form-profile">
-                <div className="flex gap-x-4">
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase">
-                        name
-                      </span>
-                      <div>
-                        <input
-                          id="name"
-                          type="text"
-                          name="name"
-                          placeholder={user.name}
-                          onChange={handleName}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+
+                {/* Name & LastName */}
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      name
+                    </span>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      placeholder={user.name}
+                      onChange={handleName}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase">
-                        last name
-                      </span>
-                      <div>
-                        <input
-                          id="lastname"
-                          type="text"
-                          name="lastname"
-                          placeholder={user.lastName}
-                          onChange={handleLastName}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      last name
+                    </span>
+                    <input
+                      id="lastname"
+                      type="text"
+                      name="lastname"
+                      placeholder={user.lastName}
+                      onChange={handleLastName}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                    />
                   </div>
                 </div>
 
-                <div className="flex gap-x-4">
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase text-gray-700">
-                        Username
-                      </span>
-                      <div>
-                        <input
-                          id="username"
-                          type="text"
-                          name="username"
-                          placeholder={user.userName}
-                          onChange={handleUsername}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+                {/* Username & Country */}
+                <div className="flex gap-x-4 w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      Username
+                    </span>
+                    <input
+                      id="username"
+                      type="text"
+                      name="username"
+                      placeholder={user.userName}
+                      onChange={handleUsername}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 bg-white border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase text-gray-700">
-                        country
-                      </span>
-                      <div>
-                        <select className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 opacity-75">
-                          <option value="">
-                            {user.country || "Select a country"}
-                          </option>
-                          {Object.entries(countryList).map(([key, value]) => (
-                            <option key={key} value={key}>
-                              {value}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </label>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      country
+                    </span>
+                    <select className="w-full px-2 py-2 mt-1 text-gray-700 bg-neutral border rounded-md focus:border-blue-600 text-opacity-75">
+                      <option value="">
+                        {user.country || "Select a country"}
+                      </option>
+                      {Object.entries(countryList).map(([key, value]) => (
+                        <option key={key} value={key}>
+                          {value}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-                <div className="flex gap-x-4">
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase">
-                        e-mail
-                      </span>
-                      <div>
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          placeholder={user.email || "example@example.com"}
-                          onChange={handleEmail}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+
+
+                {/* Email & Password */}
+                <div className="flex gap-x-4 w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      e-mail
+                    </span>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder={user.email || "example@example.com"}
+                      onChange={handleEmail}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase">
-                        password
-                      </span>
-                      <div>
-                        <input
-                          id="password"
-                          type="password"
-                          name="password"
-                          onChange={handlePassword}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      password
+                    </span>
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      onChange={handlePassword}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
                 </div>
-                <label type="text" className="block mt-3">
-                  <span className="text-xs font-semibold uppercase">
-                    profile description
-                  </span>
-                  <div>
+                <div className="flex w-full">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      profile description
+                    </span>
                     <textarea
                       id="description"
                       type="textarea"
                       name="description"
                       placeholder={user.description || "Tell us about you!"}
                       onChange={handleDescription}
-                      className="resize-y min-h-32 min h-32 w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 align-baseline"
+                      className="resize-y min-h-32 min h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 align-baseline"
                     />
                   </div>
-                </label>
+                </div>
               </form>
             </div>
           </div>
