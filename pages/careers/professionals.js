@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 import Layout from "../../components/layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
@@ -45,6 +45,33 @@ export default function Professionals({ user }) {
     .filter((item) => item.id !== user.id)
     .filter((item) => !contactedUsersCopy.includes(item.id))
 
+  const handleContact = async (e) => {
+    mutate(`http://localhost:3000/api/users/lite`)
+    const id = Number(e.target.id)
+    const url = `http://localhost:3000/api/user/request-member`
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+    mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
+  }
+
+  const handleRemove = async (e) => {
+    mutate(`http://localhost:3000/api/users/lite`)
+    const id = Number(e.target.id)
+    const params2 = new URLSearchParams({ id: id })
+    const url = `http://localhost:3000/api/user/request-member?${params2.toString()}`
+    await fetch(url, { method: "DELETE" }).then((res) => {
+      return res.json()
+    })
+    mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
+  }
+
   return (
     <>
       <Preload
@@ -77,6 +104,7 @@ export default function Professionals({ user }) {
                 isUser={true}
                 accion1={"view profile"}
                 accion2={"contact"}
+                func={handleContact}
               />
             )
           })}
@@ -103,6 +131,7 @@ export default function Professionals({ user }) {
                 applied={true}
                 accion1={"view profile"}
                 accion2={"remove"}
+                func={handleRemove}
               />
             )
           })}

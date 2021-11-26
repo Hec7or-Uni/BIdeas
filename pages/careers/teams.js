@@ -6,7 +6,7 @@ import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
 import Careers from "components/Content/careers"
 
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -52,6 +52,34 @@ export default function Teams({ user, myProjects }) {
     .filter((item) => !current.includes(item.id))
     .filter((item) => !appliedJobsCopy.includes(item.id))
 
+  const handleApplyJob = async (e) => {
+    mutate(`http://localhost:3000/api/teams/lite`)
+    const id = Number(e.target.id)
+    const url = `http://localhost:3000/api/user/request-join`
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => {
+      return res.json()
+    })
+    mutate(`http://localhost:3000/api/user/request-join?${params.toString()}`)
+  }
+
+  const handleRemove = async (e) => {
+    mutate(`http://localhost:3000/api/teams/lite`)
+
+    const id = Number(e.target.id)
+    const params2 = new URLSearchParams({ id: id })
+    const url = `http://localhost:3000/api/user/request-join?${params2.toString()}`
+    await fetch(url, { method: "DELETE" }).then((res) => {
+      return res.json()
+    })
+    mutate(`http://localhost:3000/api/user/request-join?${params.toString()}`)
+  }
+
   return (
     <>
       <Preload
@@ -84,6 +112,7 @@ export default function Teams({ user, myProjects }) {
                 isUser={false}
                 accion1={"view job"}
                 accion2={"apply for job"}
+                func={handleApplyJob}
               />
             )
           })}
@@ -110,6 +139,7 @@ export default function Teams({ user, myProjects }) {
                 applied={true}
                 accion1={"view job"}
                 accion2={"remove"}
+                func={handleRemove}
               />
             )
           })}
