@@ -6,24 +6,21 @@ import toast, { Toaster } from "react-hot-toast"
 export default function Login({ csrfToken }) {
   const router = useRouter()
 
-  const handleSubmit = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault()
     const { id, password } = e.target
-    console.log("hola")
-
-    const res = await signIn("credentials", {
-      id: id.value,
-      password: password.value,
-      redirect: false,
+    return new Promise(function (resolve, reject) {
+      signIn("credentials", {
+        id: id.value,
+        password: password.value,
+        redirect: false,
+      }).then((res) => {
+        if (!res.ok) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
+      })
     })
-
-    const { error } = res
-    if (!error) {
-      toast.success("Successfully logged in!")
-      return router.push("http://localhost:3000/home")
-    }
-    toast.error("Error while logging in.")
-    return router.push("http://localhost:3000/login")
   }
 
   return (
@@ -35,7 +32,14 @@ export default function Login({ csrfToken }) {
         </div>
         <form
           onSubmit={(e) => {
-            handleSubmit(e)
+            toast
+              .promise(handleSubmit(e), {
+                loading: "Logging in",
+                success: "Successfully logged in",
+                error: "Error when logging in",
+              })
+              .then(() => router.push("http://localhost:3000/home"))
+              .catch(() => router.push("http://localhost:3000/login"))
           }}
           className="mt-4"
         >
