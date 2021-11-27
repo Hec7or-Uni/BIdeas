@@ -6,6 +6,7 @@ import Layout from "../../components/layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
 import Careers from "components/Content/careers"
+import toast, { Toaster } from "react-hot-toast"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -58,6 +59,7 @@ export default function Professionals({ user }) {
     }).then((res) => {
       return res.json()
     })
+    toast.success("Request successfully submitted!")
     mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
   }
 
@@ -69,11 +71,13 @@ export default function Professionals({ user }) {
     await fetch(url, { method: "DELETE" }).then((res) => {
       return res.json()
     })
+    toast.success("Request successfully deleted!")
     mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
   }
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Preload
         web={"Professionals"}
         title={"Lot of Professionals"}

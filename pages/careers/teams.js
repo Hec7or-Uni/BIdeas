@@ -5,7 +5,7 @@ import Layout from "../../components/layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
 import Careers from "components/Content/careers"
-
+import toast, { Toaster } from "react-hot-toast"
 import useSWR, { mutate } from "swr"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -65,6 +65,7 @@ export default function Teams({ user, myProjects }) {
     }).then((res) => {
       return res.json()
     })
+    toast.success("Request successfully submitted!")
     mutate(`http://localhost:3000/api/user/request-join?${params.toString()}`)
   }
 
@@ -77,11 +78,13 @@ export default function Teams({ user, myProjects }) {
     await fetch(url, { method: "DELETE" }).then((res) => {
       return res.json()
     })
+    toast.success("Request successfully deleted!")
     mutate(`http://localhost:3000/api/user/request-join?${params.toString()}`)
   }
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Preload
         web={"Teams"}
         title={"Lot of Jobs"}
