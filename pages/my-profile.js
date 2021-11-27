@@ -320,7 +320,7 @@ export default function Profile({ user, owns, participates }) {
                     <span className="text-xs font-semibold uppercase dark:text-gray-100">
                       country
                     </span>
-                    <select className="w-full px-2 py-2 mt-1 text-gray-700 bg-neutral border rounded-md focus:border-blue-600 text-opacity-75">
+                    <select className="w-full px-2 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75">
                       <option value="">
                         {user.country || "Select a country"}
                       </option>
@@ -385,27 +385,7 @@ export default function Profile({ user, owns, participates }) {
           <div className="px-8 mt-8 w-4/6">
             <p className="text-base font-bold dark:text-gray-100">Social media</p>
             <div className="mt-4 px-2">
-              <div className="flex gap-x-4 w-full">
-                <div className="w-full">
-                <div className="flex gap-x-1">
-                      <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        website
-                      </span>
-                    </div>
-                  <input
-                    id="website"
-                    type="url"
-                    name="website"
-                    placeholder={user.website || "https//www.yourweb.com"}
-                    onChange={handleWebsite}
-                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                  />
-                </div>
-                <div className="w-full">
-                </div>
-              </div>
-              <div className="flex gap-x-4 w-full">
+            <div className="flex gap-x-4 w-full">
                 <div className="w-full mt-4">
                     <div className="flex gap-x-1">
                       <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
@@ -437,6 +417,26 @@ export default function Profile({ user, owns, participates }) {
                       onChange={handleFacebook}
                       className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
                     />
+                </div>
+              </div>
+              <div className="flex gap-x-4 w-full">
+                <div className="w-full">
+                <div className="flex gap-x-1">
+                      <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        website
+                      </span>
+                    </div>
+                  <input
+                    id="website"
+                    type="url"
+                    name="website"
+                    placeholder={user.website || "https//www.yourweb.com"}
+                    onChange={handleWebsite}
+                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                  />
+                </div>
+                <div className="w-full">
                 </div>
               </div>
             </div>
