@@ -15,15 +15,11 @@ import {
   FiBriefcase,
   FiHeart,
   FiSave,
+  FiTrash2,
 } from "react-icons/fi"
-import {
-  BsTwitter,
-  BsFacebook,
-} from "react-icons/bs"
+import { BsTwitter, BsFacebook } from "react-icons/bs"
 
-import {
-  CgWebsite,
-} from "react-icons/cg"
+import { CgWebsite } from "react-icons/cg"
 
 export default function Profile({ user, owns, participates }) {
   const [isActive, setActive] = useState(1)
@@ -98,6 +94,22 @@ export default function Profile({ user, owns, participates }) {
   //     return res.json()
   //   })
   // }
+
+  function handleUpdate(e) {
+    // NOTA: los datos / funciones puestas anterior mente no harian falta sin ponemos un form para todos los campos
+    // y llamas a la funcion en: <form onSubmit={(e) => handleUpdate(e)}>
+    // se puede acceder a los campos del form con: e.target.<id>.value identificacndo el campo especifico asi: e.target.id.value
+    // url: localhost:3000/api/user
+    // method: PUT
+    // guarda los cambios realizados en la bbdd
+  }
+
+  function handleDelete() {
+    // url: localhost:3000/api/user
+    // method: Delete
+    // borra toda la informacion del usuario de la base de datos
+    // participaciones, solicitudes, ...
+  }
 
   return (
     <div className="w-full px-8 py-3">
@@ -187,11 +199,13 @@ export default function Profile({ user, owns, participates }) {
               return (
                 <TeUsCard
                   key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
-                  url={item.teamName}
+                  id={item.id}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                  url={item.project.teamName}
                   isUser={false}
+                  owns={true}
                 />
               )
             })}
@@ -199,11 +213,13 @@ export default function Profile({ user, owns, participates }) {
               return (
                 <TeUsCard
                   key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
-                  url={item.teamName}
+                  id={item.id}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                  url={item.project.teamName}
                   isUser={false}
+                  owns={false}
                 />
               )
             })}
@@ -212,24 +228,23 @@ export default function Profile({ user, owns, participates }) {
       )}
       {/* Profile Settings */}
       {isActive === 2 && (
-        <div>
+        <div className="relative">
           {/* Profile Avatar Edit */}
 
           <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100">Profile Avatar</p>
+            <p className="text-base font-bold dark:text-gray-100">
+              Profile Avatar
+            </p>
             <div className="mt-4 px-2">
               <div className="flex items-center gap-x-4 w-full h-full">
-                
-                {/* Parte izquierda img, input*/}
+                {/* Parte izquierda img, input */}
                 <div className="flex w-full items-center">
-
                   <div className="flex w-1/2 justify-start">
                     <img
                       src={user.avatar || "/personas/DefaultAvatar.jpg"}
                       className="w-32 h-32 rounded-full object-cover relative"
                     />
                   </div>
-
 
                   <div className="w-full">
                     <span className="text-xs font-semibold uppercase dark:text-gray-100">
@@ -246,19 +261,26 @@ export default function Profile({ user, owns, participates }) {
                   </div>
                 </div>
 
-                {/* Parte derecha save changes*/}
+                {/* Parte derecha save changes */}
                 <div className="flex w-full items-center">
-                  <div className="flex w-full h-16 justify-center">
+                  <div className="flex flex-col gap-y-2 absolute top-0 right-0 z-50">
                     <button
                       type="submit"
-                      form="form-profile"
-                      className="w-5/12 bg-green-600 text-white text-bold font-medium uppercase rounded-md">
-                        <div className="flex-col items-center justify-center">
-                          <div className="flex w-full justify-center">
-                            <FiSave className="h-6 w-6 justify-center items-center text-neutral" />
-                          </div>
-                          save changes
-                        </div>
+                      className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
+                    >
+                      <div className="flex justify-center gap-x-2 items-center p-2">
+                        <FiSave className="h-5 w-5 items-center text-neutral" />
+                        save changes
+                      </div>
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                    >
+                      <div className="flex justify-center gap-x-2 items-center p-2">
+                        <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                        delete
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -268,7 +290,9 @@ export default function Profile({ user, owns, participates }) {
 
           {/* General Info Edit */}
           <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100">General Information</p>
+            <p className="text-base font-bold dark:text-gray-100">
+              General Information
+            </p>
             <div className="mt-4 px-2">
               <form id="form-profile">
                 {/* Name & LastName */}
@@ -333,7 +357,6 @@ export default function Profile({ user, owns, participates }) {
                   </div>
                 </div>
 
-
                 {/* Email & Password */}
                 <div className="flex gap-x-4 w-full mt-2">
                   <div className="w-full">
@@ -383,50 +406,52 @@ export default function Profile({ user, owns, participates }) {
 
           {/* Social Media */}
           <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100">Social media</p>
+            <p className="text-base font-bold dark:text-gray-100">
+              Social media
+            </p>
             <div className="mt-4 px-2">
-            <div className="flex gap-x-4 w-full">
+              <div className="flex gap-x-4 w-full">
                 <div className="w-full mt-4">
-                    <div className="flex gap-x-1">
-                      <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        twitter
-                      </span>
-                    </div>
-                    <input
-                      id="twitter"
-                      type="text"
-                      name="twitter"
-                      placeholder={user.twitter || "@TwitterUser"}
-                      onChange={handleTwitter}
-                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                    />
+                  <div className="flex gap-x-1">
+                    <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      twitter
+                    </span>
+                  </div>
+                  <input
+                    id="twitter"
+                    type="text"
+                    name="twitter"
+                    placeholder={user.twitter || "@TwitterUser"}
+                    onChange={handleTwitter}
+                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                  />
                 </div>
                 <div className="w-full mt-4">
-                    <div className="flex gap-x-1">
-                      <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        facebook
-                      </span>
-                    </div>
-                    <input
-                      id="facebook"
-                      type="text"
-                      name="facebook"
-                      placeholder={user.facebook || "FacebookUser"}
-                      onChange={handleFacebook}
-                      className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                    />
+                  <div className="flex gap-x-1">
+                    <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      facebook
+                    </span>
+                  </div>
+                  <input
+                    id="facebook"
+                    type="text"
+                    name="facebook"
+                    placeholder={user.facebook || "FacebookUser"}
+                    onChange={handleFacebook}
+                    className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                  />
                 </div>
               </div>
               <div className="flex gap-x-4 w-full">
                 <div className="w-full">
-                <div className="flex gap-x-1">
-                      <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        website
-                      </span>
-                    </div>
+                  <div className="flex gap-x-1">
+                    <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      website
+                    </span>
+                  </div>
                   <input
                     id="website"
                     type="url"
@@ -436,8 +461,7 @@ export default function Profile({ user, owns, participates }) {
                     className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                   />
                 </div>
-                <div className="w-full">
-                </div>
+                <div className="w-full"></div>
               </div>
             </div>
           </div>

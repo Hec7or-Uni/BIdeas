@@ -10,21 +10,9 @@ import LineMenu from "../components/Navegation/LineMenu"
 import { countryList } from "../data/countryList"
 import { links4myteam } from "data/LineMenu"
 import { RiBlazeLine } from "react-icons/ri"
-import {
-  FiHexagon,
-  FiAward,
-  FiFlag,
-  FiBriefcase,
-  FiHeart,
-  FiSave,
-} from "react-icons/fi"
-import {
-  BsTwitter,
-  BsFacebook,
-} from "react-icons/bs"
-import {
-  FaDiscord
-} from "react-icons/fa"
+import { FiAward, FiBriefcase, FiHeart, FiSave, FiTrash2 } from "react-icons/fi"
+import { BsTwitter, BsFacebook } from "react-icons/bs"
+import { FaDiscord } from "react-icons/fa"
 
 const numMaxMembers = {
   2: "2",
@@ -107,6 +95,22 @@ export default function Team({ team, user, workers }) {
   //   })
   // }
 
+  function handleUpdate(e) {
+    // NOTA: los datos / funciones puestas anterior mente no harian falta sin ponemos un form para todos los campos
+    // y llamas a la funcion en: <form onSubmit={(e) => handleUpdate(e)}>
+    // se puede acceder a los campos del form con: e.target.<id>.value identificacndo el campo especifico asi: e.target.id.value
+    // url: localhost:3000/api/team
+    // method: PUT
+    // guarda los cambios realizados en la bbdd
+  }
+
+  function handleDelete() {
+    // url: localhost:3000/api/team
+    // method: Delete
+    // borra toda la informacion del usuario de la base de datos
+    // participaciones, solicitudes, usuarios(necesarios)...
+  }
+
   return (
     <div className="px-8 py-3">
       <Meta title="My Team" />
@@ -181,11 +185,13 @@ export default function Team({ team, user, workers }) {
               return (
                 <TeUsCard
                   key={item.id}
-                  img={item.avatar}
-                  title={item.name + " " + item.lastName}
-                  desc={item.description}
-                  url={item.userName}
+                  id={item.id}
+                  img={item.user.avatar}
+                  title={item.user.name + " " + item.user.lastName}
+                  desc={item.user.description}
+                  url={item.user.userName}
                   isUser={true}
+                  owns={false}
                 />
               )
             })}
@@ -215,94 +221,65 @@ export default function Team({ team, user, workers }) {
       )}
       {/* Profile Settings */}
       {isActive === 2 && (
-        <div>
+        <div className="relative">
           {/* Profile Avatar Edit */}
           <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100 ">Team Avatar</p>
+            <p className="text-base font-bold dark:text-gray-100 ">
+              Team Avatar
+            </p>
             <div className="mt-4 px-2">
               <div className="flex items-center gap-x-4 w-full h-full">
-
-               <div className="flex w-full items-center">
+                <div className="flex w-full items-center">
                   <div className="flex w-1/2 justify-start">
                     <img
                       src={team.avatar || "/personas/DefaultTeamAvatar.png"}
                       className="w-32 h-32 rounded-full object-cover relative"
                     />
-                    {/* <div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mt-12"
-                      >
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                        <circle cx="12" cy="13" r="4"></circle>
-                      </svg>
-                    </div> */}
                   </div>
 
                   <div className="w-full">
                     <span className="text-xs font-semibold uppercase dark:text-gray-100">
                       avatar url
                     </span>
-                      <input
-                        id="avatarUrl"
-                        type="url"
-                        name="avatarUrl"
-                        placeholder={team.avatar || "https://avatar..."}
-                        onChange={handleAvatar}
-                        className="w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
-                      />
-                    </div>
-                  </div>
-
-                  {/* <button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
-                    <div className="flex gap-x-2 items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={`h-3 w-3 ml-1 transform rotate-180`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                      upload avatar
-                    </div>
-                  </button>} */}
-                <div className="flex w-full items-center">
-                  <div className="flex w-full h-16 justify-center">
-                    <button
-                      type="submit"
-                      form="form-profile"
-                      className="w-5/12 bg-green-600 text-white text-bold font-medium uppercase rounded-md">
-                        <div className="flex-col items-center justify-center">
-                          <div className="flex w-full justify-center">
-                            <FiSave className="h-6 w-6 justify-center items-center text-neutral" />
-                          </div>
-                          save changes
-                          </div>
-                        </button>
-                      </div>
-                    </div>
+                    <input
+                      id="avatarUrl"
+                      type="url"
+                      name="avatarUrl"
+                      placeholder={team.avatar || "https://avatar..."}
+                      onChange={handleAvatar}
+                      className="w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
                 </div>
+                <div className="flex flex-col gap-y-2 absolute top-0 right-0 z-50">
+                  <button
+                    type="submit"
+                    className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
+                  >
+                    <div className="flex justify-center gap-x-2 items-center p-2">
+                      <FiSave className="h-5 w-5 items-center text-neutral" />
+                      save changes
+                    </div>
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                  >
+                    <div className="flex justify-center gap-x-2 items-center p-2">
+                      <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                      delete
+                    </div>
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
 
           {/* General Info Edit */}
           <div className="px-8 mt-8 5/6">
-            <p className="text-base font-bold dark:text-gray-100">Team Information</p>
+            <p className="text-base font-bold dark:text-gray-100">
+              Team Information
+            </p>
             <div className="mt-4 pr-8 w-4/6">
               <form className="">
                 <div className="flex gap-x-4">
@@ -401,50 +378,52 @@ export default function Team({ team, user, workers }) {
 
           {/* Social Media */}
           <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100">Social media</p>
+            <p className="text-base font-bold dark:text-gray-100">
+              Social media
+            </p>
             <div className="mt-4 px-2">
-            <div className="flex gap-x-4 w-full">
+              <div className="flex gap-x-4 w-full">
                 <div className="w-full mt-4">
-                    <div className="flex gap-x-1">
-                      <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        twitter
-                      </span>
-                    </div>
-                    <input
-                      id="twitter"
-                      type="text"
-                      name="twitter"
-                      placeholder={user.twitter || "@TwitterUser"}
-                      onChange={handleTwitter}
-                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                    />
+                  <div className="flex gap-x-1">
+                    <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      twitter
+                    </span>
+                  </div>
+                  <input
+                    id="twitter"
+                    type="text"
+                    name="twitter"
+                    placeholder={user.twitter || "@TwitterUser"}
+                    onChange={handleTwitter}
+                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                  />
                 </div>
                 <div className="w-full mt-4">
-                    <div className="flex gap-x-1">
-                      <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        facebook
-                      </span>
-                    </div>
-                    <input
-                      id="facebook"
-                      type="text"
-                      name="facebook"
-                      placeholder={user.facebook || "FacebookUser"}
-                      onChange={handleFacebook}
-                      className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                    />
+                  <div className="flex gap-x-1">
+                    <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      facebook
+                    </span>
+                  </div>
+                  <input
+                    id="facebook"
+                    type="text"
+                    name="facebook"
+                    placeholder={user.facebook || "FacebookUser"}
+                    onChange={handleFacebook}
+                    className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                  />
                 </div>
               </div>
-                <div className="flex gap-x-4 w-full">
-                  <div className="w-full">
+              <div className="flex gap-x-4 w-full">
+                <div className="w-full">
                   <div className="flex gap-x-1">
-                      <FaDiscord className="h-auto w-auto object-fill object-center text-indigo-400" />
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        discord
-                      </span>
-                    </div>
+                    <FaDiscord className="h-auto w-auto object-fill object-center text-indigo-400" />
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      discord
+                    </span>
+                  </div>
                   <input
                     id="discord"
                     type="text"
@@ -454,13 +433,11 @@ export default function Team({ team, user, workers }) {
                     className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                   />
                 </div>
-                <div className="w-full">
-                </div>
+                <div className="w-full"></div>
               </div>
             </div>
           </div>
-
-         </div>
+        </div>
       )}
     </div>
   )
@@ -497,10 +474,10 @@ export async function getServerSideProps({ req }) {
 
   const { team, users } = res.data
 
-  let user = users.owner
+  let user = users.owner.user
   const workers = users.workers
 
-  if (Object.entries(user).length === 0) {
+  if (!user) {
     const params = new URLSearchParams({ id: session.token.id })
     const url = `http://localhost:3000/api/user/lite?${params.toString()}`
 

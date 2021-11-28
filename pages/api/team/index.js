@@ -42,11 +42,9 @@ export default async (req, res) => {
   } else if (method === "GET") {
     const team = await Project(req.query.id)
     if (team) {
-      let USERS = await InProgress(undefined, team.id)
-      USERS = USERS.map((item) => item.user)
-      const owner = USERS.filter((item) => item.id === team.owner)
-      const workers = USERS.filter((item) => item.id !== team.owner)
-
+      const USERS = await InProgress(undefined, team.id)
+      const owner = USERS.filter((item) => item.user.id === team.owner)
+      const workers = USERS.filter((item) => item.user.id !== team.owner)
       data = {
         team: team,
         users: {

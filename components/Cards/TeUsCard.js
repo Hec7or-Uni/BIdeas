@@ -1,9 +1,23 @@
 import Link from "next/link"
+import ButtonP from "../Buttons/ButtonP"
 
-export default function TeUsCard({ img, title, desc, url, isUser }) {
+export default function TeUsCard({ id, img, title, desc, url, isUser, owns }) {
+  // handleFire & handleLeave PUEDE que sean la misma funcion
+  // url: localhost:3000/api/user/participate?id=<id>
+
+  function handleFire() {
+    // elimina al usuario <id> de la tabla participates
+    // identificada con el <id> de su participacion {idUser, idProject}
+  }
+
+  function handleLeave() {
+    // elimina al usuario logeado <id> de la tabla participates
+    // identificada con el <id> de su participacion {idUser, idProject}
+  }
+
   return (
     <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
-      <a className="flex items-center gap-x-4 h-28 w-1/2 px-2 rounded-xl bg-color-light-neutral-1 dark:bg-color-neutral-1 shadow">
+      <a className="flex items-center gap-x-4 w-1/2 rounded-xl bg-color-light-neutral-1 dark:bg-color-neutral-1 shadow relative">
         <div className="w-24 h-24 rounded-xl">
           <img
             src={
@@ -24,6 +38,17 @@ export default function TeUsCard({ img, title, desc, url, isUser }) {
             {desc}
           </p>
         </div>
+        {!owns && (
+          <div className="absolute right-0 mr-4">
+            <ButtonP
+              id={id}
+              func={() => console.log()}
+              url={""}
+              text={isUser ? "fire" : "leave"}
+              className={"bg-red-600 hover:bg-red-700"}
+            />
+          </div>
+        )}
       </a>
     </Link>
   )

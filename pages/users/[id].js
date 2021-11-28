@@ -120,11 +120,12 @@ export default function Profile() {
             return (
               <TeUsCard
                 key={item.id}
-                img={item.avatar}
-                title={item.teamName}
-                desc={item.description}
+                img={item.project.avatar}
+                title={item.project.teamName}
+                desc={item.project.description}
                 isUser={false}
-                url={item.teamName}
+                url={item.project.teamName}
+                owns={true}
               />
             )
           })}
@@ -132,11 +133,12 @@ export default function Profile() {
             return (
               <TeUsCard
                 key={item.id}
-                img={item.avatar}
-                title={item.teamName}
-                desc={item.description}
+                img={item.project.avatar}
+                title={item.project.teamName}
+                desc={item.project.description}
                 isUser={false}
-                url={item.teamName}
+                url={item.project.teamName}
+                owns={true}
               />
             )
           })}
