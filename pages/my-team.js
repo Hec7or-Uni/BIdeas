@@ -251,7 +251,7 @@ export default function Team({ team, user, workers }) {
                     />
                   </div>
                 </div>
-                <div className="flex flex-col gap-y-2 absolute top-0 right-0 z-50">
+                <div className="flex flex-col gap-y-2 absolute top-0 right-0">
                   <button
                     type="submit"
                     className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
