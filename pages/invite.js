@@ -1,51 +1,37 @@
-import { useState } from "react"
 import Link from "next/link"
 import crypto from "crypto"
 import CryptoJS from "crypto-js"
 
 export default function Invite() {
-  const [values, setValues] = useState({
-    name: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-  })
-
-  const handleName = (e) => {
-    setValues({ ...values, name: e.target.value })
-  }
-  const handleLastName = (e) => {
-    setValues({ ...values, lastName: e.target.value })
-  }
-  const handleUsername = (e) => {
-    setValues({ ...values, username: e.target.value })
-  }
-  const handleEmail = (e) => {
-    setValues({ ...values, email: e.target.value })
-  }
-  const handlePassword = (e) => {
-    setValues({ ...values, password: e.target.value })
-  }
-
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault()
+    const { name, lastName, username, email, password } = e.target
 
     const salt = crypto.randomBytes(16).toString("hex")
     const query = {
-      name: values.name,
-      lastName: values.lastName,
-      userName: values.username,
-      email: values.email,
+      name: name.value,
+      lastName: lastName.value,
+      userName: username.value,
+      email: email.value,
       salt: salt,
-      passwd: CryptoJS.SHA512(salt + values.password).toString(),
+      passwd: CryptoJS.SHA512(salt + password.value).toString(),
     }
-    await fetch(`http://localhost:3000/api/user`, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(query),
-    }).then((res) => {
-      return res.json()
+
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/user`, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(query),
+      })
+        .then((res) => {
+          return res.json()
+        })
+        .then((res) => {
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
     })
   }
 
@@ -57,7 +43,7 @@ export default function Invite() {
             Create your account.
           </span>
         </div>
-        <form method="post" onSubmit={handleSubmit} className="mt-4">
+        <form method="post" onSubmit={(e) => handleSubmit(e)} className="mt-4">
           <div className="flex gap-x-2 mt-3">
             <label type="name" className="block">
               <span className="text-sm text-gray-700">Name</span>
@@ -66,7 +52,7 @@ export default function Invite() {
                 id="name"
                 name="name"
                 autoComplete="name"
-                onChange={handleName}
+                // onChange={handleName}
                 className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
                 required
               />
@@ -78,7 +64,7 @@ export default function Invite() {
                 id="lastName"
                 name="lastName"
                 autoComplete="last name"
-                onChange={handleLastName}
+                // onChange={handleLastName}
                 className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
                 required
               />
@@ -91,7 +77,7 @@ export default function Invite() {
               id="username"
               name="username"
               autoComplete="username"
-              onChange={handleUsername}
+              // onChange={handleUsername}
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
@@ -103,7 +89,7 @@ export default function Invite() {
               id="email"
               name="email"
               autoComplete="email"
-              onChange={handleEmail}
+              // onChange={handleEmail}
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
@@ -115,7 +101,7 @@ export default function Invite() {
               id="password"
               name="password"
               autoComplete="current-password"
-              onChange={handlePassword}
+              // onChange={handlePassword}
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
