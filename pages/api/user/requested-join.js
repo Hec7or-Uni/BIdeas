@@ -40,6 +40,7 @@ export default async (req, res) => {
       delete team.user
     }
   } catch (error) {
+  } finally {
     res.status(200).json({
       data: {
         team: team,
