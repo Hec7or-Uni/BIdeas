@@ -2,6 +2,14 @@ import prisma from "../../../libs/prisma"
 
 export async function Projects() {
   return await prisma.projects.findMany({
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+      {
+        updatedAt: "desc",
+      },
+    ],
     select: {
       id: true, // ---------- Identification
       teamName: true,
@@ -23,6 +31,14 @@ export async function Projects() {
 
 export async function ProjectsLite() {
   return await prisma.projects.findMany({
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+      {
+        updatedAt: "desc",
+      },
+    ],
     select: {
       id: true, // ---------- Identification
       teamName: true,

@@ -107,6 +107,7 @@ export default function Team() {
                 desc={item.description}
                 isUser={true}
                 url={item.userName}
+                owns={true}
               />
             )
           })}

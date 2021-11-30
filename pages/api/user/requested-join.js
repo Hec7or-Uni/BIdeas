@@ -21,29 +21,32 @@ export default async (req, res) => {
   }
 
   const ownerId = token.id.toString()
-  const { id } = await ProjectLite(ownerId)
   let team = {}
   let users = []
-  const data = await ReqProjectLite(id)
+  try {
+    const { id } = await ProjectLite(ownerId)
+    const data = await ReqProjectLite(id)
 
-  if (data.length !== 0) {
-    team = data[0]
-    users = data.map((item) => {
-      return {
-        id: item.id,
-        idUser: item.idUser,
-        idProject: item.idProject,
-        users: item.user,
-      }
+    if (data.length !== 0) {
+      team = data[0]
+      users = data.map((item) => {
+        return {
+          id: item.id,
+          idUser: item.idUser,
+          idProject: item.idProject,
+          users: item.user,
+        }
+      })
+      delete team.user
+    }
+  } catch (error) {
+  } finally {
+    res.status(200).json({
+      data: {
+        team: team,
+        users: users,
+      },
+      status: status(200, ""),
     })
-    delete team.user
   }
-
-  res.status(200).json({
-    data: {
-      team: team,
-      users: users,
-    },
-    status: status(200, ""),
-  })
 }

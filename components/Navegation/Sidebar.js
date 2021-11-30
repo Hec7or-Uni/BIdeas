@@ -88,7 +88,7 @@ export default function Sidebar() {
           ${
             isHover
               ? "bg-blue-500 border-blue-500"
-              : "bg-color-light-neutral-1 dark:bg-cm-color"
+              : "bg-color-light-neutral-1 dark:bg-cm-color border-black"
           }`}
         />
       </div>

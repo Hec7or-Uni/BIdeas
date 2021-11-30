@@ -23,12 +23,12 @@ export default NextAuth({
           headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(query),
         }).then((res) => {
+          console.log(res)
           return res.json()
         })
 
         let user = null
         const { id, userName, email, salt, passwd } = res.data.user
-
         if (
           CryptoJS.SHA512(salt + credentials.password).toString() === passwd
         ) {

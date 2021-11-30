@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { mutate } from "swr"
 import { FiArrowLeft, FiArrowRight, FiPlus, FiX } from "react-icons/fi"
 
 export default function Notification({
@@ -29,6 +30,8 @@ export default function Notification({
     }).then((res) => {
       return res.json()
     })
+    mutate(`http://localhost:3000/api/user/requested-member`)
+    mutate(`http://localhost:3000/api/user/requested-join`)
   }
 
   async function reject() {
@@ -38,6 +41,8 @@ export default function Notification({
     await fetch(url, { method: "DELETE" }).then((res) => {
       return res.json()
     })
+    mutate(`http://localhost:3000/api/user/requested-member`)
+    mutate(`http://localhost:3000/api/user/requested-join`)
   }
 
   return (

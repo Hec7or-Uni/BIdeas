@@ -48,6 +48,17 @@ export default function Home({ user, owns, recommended, participates }) {
   const handleMenu = (id) => setActive(id)
   const [stat, setStat] = useState(Stats[0])
 
+  const finals = () => {
+    const list = new Array()
+    for (let index = 0; index < 5; index++) {
+      list.push(recommended[index])
+    }
+    return list
+  }
+
+  const ownsLength = owns.length || 0
+  const participatesLength = participates.length || 0
+
   const handleIncrement = () => {
     const id = stat.id
     if (id + 1 < Stats.length) {
@@ -118,7 +129,7 @@ export default function Home({ user, owns, recommended, participates }) {
                   <div className="w-40 bg-gray-200 rounded-full h-1 my-1.5">
                     {Number(user.xp / 100).toFixed() < 5 && (
                       <div
-                        className="bg-gray-800 h-1 rounded-full"
+                        className="bg-gray-800 h-1 rounded-full dark:bg-green-400"
                         style={{
                           width:
                             Number(user.xp % 100)
@@ -129,7 +140,7 @@ export default function Home({ user, owns, recommended, participates }) {
                     )}
                     {Number(user.xp / 100).toFixed() >= 5 && (
                       <div
-                        className="bg-gray-800 h-1 rounded-full"
+                        className="bg-gray-800 h-1 rounded-full dark:bg-gray-100"
                         style={{ width: "100%" }}
                       ></div>
                     )}
@@ -205,8 +216,8 @@ export default function Home({ user, owns, recommended, participates }) {
                   {stat.icon}
                   <p className="p-0.5 text-xl font-bold text-gray-900 dark:text-gray-100">
                     {stat.id === 0 && user.xp}
-                    {stat.id === 1 && owns.length}
-                    {stat.id === 2 && participates.length}
+                    {stat.id === 1 && ownsLength}
+                    {stat.id === 2 && participatesLength}
                     {stat.id === 3 && user.respect}
                   </p>
                 </div>
@@ -262,7 +273,7 @@ export default function Home({ user, owns, recommended, participates }) {
         )}
         {isActive === 2 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            {recommended.map((item) => {
+            {finals().map((item, idx) => {
               return (
                 <Shortcut
                   key={item.id}
@@ -288,14 +299,14 @@ export default function Home({ user, owns, recommended, participates }) {
                 />
               )
             })}
-            {participates === 0 && (
+            {participatesLength === 0 && (
               <div className="container pb-32 py-3">
                 <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
                   <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600" />
-                  <p className="text-base font-semibold text-justify">
+                  <p className="text-base font-semibold text-justify dark:text-gray-100">
                     Oops! Looks like you don&apos;t have a team yet!
                   </p>
-                  <p className="text-sm font-normal text-justify">
+                  <p className="text-sm font-normal text-justify dark:text-gray-100">
                     You can{" "}
                     <Link href="/my-team">
                       <a className="hover:underline text-blue-600">

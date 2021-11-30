@@ -2,6 +2,20 @@ import prisma from "../../../libs/prisma"
 
 export async function Users() {
   return await prisma.users.findMany({
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+      {
+        updatedAt: "desc",
+      },
+      {
+        xp: "desc",
+      },
+      {
+        respect: "desc",
+      },
+    ],
     select: {
       id: true, // ---------- Identification
       userName: true,
@@ -29,6 +43,20 @@ export async function Users() {
 
 export async function UsersLite() {
   return await prisma.users.findMany({
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+      {
+        updatedAt: "desc",
+      },
+      {
+        xp: "desc",
+      },
+      {
+        respect: "desc",
+      },
+    ],
     select: {
       id: true, // ---------- Identification
       userName: true,

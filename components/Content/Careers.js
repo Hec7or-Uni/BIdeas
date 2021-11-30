@@ -1,5 +1,4 @@
 export default function Careers({ title, text, lista }) {
-  console.log("lista", lista)
   return (
     <div className="container px-8 mx-auto">
       <p className="text-lg font-bold text-gray-900 dark:text-gray-100">

@@ -6,6 +6,9 @@ import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "../components/Navegation/LineMenu"
 import Layout from "../components/layout"
 import Meta from "components/Meta"
+import crypto from "crypto"
+import CryptoJS from "crypto-js"
+import toast, { Toaster } from "react-hot-toast"
 import { links4myprofile } from "data/LineMenu"
 import { countryList } from "../data/countryList"
 import {
@@ -14,84 +17,70 @@ import {
   FiFlag,
   FiBriefcase,
   FiHeart,
+  FiSave,
+  FiTrash2,
 } from "react-icons/fi"
+import { BsTwitter, BsFacebook } from "react-icons/bs"
+
+import { CgWebsite } from "react-icons/cg"
 
 export default function Profile({ user, owns, participates }) {
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
 
-  const [values, setValues] = useState({
-    name: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    avatar: "",
-    description: "",
-    website: "",
-    twitter: "",
-    facebook: "",
-  })
+  function handleUpdate(e) {
+    e.preventDefault()
 
-  const handleAvatar = (e) => {
-    setValues({ ...values, avatar: e.target.value })
-  }
-  const handleName = (e) => {
-    setValues({ ...values, name: e.target.value })
-  }
-  const handleLastName = (e) => {
-    setValues({ ...values, lastName: e.target.value })
-  }
-  const handleUsername = (e) => {
-    setValues({ ...values, username: e.target.value })
-  }
-  const handleEmail = (e) => {
-    setValues({ ...values, email: e.target.value })
-  }
-  const handlePassword = (e) => {
-    setValues({ ...values, password: e.target.value })
-  }
-  const handleDescription = (e) => {
-    setValues({ ...values, description: e.target.value })
-  }
-  const handleWebsite = (e) => {
-    setValues({ ...values, website: e.target.value })
-  }
-  const handleTwitter = (e) => {
-    setValues({ ...values, twitter: e.target.value })
-  }
-  const handleFacebook = (e) => {
-    setValues({ ...values, facebook: e.target.value })
+    const salt = crypto.randomBytes(16).toString("hex")
+    const query = {
+      id: user.id,
+      name: e.target.name.value || user.name,
+      lastName: e.target.lastname.value || user.lastName,
+      userName: e.target.username.value || user.userName,
+      email: e.target.email.value || user.email,
+      website: e.target.website.value,
+      country: e.target.country.value || user.country,
+      studies: e.target.studies.value,
+      twitter: e.target.twitter.value,
+      facebook: e.target.facebook.value,
+      description: e.target.description.value,
+      avatar: e.target.avatar.value,
+      salt: salt,
+      passwd: CryptoJS.SHA512(salt + e.target.password.value).toString(),
+    }
+
+    if (!e.target.password.value) {
+      delete query.salt
+      delete query.passwd
+    }
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/user`, { 
+        method: "PUT",
+        headers: { "Content-Type": "text/plain" }, 
+        body: JSON.stringify(query), 
+      }).then((res) => {
+          return res.json()
+        })
+        .then((res) => {
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
+    })
   }
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault()
-
-  //   const salt = crypto.randomBytes(16).toString("hex")
-  //   const query = {
-  //     name: values.name,
-  //     lastName: values.lastName,
-  //     userName: values.username,
-  //     email: values.email,
-  //     website: values.website,
-  //     twitter: values.twitter,
-  //     facebook: values.facebook,
-  //     description: values.description,
-  //     avatar: values.avatar,
-  //     salt: salt,
-  //     passwd: CryptoJS.SHA512(salt + values.password).toString(),
-  //   }
-  //   await fetch(`http://localhost:3000/api/user`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "text/plain" },
-  //     body: JSON.stringify(query),
-  //   }).then((res) => {
-  //     return res.json()
-  //   })
-  // }
+  function handleDelete() {
+    // url: localhost:3000/api/user
+    // method: Delete
+    // borra toda la informacion del usuario de la base de datos
+    // participaciones, solicitudes, ...
+  }
 
   return (
+    
     <div className="w-full px-8 py-3">
+      <Toaster position="top-center" reverseOrder={true} />
       <Meta title="My Profile" />
       <Header
         avatar={user.avatar}
@@ -100,6 +89,7 @@ export default function Profile({ user, owns, participates }) {
         studies={user.studies}
         plan={user.plan}
         xp={user.xp}
+        myProfile={true}
       />
       <LineMenu
         handleMenu={handleMenu}
@@ -124,12 +114,12 @@ export default function Profile({ user, owns, participates }) {
               </div>
               <div>
                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                  {Math.trunc((user.xp - 49) / 100) === 0 && "Newbie"}
-                  {Math.trunc((user.xp - 49) / 100) === 1 && "Entrepeneur"}
-                  {Math.trunc((user.xp - 49) / 100) === 2 && "Veteran"}
-                  {Math.trunc((user.xp - 49) / 100) === 3 && "Businessman"}
-                  {Math.trunc((user.xp - 49) / 100) === 4 && "Your own Boss"}
-                  {Number((user.xp - 49) / 100).toFixed() >= 5 && (
+                  {Math.trunc((user.xp) / 100) === 0 && "Newbie"}
+                  {Math.trunc((user.xp) / 100) === 1 && "Entrepeneur"}
+                  {Math.trunc((user.xp) / 100) === 2 && "Veteran"}
+                  {Math.trunc((user.xp) / 100) === 3 && "Businessman"}
+                  {Math.trunc((user.xp) / 100) === 4 && "Your own Boss"}
+                  {Number((user.xp) / 100).toFixed() >= 5 && (
                     <span className="text-yellow-500 animate-pulse duration-700">
                       GOAT
                     </span>
@@ -177,11 +167,13 @@ export default function Profile({ user, owns, participates }) {
               return (
                 <TeUsCard
                   key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
-                  url={item.teamName}
+                  id={item.id}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                  url={item.project.teamName}
                   isUser={false}
+                  owns={true}
                 />
               )
             })}
@@ -189,11 +181,13 @@ export default function Profile({ user, owns, participates }) {
               return (
                 <TeUsCard
                   key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
-                  url={item.teamName}
+                  id={item.id}
+                  img={item.project.avatar}
+                  title={item.project.teamName}
+                  desc={item.project.description}
+                  url={item.project.teamName}
                   isUser={false}
+                  owns={false}
                 />
               )
             })}
@@ -202,298 +196,268 @@ export default function Profile({ user, owns, participates }) {
       )}
       {/* Profile Settings */}
       {isActive === 2 && (
-        <div>
-          {/* Profile Avatar Edit */}
-          <div className="px-8 mt-5">
-            <p className="text-base font-bold">Profile Avatar</p>
-          </div>
+        <form onSubmit={(e) => {
+          toast
+            .promise(handleUpdate(e), {
+              loading: "Saving changes...",
+              success: "Changes succesfully saved",
+              error: "Error while saving changes",
+            })
+            .then(() => window.location.reload(false))
+        }} id="form-profile">
+          <div className="relative">
+            {/* Profile Avatar Edit */}
 
-          <div className="flex gap-x-48 mt-5 items-center">
-            <div className="flex gap-x-12 px-6 items-center">
-              <div className="flex w-32 h-32 rounded-full items-center justify-center">
-                <img
-                  src={user.avatar || "/personas/DefaultAvatar.jpg"}
-                  className="w-32 h-32 rounded-full object-cover relative"
-                />
-                {/* <div className="flex h-32 w-32 rounded-full absolute justify-center opacity-0 hover:opacity-90">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mt-12"
-                  >
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                  </svg>
-                </div> */}
-              </div>
-
-              <label>
-                <span className="text-xs font-semibold uppercase">
-                  avatar url
-                </span>
-                <div>
-                  <input
-                    id="avatarUrl"
-                    type="url"
-                    name="avatarUrl"
-                    placeholder={user.avatar || "https://avatar..."}
-                    onChange={handleAvatar}
-                    className="block w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600"
-                  />
-                </div>
-              </label>
-
-              {/* <button className="h-7 w-32 border-2 border-black text-xs font-medium uppercase rounded-sm" Onclick="document.getElementById('file-input').click();">
-                <div className="flex gap-x-2 items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-3 w-3 ml-1 transform rotate-180`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                  upload avatar
-                </div>
-              </button>} */}
-            </div>
-            <div>
-              <button
-                type="submit"
-                form="form-profile"
-                className="h-10 w-40 border-0 bg-indigo-500 text-white text-bold font-medium uppercase rounded-full"
-              >
-                <div className="flex gap-x-2 ml-2 items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                    <polyline points="7 3 7 8 15 8"></polyline>
-                  </svg>
-                  save changes
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* General Info Edit */}
-          <div className="px-8 mt-8">
-            <p className="text-base font-bold">General Information</p>
-            <div className="mt-4">
-              <form id="form-profile">
-                <div className="flex gap-x-4">
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase">
-                        name
-                      </span>
-                      <div>
-                        <input
-                          id="name"
-                          type="text"
-                          name="name"
-                          placeholder={user.name}
-                          onChange={handleName}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase">
-                        last name
-                      </span>
-                      <div>
-                        <input
-                          id="lastname"
-                          type="text"
-                          name="lastname"
-                          placeholder={user.lastName}
-                          onChange={handleLastName}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex gap-x-4">
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase text-gray-700">
-                        Username
-                      </span>
-                      <div>
-                        <input
-                          id="username"
-                          type="text"
-                          name="username"
-                          placeholder={user.userName}
-                          onChange={handleUsername}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase text-gray-700">
-                        country
-                      </span>
-                      <div>
-                        <select className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 opacity-75">
-                          <option value="">
-                            {user.country || "Select a country"}
-                          </option>
-                          {Object.entries(countryList).map(([key, value]) => (
-                            <option key={key} value={key}>
-                              {value}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                <div className="flex gap-x-4">
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase">
-                        e-mail
-                      </span>
-                      <div>
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          placeholder={user.email || "example@example.com"}
-                          onChange={handleEmail}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label className="block mt-3">
-                      <span className="text-xs font-semibold uppercase">
-                        password
-                      </span>
-                      <div>
-                        <input
-                          id="password"
-                          type="password"
-                          name="password"
-                          onChange={handlePassword}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                <label type="text" className="block mt-3">
-                  <span className="text-xs font-semibold uppercase">
-                    profile description
-                  </span>
-                  <div>
-                    <textarea
-                      id="description"
-                      type="textarea"
-                      name="description"
-                      placeholder={user.description || "Tell us about you!"}
-                      onChange={handleDescription}
-                      className="resize-y min-h-32 min h-32 w-7/12 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600 align-baseline"
-                    />
-                  </div>
-                </label>
-              </form>
-            </div>
-          </div>
-
-          {/* Social Media */}
-          <div className="px-8 mt-8 mb-12">
-            <p className="text-base font-bold">Social Media</p>
-            <div className="mt-4">
-              <form className="">
-                <div>
-                  <label>
-                    <span className="text-xs font-semibold uppercase block">
-                      website
-                    </span>
-                    <div>
-                      <input
-                        id="website"
-                        type="url"
-                        name="website"
-                        placeholder={user.website || "https//www.yourweb.com"}
-                        onChange={handleWebsite}
-                        className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+            <div className="px-8 mt-8 w-4/6">
+              <p className="text-base font-bold dark:text-gray-100">
+                Profile Avatar
+              </p>
+              <div className="mt-4 px-2">
+                <div className="flex items-center gap-x-4 w-full h-full">
+                  {/* Parte izquierda img, input */}
+                  <div className="flex w-full items-center">
+                    <div className="flex w-1/2 justify-start">
+                      <img
+                        src={user.avatar || "/personas/DefaultAvatar.jpg"}
+                        className="w-32 h-32 rounded-full object-cover relative"
                       />
                     </div>
-                  </label>
-                </div>
-                <div className="flex gap-x-4">
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase block mt-4">
-                        twitter
+
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        avatar url
                       </span>
-                      <div>
-                        <input
-                          id="twitter"
-                          type="text"
-                          name="twitter"
-                          placeholder={user.twitter || "@TwitterUser"}
-                          onChange={handleTwitter}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+                      <input
+                        id="avatar"
+                        type="url"
+                        name="avatar"
+                        placeholder="https://avatar.com"
+                        defaultValue={user.avatar}
+                        className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label>
-                      <span className="text-xs font-semibold uppercase block mt-4">
-                        facebook
-                      </span>
-                      <div>
-                        <input
-                          id="facebook"
-                          type="text"
-                          name="facebook"
-                          placeholder={user.facebook || "FacebookUser"}
-                          onChange={handleFacebook}
-                          className="block w-96 px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
+
+                  {/* Parte derecha save changes */}
+                  <div className="flex w-full items-center">
+                    <div className="flex flex-col gap-y-2 absolute top-0 right-0">
+                      <button
+                        type="submit"
+                        form="form-profile"
+                        className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
+                      >
+                        <div className="flex justify-center gap-x-2 items-center p-2">
+                          <FiSave className="h-5 w-5 items-center text-neutral" />
+                          save changes
+                        </div>
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                      >
+                        <div className="flex justify-center gap-x-2 items-center p-2">
+                          <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                          delete
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </form>
+              </div>
+            </div>
+
+            {/* General Info Edit */}
+            <div className="px-8 mt-8 w-4/6">
+              <p className="text-base font-bold dark:text-gray-100">General Information</p>
+              <div className="mt-4 px-2">
+                  {/* Name & LastName */}
+                  <div className="flex gap-x-4 w-full">
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        name
+                      </span>
+                      <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        defaultValue={user.name}
+                        className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        last name
+                      </span>
+                      <input
+                        id="lastname"
+                        type="text"
+                        name="lastname"
+                        placeholder="Lastname"
+                        defaultValue={user.lastName}
+                        className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Username & Country */}
+                  <div className="flex gap-x-4 w-full mt-2">
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        Username
+                      </span>
+                      <input
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        defaultValue={user.userName}
+                        className="w-full py-2 px-2 mt-1 text-gray-700 bg-white border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        country
+                      </span>
+                      <select className="w-full px-2 py-2 mt-1 text-gray-700 bg-neutral border rounded-md focus:border-blue-600" id="country">
+                        <option value="">
+                          {user.country || "Select a country"}
+                        </option>
+                        {Object.entries(countryList).map(([key, value]) => (
+                          <option key={key} value={key}>
+                            {value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+
+                  {/* Email & Password */}
+                  <div className="flex gap-x-4 w-full mt-2">
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        e-mail
+                      </span>
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="example@example.com"
+                        defaultValue={user.email}
+                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        password
+                      </span>
+                      <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-x-4 w-full mt-2">
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        studies
+                      </span>
+                      <input
+                        id="studies"
+                        type="text"
+                        name="studies"
+                        placeholder="Your studies"
+                        defaultValue={user.studies}
+                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                    <div className="w-full">
+                    </div>
+                  </div>
+                  <div className="flex w-full mt-2">
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        profile description
+                      </span>
+                      <textarea
+                        id="description"
+                        type="textarea"
+                        name="description"
+                        placeholder="Tell us about you!"
+                        defaultValue={user.description}
+                        className="resize-y min-h-32 min h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 align-baseline"
+                      />
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            {/* Social Media */}
+            <div className="px-8 mt-8 w-4/6">
+              <p className="text-base font-bold dark:text-gray-100">Social media</p>
+              <div className="mt-4 px-2">
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full">
+                  <div className="flex gap-x-1">
+                        <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
+                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                          website
+                        </span>
+                      </div>
+                    <input
+                      id="website"
+                      type="url"
+                      name="website"
+                      placeholder="https//www.yourweb.com"
+                      defaultValue={user.website}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
+                  </div>
+                  <div className="w-full">
+                  </div>
+                </div>
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full mt-4">
+                      <div className="flex gap-x-1">
+                        <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
+                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                          twitter
+                        </span>
+                      </div>
+                      <input
+                        id="twitter"
+                        type="text"
+                        name="twitter"
+                        placeholder="@TwitterUser"
+                        defaultValue={user.twitter}
+                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                  </div>
+                  <div className="w-full mt-4">
+                      <div className="flex gap-x-1">
+                        <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
+                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                          facebook
+                        </span>
+                      </div>
+                      <input
+                        id="facebook"
+                        type="text"
+                        name="facebook"
+                        placeholder="FacebookUser"
+                        defaultValue={user.facebook}
+                        className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                  </div>
+                  <div className="w-full"></div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       )}
     </div>
   )

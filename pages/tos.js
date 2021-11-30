@@ -3,10 +3,12 @@ import LayoutOut from "../components/LayoutOut"
 export default function tos() {
   return (
     <div className="container px-16 py-8 ">
-      <div className="mx-auto flex flex-wrap items-center justify-center w-1/2 space-y-5 pb-10">
-        <h2 className="px-2 py-2 font-bold text-2xl">Terms of Service</h2>
+      <div className="mx-auto flex flex-wrap items-center justify-center w-1/2 space-y-5 pb-10 dark:text-gray-300">
+        <h2 className="px-2 py-2 font-bold text-2xl dark:text-white">
+          Terms of Service
+        </h2>
 
-        <p className="text-justify">
+        <p className="text-justify ">
           <span className="website_name">cogs</span> provides the{" "}
           <span className="website_url">http://localhost:3000/</span> website
           and various related services to you, the User, subject to your
@@ -52,7 +54,9 @@ export default function tos() {
           .
         </p>
 
-        <h3 className="font-bold text-lg">Conduct on Website</h3>
+        <h3 className="dark:text-white font-bold text-lg">
+          Conduct on Website
+        </h3>
 
         <p className="text-justify">
           Your use of the Website is subject to all applicable laws and
@@ -128,7 +132,9 @@ export default function tos() {
           investigating suspected criminal violations.
         </p>
 
-        <h3 className="font-bold text-lg">Third Party Websites</h3>
+        <h3 className="dark:text-white font-bold text-lg">
+          Third Party Websites
+        </h3>
 
         <p className="text-justify">
           This site may link you to other sites on the Internet or otherwise
@@ -150,7 +156,9 @@ export default function tos() {
           express or implied.
         </p>
 
-        <h3 className="font-bold text-lg">Intellectual Property</h3>
+        <h3 className="dark:text-white font-bold text-lg">
+          Intellectual Property
+        </h3>
 
         <p className="text-justify">
           All custom graphics, icons, logos, and service names used on the
@@ -162,7 +170,9 @@ export default function tos() {
           <span className="website_name">cogs</span> or its Affiliates.
         </p>
 
-        <h3 className="font-bold text-lg">Disclaimer of Warranties</h3>
+        <h3 className="dark:text-white font-bold text-lg">
+          Disclaimer of Warranties
+        </h3>
 
         <p className="text-justify">
           Content available through this Website often represents the opinions
@@ -193,7 +203,7 @@ export default function tos() {
           user communications or personalization settings.
         </p>
 
-        <h3 className="font-bold text-lg">International Use</h3>
+        <h3 className="dark:text-white font-bold text-lg">International Use</h3>
 
         <p className="text-justify">
           Although this Website may be accessible worldwide, we make no
@@ -207,7 +217,7 @@ export default function tos() {
           prohibited.
         </p>
 
-        <h3 className="font-bold text-lg">Termination</h3>
+        <h3 className="dark:text-white font-bold text-lg">Termination</h3>
 
         <p className="text-justify">
           You agree that we may, in our sole discretion, terminate or suspend
@@ -230,7 +240,7 @@ export default function tos() {
           suspension.
         </p>
 
-        <h3 className="font-bold text-lg">Governing Law</h3>
+        <h3 className="dark:text-white font-bold text-lg">Governing Law</h3>
 
         <p className="text-justify">
           These Terms of Service and any dispute or claim arising out of, or

@@ -1,16 +1,46 @@
 import Link from "next/link"
-import { getCsrfToken } from "next-auth/react"
+import { useRouter } from "next/router"
+import { signIn, getCsrfToken } from "next-auth/react"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Login({ csrfToken }) {
+  const router = useRouter()
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const { id, password } = e.target
+    return new Promise(function (resolve, reject) {
+      signIn("credentials", {
+        id: id.value,
+        password: password.value,
+        redirect: false,
+      }).then((res) => {
+        if (!res.ok) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
+      })
+    })
+  }
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5 dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
         <div className="flex items-center justify-center">
           <span className="text-xl font-medium text-gray-900">Login</span>
         </div>
         <form
-          method="post"
-          action="/api/auth/callback/credentials"
+          onSubmit={(e) => {
+            toast
+              .promise(handleSubmit(e), {
+                loading: "Logging in",
+                success: "Successfully logged in",
+                error: "Error when logging in",
+              })
+              .then(() => router.push("http://localhost:3000/home"))
+              .catch(() => router.push("http://localhost:3000/login"))
+          }}
           className="mt-4"
         >
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />

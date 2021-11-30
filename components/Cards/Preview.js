@@ -17,47 +17,11 @@ export default function Preview({
   isUser,
   applied,
   createdAt,
+  func,
 }) {
   const [hover, setHover] = useState(false)
   const timeago = useTimeAgo(createdAt)
   const createdAtFormated = useDateTimeFormat(createdAt)
-
-  async function contact() {
-    const url = `http://localhost:3000/api/user/request-member`
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify({ id: id }),
-    }).then((res) => {
-      return res.json()
-    })
-  }
-
-  async function applyJob() {
-    const url = `http://localhost:3000/api/user/request-join`
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify({ id: id }),
-    }).then((res) => {
-      return res.json()
-    })
-  }
-
-  async function remove() {
-    const params = new URLSearchParams({ id: id })
-    const url = isUser
-      ? `http://localhost:3000/api/user/request-member?${params.toString()}`
-      : `http://localhost:3000/api/user/request-join?${params.toString()}`
-
-    await fetch(url, { method: "DELETE" }).then((res) => {
-      return res.json()
-    })
-  }
 
   return (
     <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
@@ -111,7 +75,8 @@ export default function Preview({
                 text={accion1}
               />
               <ButtonP
-                func={isUser ? contact : applied ? applyJob : remove}
+                id={id}
+                func={func}
                 url={""}
                 text={accion2}
                 className={applied ? "bg-red-600 hover:bg-red-700" : ""}
