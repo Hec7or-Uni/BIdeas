@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function InProgress(idUser, idProject) {
-  return await prisma.participates.findMany({
+  const query = await prisma.participates.findMany({
     include: {
       user: {
         select: {
@@ -53,10 +53,11 @@ export async function InProgress(idUser, idProject) {
       ],
     },
   })
+  return query
 }
 
 export async function InProgressLite(idUser, idProject) {
-  return await prisma.participates.findMany({
+  const query = await prisma.participates.findMany({
     include: {
       user: {
         select: {
@@ -93,4 +94,5 @@ export async function InProgressLite(idUser, idProject) {
       ],
     },
   })
+  return query
 }
