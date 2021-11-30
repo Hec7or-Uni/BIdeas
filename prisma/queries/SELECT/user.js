@@ -31,7 +31,6 @@ export async function User(id) {
       ],
     },
   })
-
   return query[0]
 }
 
@@ -45,6 +44,7 @@ export async function UserLite(id) {
       lastName: true,
       studies: true,
       description: true,
+      country: true,
       xp: true,
       plan: true, // -------- Account state
       av4hire: true,

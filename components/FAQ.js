@@ -24,7 +24,9 @@ export default function FAQ({ title, content }) {
           </button>
         </div>
         {isActive && (
-          <p className="font-normal text-justify opacity-70 mt-4">{content}</p>
+          <div className="font-normal text-justify opacity-70 mt-4">
+            {content}
+          </div>
         )}
       </div>
     </div>

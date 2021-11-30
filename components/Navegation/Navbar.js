@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useRef,useEffect } from "react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
 import { useSidebar } from "../../context/SideBarContext"
@@ -12,6 +12,17 @@ export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)
   const [isModal, setModal] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
+
+  const ref = useRef();
+  useEffect(() => {
+    const checkIfClickedOutside = () => {
+      if (isActive){setActive(false);}
+    };
+    document.addEventListener("click", checkIfClickedOutside);
+    return() => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    } 
+  }, [isActive])
 
   return (
     <div className="sticky top-0 flex items-center h-16 w-full z-40 bg-color-light-neutral-1 dark:bg-cm-color">
@@ -45,7 +56,11 @@ export default function NewNavbar({ avatar, userName, plan }) {
           </Link>
         </div>
         {/* User */}
-        <div className="flex items-center gap-x-2.5 h-12">
+        <div className="flex items-center gap-x-2.5 h-12 cursor-pointer"
+          onClick={() => {
+            setActive(!isActive)
+            setModal(false)
+          }}>
           <div className="w-10 h-10 rounded-full">
             <img
               src={avatar || "/personas/DefaultAvatar.jpg"}
@@ -56,17 +71,10 @@ export default function NewNavbar({ avatar, userName, plan }) {
             {userName}
           </p>
           <div>
-            <button
-              onClick={() => {
-                setActive(!isActive)
-                setModal(false)
-              }}
-            >
-              <FiChevronUp
-                className={`mt-2 transition duration-500 dark:text-white
-                ${isActive ? "-rotate-180" : ""}`}
-              />
-            </button>
+            <FiChevronUp
+              className={`mt-2 transition duration-500 dark:text-white
+              ${isActive ? "-rotate-180" : ""}`}
+            />
             {isActive && (
               <div className="p-2 flex flex-col gap-y-2 w-52 mt-16 rounded-md bg-white shadow dark:bg-cm-color absolute top-0 right-0 z-50">
                 {links.map((item) => {

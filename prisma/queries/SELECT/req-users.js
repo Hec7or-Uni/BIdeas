@@ -46,12 +46,11 @@ export async function ReqUsers(id) {
     },
     where: { idProject: Number(id) },
   })
-
   return query
 }
 
 export async function ReqUsersLite(id) {
-  return await prisma.requestRecruit.findMany({
+  const query = await prisma.requestRecruit.findMany({
     include: {
       user: {
         select: {
@@ -83,4 +82,5 @@ export async function ReqUsersLite(id) {
     },
     where: { idProject: Number(id) },
   })
+  return query
 }

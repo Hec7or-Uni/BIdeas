@@ -10,6 +10,7 @@ export async function Project(id) {
       motto: true,
       description: true,
       xp: true,
+      country: true,
       respect: true,
       maxMembers: true, // -- Account state
       discord: true, // ----- Social

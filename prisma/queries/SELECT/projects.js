@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function Projects() {
-  return await prisma.projects.findMany({
+  const query = await prisma.projects.findMany({
     orderBy: [
       {
         createdAt: "desc",
@@ -27,10 +27,11 @@ export async function Projects() {
       updatedAt: true,
     },
   })
+  return query
 }
 
 export async function ProjectsLite() {
-  return await prisma.projects.findMany({
+  const query = await prisma.projects.findMany({
     orderBy: [
       {
         createdAt: "desc",
@@ -50,4 +51,5 @@ export async function ProjectsLite() {
       updatedAt: true,
     },
   })
+  return query
 }

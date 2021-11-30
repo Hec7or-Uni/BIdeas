@@ -49,6 +49,7 @@ export default function Profile() {
         studies={user.studies}
         plan={user.plan}
         xp={user.xp}
+        country={user.country}
       />
       <div className="container mt-6">
         <div className="flex gap-x-5">
@@ -100,12 +101,12 @@ export default function Profile() {
           />
           <Statistics
             icon={<FiFlag className="h-6 w-6 text-yellow-500" />}
-            points={1}
+            points={ownsCli.length}
             desc={"teams owned"}
           />
           <Statistics
             icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
-            points={1}
+            points={participatesCli.length}
             desc={"teams"}
           />
           <Statistics

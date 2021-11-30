@@ -90,6 +90,7 @@ export default function Profile({ user, owns, participates }) {
         plan={user.plan}
         xp={user.xp}
         myProfile={true}
+        country={user.country}
       />
       <LineMenu
         handleMenu={handleMenu}

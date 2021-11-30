@@ -35,6 +35,16 @@ export default function Team() {
     }
   }
 
+  let country = team.country
+
+  if (country!="Spain" && country !="France" && country !="Germany" && 
+      country !="UnitedKingdom" && country !="UnitedStates" && country !="Italy"
+      && country !="China" && country !="Japan" && country !="Russia" && country !="Belgium" 
+      &&  country !="Netherlands" && country !="Sweden" && country !="Canada" && country !="Brazil"){
+
+      country = "DefaultCountry"
+  }
+
   return (
     <div className="px-8 py-3">
       <Meta title={team.teamName} />
@@ -45,6 +55,7 @@ export default function Team() {
         studies={ownerCli.studies}
         plan={ownerCli.plan}
         xp={ownerCli.xp}
+        country={ownerCli.country}
       />
       <div className="w-full mt-16">
         <div className="flex items-start justify-between">
@@ -60,7 +71,7 @@ export default function Team() {
               <div className="flex items-center gap-x-2">
                 <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full">
                   <img
-                    src="/banderas/spain.png"
+                    src={`/banderas/${country}.png`}
                     alt=""
                     className="w-full h-full rounded-full object-cover"
                   />
