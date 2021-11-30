@@ -1,4 +1,5 @@
 import { useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 import { getSession } from "next-auth/react"
 import Link from "next/link"
 import Header from "components/Cabeceras/Header"
@@ -32,46 +33,6 @@ export default function Team({ team, user, workers }) {
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
 
-  const [values, setValues] = useState({
-    teamName: "",
-    motto: "",
-    country: "",
-    maxMembers: "",
-    avatar: "",
-    description: "",
-    discord: "",
-    twitter: "",
-    facebook: "",
-  })
-
-  const handleAvatar = (e) => {
-    setValues({ ...values, avatar: e.target.value })
-  }
-  const handleTeamname = (e) => {
-    setValues({ ...values, teamName: e.target.value })
-  }
-  const handleMotto = (e) => {
-    setValues({ ...values, motto: e.target.value })
-  }
-  // const handleCountry = (e) => {
-  //   setValues({ ...values, country: e.target.value })
-  // }
-  // const handleMaxMembers = (e) => {
-  //   setValues({ ...values, maxMembers: e.target.value })
-  // }
-  const handleDescription = (e) => {
-    setValues({ ...values, description: e.target.value })
-  }
-  const handleDiscord = (e) => {
-    setValues({ ...values, discord: e.target.value })
-  }
-  const handleTwitter = (e) => {
-    setValues({ ...values, twitter: e.target.value })
-  }
-  const handleFacebook = (e) => {
-    setValues({ ...values, facebook: e.target.value })
-  }
-
   // async function handleSubmit(e) {
   //   e.preventDefault()
 
@@ -96,12 +57,36 @@ export default function Team({ team, user, workers }) {
   // }
 
   function handleUpdate(e) {
-    // NOTA: los datos / funciones puestas anterior mente no harian falta sin ponemos un form para todos los campos
-    // y llamas a la funcion en: <form onSubmit={(e) => handleUpdate(e)}>
-    // se puede acceder a los campos del form con: e.target.<id>.value identificacndo el campo especifico asi: e.target.id.value
-    // url: localhost:3000/api/team
-    // method: PUT
-    // guarda los cambios realizados en la bbdd
+    e.preventDefault()
+
+    const query = {
+      id: team.id,
+      teamName: e.target.name.value || team.teamName,
+      motto: e.target.motto.value ,
+      country: e.target.country.value || team.country,
+      maxMembers: e.target.maxMembers.value || team.maxMembers,
+      avatar: e.target.avatar.value ,
+      description: e.target.description.value ,
+      discord: e.target.discord.value ,
+      twitter: e.target.twitter.value ,
+      facebook: e.target.facebook.value ,
+    }
+
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/team`, { 
+        method: "PUT",
+        headers: { "Content-Type": "text/plain" }, 
+        body: JSON.stringify(query), 
+      }).then((res) => {
+          return res.json()
+        })
+        .then((res) => {
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
+    })
   }
 
   function handleDelete() {
@@ -113,6 +98,7 @@ export default function Team({ team, user, workers }) {
 
   return (
     <div className="px-8 py-3">
+      <Toaster position="top-center" reverseOrder={true} />
       <Meta title="My Team" />
       <Header
         avatar={user.avatar}
@@ -199,7 +185,7 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
-      {isActive === 1 && !team.teamName && (
+      {!team.teamName && (
         <div className="container py-32">
           <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
             <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600" />
@@ -208,7 +194,7 @@ export default function Team({ team, user, workers }) {
             </p>
             <p className="text-lg font-normal text-justify dark:text-gray-100">
               You can{" "}
-              <Link href="">
+              <Link href="/new-team">
                 <a className="hover:underline text-blue-600">create one</a>
               </Link>{" "}
               or you can{" "}
@@ -221,224 +207,236 @@ export default function Team({ team, user, workers }) {
         </div>
       )}
       {/* Profile Settings */}
-      {isActive === 2 && (
-        <div className="relative">
-          {/* Profile Avatar Edit */}
-          <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100 ">
-              Team Avatar
-            </p>
-            <div className="mt-4 px-2">
-              <div className="flex items-center gap-x-4 w-full h-full">
-                <div className="flex w-full items-center">
-                  <div className="flex w-1/2 justify-start">
-                    <img
-                      src={team.avatar || "/personas/DefaultTeamAvatar.png"}
-                      className="w-32 h-32 rounded-full object-cover relative"
-                    />
+      {isActive === 2 && team.teamName &&(
+        <form onSubmit={(e) => {
+          toast
+            .promise(handleUpdate(e), {
+              loading: "Saving changes...",
+              success: "Changes succesfully saved",
+              error: "Error while saving changes",
+            })
+            .then(() => window.location.reload(false))
+        }} id="form-teamProfile">
+          <div className="relative">
+            {/* Profile Avatar Edit */}
+
+            <div className="px-8 mt-8 w-4/6">
+              <p className="text-base font-bold dark:text-gray-100 ">
+                Team Avatar
+              </p>
+              <div className="mt-4 px-2">
+                <div className="flex items-center gap-x-4 w-full h-full">
+                  <div className="flex w-full items-center">
+                    <div className="flex w-1/2 justify-start">
+                      <img
+                        src={team.avatar || "/personas/DefaultTeamAvatar.png"}
+                        className="w-32 h-32 rounded-full object-cover relative"
+                      />
+                    </div>
+
+                    <div className="w-full">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        avatar url
+                      </span>
+                      <input
+                        id="avatar"
+                        type="url"
+                        name="avatar"
+                        placeholder={team.avatar || "https://avatar..."}
+                        defaultValue={team.avatar}
+                        className="w-full px-2 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
                   </div>
 
-                  <div className="w-full">
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      avatar url
-                    </span>
-                    <input
-                      id="avatarUrl"
-                      type="url"
-                      name="avatarUrl"
-                      placeholder={team.avatar || "https://avatar..."}
-                      onChange={handleAvatar}
-                      className="w-72 px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                    />
+                  {/* Parte derecha save changes */}
+                  <div className="flex flex-col gap-y-2 absolute top-0 right-0">
+                    <button
+                      type="submit"
+                      form="form-teamProfile"
+                      className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
+                    >
+                      <div className="flex justify-center gap-x-2 items-center p-2">
+                        <FiSave className="h-5 w-5 items-center text-neutral" />
+                        save changes
+                      </div>
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                    >
+                      <div className="flex justify-center gap-x-2 items-center p-2">
+                        <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                        delete
+                      </div>
+                    </button>
                   </div>
-                </div>
-                <div className="flex flex-col gap-y-2 absolute top-0 right-0">
-                  <button
-                    type="submit"
-                    className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
-                  >
-                    <div className="flex justify-center gap-x-2 items-center p-2">
-                      <FiSave className="h-5 w-5 items-center text-neutral" />
-                      save changes
-                    </div>
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
-                  >
-                    <div className="flex justify-center gap-x-2 items-center p-2">
-                      <FiTrash2 className="h-5 w-5 items-center text-neutral" />
-                      delete
-                    </div>
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* General Info Edit */}
-          <div className="px-8 mt-8 5/6">
-            <p className="text-base font-bold dark:text-gray-100">
-              Team Information
-            </p>
-            <div className="mt-4 pr-8 w-4/6">
-              <form className="">
-                <div className="flex gap-x-4">
-                  <div className="w-full">
-                    <label type="username">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        team name
-                      </span>
-                      <div>
-                        <input
-                          id="username"
-                          type="username"
-                          name="username"
-                          placeholder={team.teamName || "Team Name"}
-                          onSubmit={handleTeamname}
-                          className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                        />
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label type="country">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        country
-                      </span>
-                      <div>
-                        <select className="w-full px-2 py-2 mt-1 border rounded-md text-gray-700  focus:border-blue-600 text-opacity-75">
-                          <option value="">
-                            {user.country || "Select a country"}
-                          </option>
-                          {Object.entries(countryList).map(([key, value]) => (
-                            <option key={key} value={key}>
-                              {value}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <div>
-                      <label type="maxmembers">
+            {/* General Info Edit */}
+            <div className="px-8 mt-8 5/6">
+              <p className="text-base font-bold dark:text-gray-100">
+                Team Information
+              </p>
+              <div className="mt-4 pr-8 w-4/6">
+                  <div className="flex gap-x-4">
+                    <div className="w-full">
+                      <label type="username">
                         <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          max members
+                          team name
                         </span>
                         <div>
-                          <select className="w-24 px-3 py-2 mt-1  text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75">
-                            {Object.entries(numMaxMembers).map(
-                              ([key, value]) => (
-                                <option key={key} value={key}>
-                                  {value}
-                                </option>
-                              )
-                            )}
+                          <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            placeholder={team.teamName || "Team Name"}
+                            defaultValue={team.teamName}
+                            className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                    <div>
+                      <label type="country">
+                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                          country
+                        </span>
+                        <div>
+                          <select id="country" className="w-full px-2 py-2 mt-1 border rounded-md text-gray-700  focus:border-blue-600 text-opacity-75">
+                            <option value="">
+                              {team.country || "Select a country"}
+                            </option>
+                            {Object.entries(countryList).map(([key, value]) => (
+                              <option key={key} value={key}>
+                                {value}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </label>
                     </div>
+                    <div>
+                      <div>
+                        <label type="maxmembers">
+                          <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                            max members
+                          </span>
+                          <div>
+                            <select id="maxMembers" className="w-24 px-3 py-2 mt-1  text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75">
+                              {Object.entries(numMaxMembers).map(
+                                ([key, value]) => (
+                                  <option key={key} value={key}>
+                                    {value}
+                                  </option>
+                                )
+                              )}
+                            </select>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <label type="text" className="block mt-3">
-                  <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                    team motto
-                  </span>
-                  <div>
-                    <input
-                      id="motto"
-                      type="textarea"
-                      name="motto"
-                      placeholder={
-                        team.motto || "Create a brand new motto for your team!"
-                      }
-                      onSubmit={handleMotto}
-                      className="resize-none w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                    />
-                  </div>
-                </label>
-                <label type="text" className="block mt-3">
-                  <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                    team description
-                  </span>
-                  <div>
-                    <textarea
-                      id="description"
-                      type="textarea"
-                      name="description"
-                      placeholder={team.description || "Tell us about you!"}
-                      onSubmit={handleDescription}
-                      className="resize-y min-h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                    />
-                  </div>
-                </label>
-              </form>
+                  <label type="text" className="block mt-3">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      team motto
+                    </span>
+                    <div>
+                      <input
+                        id="motto"
+                        type="textarea"
+                        name="motto"
+                        placeholder={
+                          team.motto || "Create a brand new motto for your team!"
+                        }
+                        defaultValue={team.motto}
+                        className="resize-none w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                  </label>
+                  <label type="text" className="block mt-3">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      team description
+                    </span>
+                    <div>
+                      <textarea
+                        id="description"
+                        type="textarea"
+                        name="description"
+                        placeholder={team.description || "Tell us about you!"}
+                        defaultValue={team.description}
+                        className="resize-y min-h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                      />
+                    </div>
+                  </label>
+              </div>
             </div>
-          </div>
 
-          {/* Social Media */}
-          <div className="px-8 mt-8 w-4/6">
-            <p className="text-base font-bold dark:text-gray-100">
-              Social media
-            </p>
-            <div className="mt-4 px-2">
-              <div className="flex gap-x-4 w-full">
-                <div className="w-full mt-4">
-                  <div className="flex gap-x-1">
-                    <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      twitter
-                    </span>
+            {/* Social Media */}
+            <div className="px-8 mt-8 w-4/6">
+              <p className="text-base font-bold dark:text-gray-100">
+                Social media
+              </p>
+              <div className="mt-4 px-2">
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full mt-4">
+                    <div className="flex gap-x-1">
+                      <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        twitter
+                      </span>
+                    </div>
+                    <input
+                      id="twitter"
+                      type="text"
+                      name="twitter"
+                      placeholder={team.twitter || "@TwitterUser"}
+                      defaultValue={team.twitter}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                    />
                   </div>
-                  <input
-                    id="twitter"
-                    type="text"
-                    name="twitter"
-                    placeholder={user.twitter || "@TwitterUser"}
-                    onChange={handleTwitter}
-                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                  />
-                </div>
-                <div className="w-full mt-4">
-                  <div className="flex gap-x-1">
-                    <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      facebook
-                    </span>
+                  <div className="w-full mt-4">
+                    <div className="flex gap-x-1">
+                      <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        facebook
+                      </span>
+                    </div>
+                    <input
+                      id="facebook"
+                      type="text"
+                      name="facebook"
+                      placeholder={team.facebook || "FacebookUser"}
+                      defaultValue={team.facebook}
+                      className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
+                    />
                   </div>
-                  <input
-                    id="facebook"
-                    type="text"
-                    name="facebook"
-                    placeholder={user.facebook || "FacebookUser"}
-                    onChange={handleFacebook}
-                    className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
-                  />
                 </div>
-              </div>
-              <div className="flex gap-x-4 w-full">
-                <div className="w-full">
-                  <div className="flex gap-x-1">
-                    <FaDiscord className="h-auto w-auto object-fill object-center text-indigo-400" />
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      discord
-                    </span>
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full">
+                    <div className="flex gap-x-1">
+                      <FaDiscord className="h-auto w-auto object-fill object-center text-indigo-400" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        discord
+                      </span>
+                    </div>
+                    <input
+                      id="discord"
+                      type="text"
+                      name="discord"
+                      placeholder={team.discord || "https://discord.gg/"}
+                      defaultValue={team.discord}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <input
-                    id="discord"
-                    type="text"
-                    name="discord"
-                    placeholder={team.discord || "https://discord.gg/"}
-                    onSubmit={handleDiscord}
-                    className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                  />
+                  <div className="w-full"></div>
                 </div>
-                <div className="w-full"></div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       )}
     </div>
   )
