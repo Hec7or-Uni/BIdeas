@@ -48,6 +48,14 @@ export default function Home({ user, owns, recommended, participates }) {
   const handleMenu = (id) => setActive(id)
   const [stat, setStat] = useState(Stats[0])
 
+  const finals = () => {
+    const list = new Array()
+    for (let index = 0; index < 5; index++) {
+      list.push(recommended[index])
+    }
+    return list
+  }
+
   const ownsLength = owns.length || 0
   const participatesLength = participates.length || 0
 
@@ -208,7 +216,7 @@ export default function Home({ user, owns, recommended, participates }) {
                   {stat.icon}
                   <p className="p-0.5 text-xl font-bold text-gray-900 dark:text-gray-100">
                     {stat.id === 0 && user.xp}
-                    {stat.id === 1 && ownsLength }
+                    {stat.id === 1 && ownsLength}
                     {stat.id === 2 && participatesLength}
                     {stat.id === 3 && user.respect}
                   </p>
@@ -265,7 +273,7 @@ export default function Home({ user, owns, recommended, participates }) {
         )}
         {isActive === 2 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            {recommended.map((item) => {
+            {finals().map((item, idx) => {
               return (
                 <Shortcut
                   key={item.id}
