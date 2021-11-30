@@ -1,7 +1,12 @@
 import Link from "next/link"
 
-export default function Header({ avatar, username, id, studies, plan, xp, myProfile }) {
-  
+export default function Header({ avatar, username, id, studies, plan, xp, myProfile, country }) {
+  if (country!="Spain" && country !="France" && country !="Germany" && 
+      country !="UnitedKingdom" && country !="UnitedStates" && country !="Italy"
+      && country !="China" && country !="Japan" && country !="Russia" && country !="Belgium" 
+      &&  country !="Netherlands" && country !="Sweden" && country !="Canada" && country !="Brazil"){
+    country = "DefaultCountry"
+  }
   return (
     <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
       {/* Profile */}
@@ -13,7 +18,7 @@ export default function Header({ avatar, username, id, studies, plan, xp, myProf
           />
           <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
             <img
-              src="/banderas/spain.png"
+              src={`/banderas/${country}.png`}
               className="rounded-full object-cover center"
             />
           </div>

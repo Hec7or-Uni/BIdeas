@@ -149,7 +149,7 @@ export const countryList = {
     Nauru: "Nauru",
     Nepal: "Nepal",
     NetherlandAntilles: "Netherland Antilles",
-    Netherlands: "Netherlands (Holland, Europe)",
+    Netherlands: "Netherlands",
     Nevis: "Nevis",
     NewCaledonia: "New Caledonia",
     NewZealand: "New Zealand",

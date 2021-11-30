@@ -49,6 +49,7 @@ export default function Profile() {
         studies={user.studies}
         plan={user.plan}
         xp={user.xp}
+        country={user.country}
       />
       <div className="container mt-6">
         <div className="flex gap-x-5">

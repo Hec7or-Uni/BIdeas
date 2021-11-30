@@ -122,6 +122,7 @@ export default function Team({ team, user, workers }) {
         plan={user.plan}
         xp={user.xp}
         myProfile={true}
+        country={user.country}
       />
       <LineMenu
         handleMenu={handleMenu}
