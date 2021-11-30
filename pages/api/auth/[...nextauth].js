@@ -23,7 +23,6 @@ export default NextAuth({
           headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(query),
         }).then((res) => {
-          console.log(res)
           return res.json()
         })
 

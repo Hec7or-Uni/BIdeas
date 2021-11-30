@@ -1,7 +1,7 @@
 import prisma from "../../../libs/prisma"
 
 export async function Users() {
-  return await prisma.users.findMany({
+  const query = await prisma.users.findMany({
     orderBy: [
       {
         createdAt: "desc",
@@ -39,10 +39,11 @@ export async function Users() {
       updatedAt: true,
     },
   })
+  return query
 }
 
 export async function UsersLite() {
-  return await prisma.users.findMany({
+  const query = await prisma.users.findMany({
     orderBy: [
       {
         createdAt: "desc",
@@ -71,4 +72,5 @@ export async function UsersLite() {
       updatedAt: true,
     },
   })
+  return query
 }
