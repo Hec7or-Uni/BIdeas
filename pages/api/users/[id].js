@@ -29,12 +29,6 @@ export default async (req, res) => {
   if (projects !== undefined) {
     owns = projects.filter((item) => item.idUser === item.project.owner)
     participates = projects.filter((item) => item.idUser !== item.project.owner)
-    // if (owns !== undefined) {
-    //   owns = owns.map((item) => item.project)
-    // }
-    // if (participates !== undefined) {
-    //   participates = participates.map((item) => item.project)
-    // }
   }
 
   res.status(200).json({

@@ -6,6 +6,7 @@ import { FiChevronUp, FiHelpCircle, FiMail } from "react-icons/fi"
 import { links } from "../../data/Navbar"
 import Logo from "../Logo"
 import Modal from "../Modals/Modal"
+import Search from "components/Search"
 
 export default function NewNavbar({ avatar, userName, plan }) {
   const [isActive, setActive] = useState(false)
@@ -24,6 +25,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           <Logo toggle={isToggle} />
         </a>
       </Link>
+      <Search />
 
       <div className="flex items-center gap-x-6 absolute right-0 mr-8">
         <div className="flex items-center gap-x-4 relative">
