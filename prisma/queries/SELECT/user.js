@@ -31,7 +31,6 @@ export async function User(id) {
       ],
     },
   })
-
   return query[0]
 }
 

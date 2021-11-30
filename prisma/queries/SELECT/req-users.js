@@ -46,7 +46,6 @@ export async function ReqUsers(id) {
     },
     where: { idProject: Number(id) },
   })
-
   return query
 }
 
