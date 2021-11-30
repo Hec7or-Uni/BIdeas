@@ -100,12 +100,12 @@ export default function Profile() {
           />
           <Statistics
             icon={<FiFlag className="h-6 w-6 text-yellow-500" />}
-            points={1}
+            points={ownsCli.length}
             desc={"teams owned"}
           />
           <Statistics
             icon={<FiBriefcase className="h-6 w-6 text-blue-500" />}
-            points={1}
+            points={participatesCli.length}
             desc={"teams"}
           />
           <Statistics
