@@ -35,6 +35,17 @@ export const links4myteam = [
   },
 ]
 
+export const links4myteamCreate = [
+  {
+    id: 1,
+    name: "team",
+  },
+  {
+    id: 2,
+    name: "create team",
+  },
+]
+
 export const links4teams = [
   {
     id: 1,

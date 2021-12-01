@@ -260,7 +260,7 @@ export default function Home({ user, owns, recommended, participates }) {
               }
               title={"create a team"}
               desc={"Start developing your new idea now"}
-              url={"/new-team"}
+              url={"/my-team"}
             />
             <Shortcut
               key={1}
