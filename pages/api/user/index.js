@@ -2,6 +2,7 @@ import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
 import { getToken } from "next-auth/jwt"
 import { createUser } from "../../../prisma/queries/CREATE/user"
+import { deleteUser } from "../../../prisma/queries/DELETE/user"
 import { User } from "../../../prisma/queries/SELECT/user"
 import { Projects } from "../../../prisma/queries/SELECT/projects"
 import { InProgress } from "../../../prisma/queries/SELECT/in-progress"
@@ -55,7 +56,12 @@ export default async (req, res) => {
       status: status(200, ""),
     })
   } else if (method === "DELETE") {
-    res.json({ status: status(200, "") })
+    const id = req.query.id
+    const deleted = await deleteUser(id)
+    res.status(200).json({
+      data: { deleted: deleted },
+      status: status(200, ""),
+    })
   }
 }
 

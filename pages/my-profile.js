@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { getSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import Header from "components/Cabeceras/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
@@ -71,10 +72,23 @@ export default function Profile({ user, owns, participates }) {
   }
 
   function handleDelete() {
-    // url: localhost:3000/api/user
-    // method: Delete
-    // borra toda la informacion del usuario de la base de datos
-    // participaciones, solicitudes, ...
+
+    const params2 = new URLSearchParams({ id: user.id })
+    const url = `http://localhost:3000/api/user?${params2.toString()}`
+
+    return new Promise(function (resolve, reject) {
+      fetch(url, { 
+        method: "DELETE",
+      }).then((res) => {
+          return res.json()
+        })
+        .then((res) => {
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
+    })
   }
 
   return (
@@ -252,15 +266,24 @@ export default function Profile({ user, owns, participates }) {
                           save changes
                         </div>
                       </button>
-                      <button
+                      <form
                         type="submit"
-                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                        onClick={() => {
+                          toast
+                            .promise(handleDelete(), {
+                              loading: "Deleting user...",
+                              success: "User succesfully deleted",
+                              error: "Error while deleting user",
+                            })
+                            .then(() => signOut() && window.location.reload(false))
+                        }}
+                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
                       >
                         <div className="flex justify-center gap-x-2 items-center p-2">
                           <FiTrash2 className="h-5 w-5 items-center text-neutral" />
                           delete
                         </div>
-                      </button>
+                      </form>
                     </div>
                   </div>
                 </div>

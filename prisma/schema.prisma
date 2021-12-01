@@ -57,7 +57,7 @@ model Projects {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  owned           Users            @relation(fields: [owner], references: [id])
+  owned           Users            @relation(fields: [owner], references: [id], onDelete: Cascade)
   owner           Int
   participations  Participates[]
   joinRequests    RequestJoin[]
@@ -66,24 +66,24 @@ model Projects {
 
 model Participates {
   id        Int      @id @default(autoincrement())
-  user      Users    @relation(fields: [idUser], references: [id])
+  user      Users    @relation(fields: [idUser], references: [id], onDelete: Cascade)
   idUser    Int
-  project   Projects @relation(fields: [idProject], references: [id])
+  project   Projects @relation(fields: [idProject], references: [id], onDelete: Cascade)
   idProject Int
 }
 
 model RequestJoin {
   id        Int      @id @default(autoincrement())
-  user      Users    @relation(fields: [idUser], references: [id])
+  user      Users    @relation(fields: [idUser], references: [id], onDelete: Cascade)
   idUser    Int
-  project   Projects @relation(fields: [idProject], references: [id])
+  project   Projects @relation(fields: [idProject], references: [id], onDelete: Cascade)
   idProject Int
 }
 
 model RequestRecruit {
   id        Int      @id @default(autoincrement())
-  user      Users    @relation(fields: [idUser], references: [id])
+  user      Users    @relation(fields: [idUser], references: [id], onDelete: Cascade)
   idUser    Int
-  project   Projects @relation(fields: [idProject], references: [id])
+  project   Projects @relation(fields: [idProject], references: [id], onDelete: Cascade)
   idProject Int
 }
