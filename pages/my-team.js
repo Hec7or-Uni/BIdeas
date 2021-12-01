@@ -59,38 +59,38 @@ export default function Team({ team, user, workers }) {
     e.preventDefault()
     let metodo = "PUT"
 
-      const query = {
-        id: team.id,
-        teamName: e.target.name.value || team.teamName,
-        motto: e.target.motto.value ,
-        country: e.target.country.value || team.country,
-        maxMembers: Number(e.target.maxMembers.value) || team.maxMembers,
-        avatar: e.target.avatar.value ,
-        description: e.target.description.value ,
-        discord: e.target.discord.value ,
-        twitter: e.target.twitter.value ,
-        facebook: e.target.facebook.value ,
-        owner: user.id,
-      }
+    const query = {
+      id: team.id,
+      teamName: e.target.name.value || team.teamName,
+      motto: e.target.motto.value,
+      country: e.target.country.value || team.country,
+      maxMembers: Number(e.target.maxMembers.value) || team.maxMembers,
+      avatar: e.target.avatar.value,
+      description: e.target.description.value,
+      discord: e.target.discord.value,
+      twitter: e.target.twitter.value,
+      facebook: e.target.facebook.value,
+      owner: user.id,
+    }
 
-      if (!team.teamName){
-        delete query.id
-        metodo = "POST"
-      }
+    if (!team.teamName) {
+      delete query.id
+      metodo = "POST"
+    }
 
-      return new Promise(function (resolve, reject) {
-        fetch(`http://localhost:3000/api/team`, { 
-          method: metodo,
-          headers: { "Content-Type": "text/plain" }, 
-          body: JSON.stringify(query), 
-        }).then((res) => {
-            res.json()
-            if (!res) {
-              reject(new Error("error"))
-            }
-            resolve("ok")
-          })
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/team`, {
+        method: metodo,
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(query),
+      }).then((res) => {
+        res.json()
+        if (!res) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
       })
+    })
   }
 
   function handleDelete() {
@@ -105,19 +105,18 @@ export default function Team({ team, user, workers }) {
     }
 
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/team`, { 
+      fetch(`http://localhost:3000/api/team`, {
         method: "DELETE",
-        headers: { "Content-Type": "text/plain" }, 
-        body: JSON.stringify(query),  
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(query),
       }).then((res) => {
-          res.json()
-          if (!res) {
-            reject(new Error("error"))
-          }
-          resolve("ok")
-        })
+        res.json()
+        if (!res) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
+      })
     })
-
   }
 
   return (
@@ -140,7 +139,6 @@ export default function Team({ team, user, workers }) {
         isActive={isActive}
       />
       {isActive === 1 && team.teamName && (
-        
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
@@ -232,16 +230,19 @@ export default function Team({ team, user, workers }) {
         </div>
       )}
       {/* Profile Settings */}
-      {isActive === 2  && (
-        <form onSubmit={(e) => {
-          toast
-            .promise(handleUpdate(e), {
-              loading: "Saving changes...",
-              success: "Changes succesfully saved",
-              error: "Error while saving changes",
-            })
-            .then(() => window.location.reload(false))
-        }} id="form-teamProfile">
+      {isActive === 2 && (
+        <form
+          onSubmit={(e) => {
+            toast
+              .promise(handleUpdate(e), {
+                loading: "Saving changes...",
+                success: "Changes succesfully saved",
+                error: "Error while saving changes",
+              })
+              .then(() => window.location.reload(false))
+          }}
+          id="form-teamProfile"
+        >
           <div className="relative">
             {/* Profile Avatar Edit */}
 
@@ -292,12 +293,13 @@ export default function Team({ team, user, workers }) {
                         type="submit"
                         onClick={() => {
                           toast
-                          .promise(handleDelete(e), {
-                            loading: "Deleting team...",
-                            success: "Team succesfully deleted",
-                            error: "Error while deleting team",
-                          })
-                          .then(() => window.location.reload(false))}}
+                            .promise(handleDelete(e), {
+                              loading: "Deleting team...",
+                              success: "Team succesfully deleted",
+                              error: "Error while deleting team",
+                            })
+                            .then(() => window.location.reload(false))
+                        }}
                         className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
                       >
                         <div className="flex justify-center gap-x-2 items-center p-2">
@@ -317,96 +319,102 @@ export default function Team({ team, user, workers }) {
                 Team Information
               </p>
               <div className="mt-4 pr-8 w-4/6">
-                  <div className="flex gap-x-4">
-                    <div className="w-full">
-                      <label type="username">
-                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          team name
-                        </span>
-                        <div>
-                          <input
-                            id="name"
-                            type="text"
-                            name="name"
-                            placeholder={team.teamName || "Team Name"}
-                            defaultValue={team.teamName}
-                            className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div>
-                      <label type="country">
-                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          country
-                        </span>
-                        <div>
-                          <select id="country" className="w-full px-2 py-2 mt-1 border rounded-md text-gray-700  focus:border-blue-600 text-opacity-75">
-                            <option value="">
-                              {team.country || "Select a country"}
+                <div className="flex gap-x-4">
+                  <div className="w-full">
+                    <label type="username">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        team name
+                      </span>
+                      <div>
+                        <input
+                          id="name"
+                          type="text"
+                          name="name"
+                          placeholder={team.teamName || "Team Name"}
+                          defaultValue={team.teamName}
+                          className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                        />
+                      </div>
+                    </label>
+                  </div>
+                  <div>
+                    <label type="country">
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        country
+                      </span>
+                      <div>
+                        <select
+                          id="country"
+                          className="w-full px-2 py-2 mt-1 border rounded-md text-gray-700  focus:border-blue-600 text-opacity-75"
+                        >
+                          <option value="">
+                            {team.country || "Select a country"}
+                          </option>
+                          {Object.entries(countryList).map(([key, value]) => (
+                            <option key={key} value={key}>
+                              {value}
                             </option>
-                            {Object.entries(countryList).map(([key, value]) => (
-                              <option key={key} value={key}>
-                                {value}
-                              </option>
-                            ))}
+                          ))}
+                        </select>
+                      </div>
+                    </label>
+                  </div>
+                  <div>
+                    <div>
+                      <label type="maxmembers">
+                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                          max members
+                        </span>
+                        <div>
+                          <select
+                            id="maxMembers"
+                            className="w-24 px-3 py-2 mt-1  text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75"
+                          >
+                            {Object.entries(numMaxMembers).map(
+                              ([key, value]) => (
+                                <option key={key} value={key}>
+                                  {value}
+                                </option>
+                              )
+                            )}
                           </select>
                         </div>
                       </label>
                     </div>
-                    <div>
-                      <div>
-                        <label type="maxmembers">
-                          <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                            max members
-                          </span>
-                          <div>
-                            <select id="maxMembers" className="w-24 px-3 py-2 mt-1  text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75">
-                              {Object.entries(numMaxMembers).map(
-                                ([key, value]) => (
-                                  <option key={key} value={key}>
-                                    {value}
-                                  </option>
-                                )
-                              )}
-                            </select>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
                   </div>
-                  <label type="text" className="block mt-3">
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      team motto
-                    </span>
-                    <div>
-                      <input
-                        id="motto"
-                        type="textarea"
-                        name="motto"
-                        placeholder={
-                          team.motto || "Create a brand new motto for your team!"
-                        }
-                        defaultValue={team.motto}
-                        className="resize-none w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                  </label>
-                  <label type="text" className="block mt-3">
-                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                      team description
-                    </span>
-                    <div>
-                      <textarea
-                        id="description"
-                        type="textarea"
-                        name="description"
-                        placeholder={team.description || "Tell us about you!"}
-                        defaultValue={team.description}
-                        className="resize-y min-h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                  </label>
+                </div>
+                <label type="text" className="block mt-3">
+                  <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                    team motto
+                  </span>
+                  <div>
+                    <input
+                      id="motto"
+                      type="textarea"
+                      name="motto"
+                      placeholder={
+                        team.motto || "Create a brand new motto for your team!"
+                      }
+                      defaultValue={team.motto}
+                      className="resize-none w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
+                  </div>
+                </label>
+                <label type="text" className="block mt-3">
+                  <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                    team description
+                  </span>
+                  <div>
+                    <textarea
+                      id="description"
+                      type="textarea"
+                      name="description"
+                      placeholder={team.description || "Tell us about you!"}
+                      defaultValue={team.description}
+                      className="resize-y min-h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
+                  </div>
+                </label>
               </div>
             </div>
 
@@ -508,10 +516,8 @@ export async function getServerSideProps({ req }) {
   }
 
   const { team, users } = res.data
-  console.log(res.data)
   let user = users.owner?.user
   const workers = users.workers
-  console.log(users)
 
   if (!user) {
     const params = new URLSearchParams({ id: session.token.id })

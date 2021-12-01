@@ -16,18 +16,8 @@ export default function Invite() {
     const check1 = /[A-Z]/
     const check2 = /\d+/
     if (pw !== "") secureLevel = 0
-
-    console.log(pw, secureLVL)
-    console.log("c1 ", check1.test(pw))
-    console.log("c2 ", check2.test(pw))
-
-    if (pw.length >= 5 && check1.test(pw)) {
-      secureLevel += 1
-    }
-
-    if (pw.length >= 5 && check2.test(pw)) {
-      secureLevel += 1
-    }
+    if (pw.length >= 5 && check1.test(pw)) secureLevel += 1
+    if (pw.length >= 5 && check2.test(pw)) secureLevel += 1
     setSecureLVL(secureLevel)
   }, [pw, secureLVL])
 
