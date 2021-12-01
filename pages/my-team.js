@@ -99,16 +99,11 @@ export default function Team({ team, user, workers }) {
     // borra toda la informacion del usuario de la base de datos
     // participaciones, solicitudes, usuarios(necesarios)...
 
-    const query = {
-      id: team.id,
-      workers: team.workers,
-    }
+    const params = new URLSearchParams({ id: team.id })
 
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/team`, {
+      fetch(`http://localhost:3000/api/team?${params.toString()}`, {
         method: "DELETE",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(query),
       }).then((res) => {
         res.json()
         if (!res) {
@@ -289,24 +284,24 @@ export default function Team({ team, user, workers }) {
                           save changes
                         </div>
                       </button>
-                      <button
+                      <form
                         type="submit"
                         onClick={() => {
                           toast
-                            .promise(handleDelete(e), {
+                            .promise(handleDelete(), {
                               loading: "Deleting team...",
                               success: "Team succesfully deleted",
                               error: "Error while deleting team",
                             })
                             .then(() => window.location.reload(false))
                         }}
-                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
                       >
                         <div className="flex justify-center gap-x-2 items-center p-2">
                           <FiTrash2 className="h-5 w-5 items-center text-neutral" />
                           delete
                         </div>
-                      </button>
+                      </form>
                     </div>
                   </div>
                 </div>
