@@ -2,11 +2,34 @@ import Link from "next/link"
 import crypto from "crypto"
 import CryptoJS from "crypto-js"
 import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import toast, { Toaster } from "react-hot-toast"
 
 export default function Invite() {
   const router = useRouter()
+  const [pw, setPw] = useState("")
+  const [secureLVL, setSecureLVL] = useState(-1)
   const currentDate = new Date().getTime()
+
+  useEffect(() => {
+    let secureLevel = -1
+    const check1 = /[A-Z]/
+    const check2 = /\d+/
+    if (pw !== "") secureLevel = 0
+
+    console.log(pw, secureLVL)
+    console.log("c1 ", check1.test(pw))
+    console.log("c2 ", check2.test(pw))
+
+    if (pw.length >= 5 && check1.test(pw)) {
+      secureLevel += 1
+    }
+
+    if (pw.length >= 5 && check2.test(pw)) {
+      secureLevel += 1
+    }
+    setSecureLVL(secureLevel)
+  }, [pw, secureLVL])
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -34,12 +57,12 @@ export default function Invite() {
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
       }).then((res) => {
-          res.json()
-          if (!res) {
-            reject(new Error("error"))
-          }
-          resolve("ok")
-        })
+        res.json()
+        if (!res) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
+      })
     })
   }
 
@@ -119,10 +142,58 @@ export default function Invite() {
               id="password"
               name="password"
               autoComplete="current-password"
+              onChange={(e) => setPw(e.target.value)}
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>
+          <div className="grid w-full h-1 grid-cols-9 gap-4 mt-3">
+            {secureLVL === -1 ? (
+              <>
+                <span className={`h-full col-span-3 rounded bg-gray-300`} />
+                <span className={`h-full col-span-3 rounded bg-gray-300`} />
+                <span className={`h-full col-span-3 rounded bg-gray-300`} />
+              </>
+            ) : (
+              <>
+                {secureLVL === 0 ? (
+                  <>
+                    <span className={`h-full col-span-3 rounded bg-red-500`} />
+                    <span className={`h-full col-span-3 rounded bg-gray-300`} />
+                    <span className={`h-full col-span-3 rounded bg-gray-300`} />
+                  </>
+                ) : (
+                  <>
+                    {secureLVL === 1 ? (
+                      <>
+                        <span
+                          className={`h-full col-span-3 rounded bg-yellow-300`}
+                        />
+                        <span
+                          className={`h-full col-span-3 rounded bg-yellow-300`}
+                        />
+                        <span
+                          className={`h-full col-span-3 rounded bg-gray-300`}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <span
+                          className={`h-full col-span-3 rounded bg-green-300`}
+                        />
+                        <span
+                          className={`h-full col-span-3 rounded bg-green-300`}
+                        />
+                        <span
+                          className={`h-full col-span-3 rounded bg-green-300`}
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </div>
           <label className="inline-flex items-center mt-4">
             <input
               id="checkbox"
