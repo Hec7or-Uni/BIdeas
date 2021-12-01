@@ -33,11 +33,8 @@ export default function Invite() {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
-      })
-        .then((res) => {
-          return res.json()
-        })
-        .then((res) => {
+      }).then((res) => {
+          res.json()
           if (!res) {
             reject(new Error("error"))
           }

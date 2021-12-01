@@ -31,6 +31,7 @@ export default async (req, res) => {
     }
   } else if (method === "PUT") {
     const query = JSON.parse(req.body)
+    console.log(query)
     const updatedProject = await prisma.projects.update({
       data: query,
       where: { id: query.id },

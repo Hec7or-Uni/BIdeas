@@ -9,24 +9,23 @@ import Layout from "../components/layout"
 import Meta from "components/Meta"
 import LineMenu from "../components/Navegation/LineMenu"
 import { countryList } from "../data/countryList"
-import { links4myteam } from "data/LineMenu"
+import { links4myteam, links4myteamCreate } from "data/LineMenu"
 import { RiBlazeLine } from "react-icons/ri"
 import { FiAward, FiBriefcase, FiHeart, FiSave, FiTrash2 } from "react-icons/fi"
 import { BsTwitter, BsFacebook } from "react-icons/bs"
 import { FaDiscord } from "react-icons/fa"
 
 const numMaxMembers = {
-  2: "2",
-  3: "3",
-  4: "4",
-  5: "5",
-  6: "6",
-  8: "8",
-  10: "10",
-  12: "12",
-  16: "16",
-  20: "20",
-  unlimited: "Unlimited",
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  8: 8,
+  10: 10,
+  12: 12,
+  16: 16,
+  20: 20,
 }
 
 export default function Team({ team, user, workers }) {
@@ -58,35 +57,40 @@ export default function Team({ team, user, workers }) {
 
   function handleUpdate(e) {
     e.preventDefault()
+    let metodo = "PUT"
 
-    const query = {
-      id: team.id,
-      teamName: e.target.name.value || team.teamName,
-      motto: e.target.motto.value ,
-      country: e.target.country.value || team.country,
-      maxMembers: e.target.maxMembers.value || team.maxMembers,
-      avatar: e.target.avatar.value ,
-      description: e.target.description.value ,
-      discord: e.target.discord.value ,
-      twitter: e.target.twitter.value ,
-      facebook: e.target.facebook.value ,
-    }
+      const query = {
+        id: team.id,
+        teamName: e.target.name.value || team.teamName,
+        motto: e.target.motto.value ,
+        country: e.target.country.value || team.country,
+        maxMembers: Number(e.target.maxMembers.value) || team.maxMembers,
+        avatar: e.target.avatar.value ,
+        description: e.target.description.value ,
+        discord: e.target.discord.value ,
+        twitter: e.target.twitter.value ,
+        facebook: e.target.facebook.value ,
+        owner: user.id,
+      }
 
-    return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/team`, { 
-        method: "PUT",
-        headers: { "Content-Type": "text/plain" }, 
-        body: JSON.stringify(query), 
-      }).then((res) => {
-          return res.json()
-        })
-        .then((res) => {
-          if (!res) {
-            reject(new Error("error"))
-          }
-          resolve("ok")
-        })
-    })
+      if (!team.teamName){
+        delete query.id
+        metodo = "POST"
+      }
+
+      return new Promise(function (resolve, reject) {
+        fetch(`http://localhost:3000/api/team`, { 
+          method: metodo,
+          headers: { "Content-Type": "text/plain" }, 
+          body: JSON.stringify(query), 
+        }).then((res) => {
+            res.json()
+            if (!res) {
+              reject(new Error("error"))
+            }
+            resolve("ok")
+          })
+      })
   }
 
   function handleDelete() {
@@ -94,6 +98,26 @@ export default function Team({ team, user, workers }) {
     // method: Delete
     // borra toda la informacion del usuario de la base de datos
     // participaciones, solicitudes, usuarios(necesarios)...
+
+    const query = {
+      id: team.id,
+      workers: team.workers,
+    }
+
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/team`, { 
+        method: "DELETE",
+        headers: { "Content-Type": "text/plain" }, 
+        body: JSON.stringify(query),  
+      }).then((res) => {
+          res.json()
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
+    })
+
   }
 
   return (
@@ -111,16 +135,17 @@ export default function Team({ team, user, workers }) {
       />
       <LineMenu
         handleMenu={handleMenu}
-        data={links4myteam}
+        data={team.teamName ? links4myteam : links4myteamCreate}
         isActive={isActive}
       />
       {isActive === 1 && team.teamName && (
+        
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
               <div className="flex gap-x-4 items-center justify-center w-28 h-28 rounded-full">
                 <img
-                  src={team.avatar || "/anuncios/anuncio2.jpg"}
+                  src={team.avatar || "/personas/DefaultTeamAvatar.png"}
                   alt=""
                   className="w-full h-full rounded-full object-cover"
                 />
@@ -184,7 +209,7 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
-      {!team.teamName && (
+      {isActive === 1 && !team.teamName && (
         <div className="container py-32">
           <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
             <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600" />
@@ -193,7 +218,7 @@ export default function Team({ team, user, workers }) {
             </p>
             <p className="text-lg font-normal text-justify dark:text-gray-100">
               You can{" "}
-              <Link href="/new-team">
+              <Link href="/my-team">
                 <a className="hover:underline text-blue-600">create one</a>
               </Link>{" "}
               or you can{" "}
@@ -206,7 +231,7 @@ export default function Team({ team, user, workers }) {
         </div>
       )}
       {/* Profile Settings */}
-      {isActive === 2 && team.teamName &&(
+      {isActive === 2  && (
         <form onSubmit={(e) => {
           toast
             .promise(handleUpdate(e), {
@@ -225,6 +250,7 @@ export default function Team({ team, user, workers }) {
               </p>
               <div className="mt-4 px-2">
                 <div className="flex items-center gap-x-4 w-full h-full">
+                  {/* Parte izquierda img, input */}
                   <div className="flex w-full items-center">
                     <div className="flex w-1/2 justify-start">
                       <img
@@ -249,26 +275,36 @@ export default function Team({ team, user, workers }) {
                   </div>
 
                   {/* Parte derecha save changes */}
-                  <div className="flex flex-col gap-y-2 absolute top-0 right-0">
-                    <button
-                      type="submit"
-                      form="form-teamProfile"
-                      className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
-                    >
-                      <div className="flex justify-center gap-x-2 items-center p-2">
-                        <FiSave className="h-5 w-5 items-center text-neutral" />
-                        save changes
-                      </div>
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
-                    >
-                      <div className="flex justify-center gap-x-2 items-center p-2">
-                        <FiTrash2 className="h-5 w-5 items-center text-neutral" />
-                        delete
-                      </div>
-                    </button>
+                  <div className="flex w-full items-center">
+                    <div className="flex flex-col gap-y-2 absolute top-0 right-0">
+                      <button
+                        type="submit"
+                        form="form-teamProfile"
+                        className="px-7 py-1 bg-green-600 hover:bg-green-500 text-white text-bold font-medium uppercase rounded-md"
+                      >
+                        <div className="flex justify-center gap-x-2 items-center p-2">
+                          <FiSave className="h-5 w-5 items-center text-neutral" />
+                          save changes
+                        </div>
+                      </button>
+                      <button
+                        type="submit"
+                        onClick={() => {
+                          toast
+                          .promise(handleDelete(e), {
+                            loading: "Deleting team...",
+                            success: "Team succesfully deleted",
+                            error: "Error while deleting team",
+                          })
+                          .then(() => window.location.reload(false))}}
+                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                      >
+                        <div className="flex justify-center gap-x-2 items-center p-2">
+                          <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                          delete
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -471,9 +507,10 @@ export async function getServerSideProps({ req }) {
   }
 
   const { team, users } = res.data
-
-  let user = users.owner.user
+  console.log(res.data)
+  let user = users.owner?.user
   const workers = users.workers
+  console.log(users)
 
   if (!user) {
     const params = new URLSearchParams({ id: session.token.id })
