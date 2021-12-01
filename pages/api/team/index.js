@@ -1,5 +1,6 @@
 import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
+import { deleteTeam } from "../../../prisma/queries/DELETE/team"
 import { Project } from "prisma/queries/SELECT/project"
 import { InProgress, InProgressLite } from "prisma/queries/SELECT/in-progress"
 import { getToken } from "next-auth/jwt"
@@ -64,24 +65,13 @@ export default async (req, res) => {
   } else if (method === "DELETE") {
     // para recibir un parametro id en la query hay que usar urlparams para que la url quede de la forma:
     // http://localhost:3000/api/team?id=<id a eliminar>
-    const { id } = req.query // id del project que se desea eliminar
-    const participatesRaw = await InProgressLite(undefined, id)
-    const participates = participatesRaw.map((item) => {
-      return {
-        id: item.id,
-        idUser: item.idUser,
-        idProject: item.idProject,
-        owner: item.project.owner === item.idUser,
-      }
+    const id = req.query.id
+    console.log(id)
+    const deleted = await deleteTeam(id)
+    res.status(200).json({
+      data: { deleted: deleted },
+      status: status(200, ""),
     })
-    data = { done: participates }
-
-    participates.forEach((item) => {
-      // delete de la tabla participates mediante el id: <item.id>
-      console.log(item.id)
-    })
-    // una vez eliminados los registros de  participaciones para el id: item.id
-    // procedemos a borrar de la tabla de projects el team con id: participates.idProject
   }
 
   res.status(200).json({
