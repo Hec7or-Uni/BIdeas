@@ -58,16 +58,13 @@ export default function Profile({ user, owns, participates }) {
         method: "PUT",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
+      }).then((res) => {
+        res.json()
+        if (!res) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
       })
-        .then((res) => {
-          return res.json()
-        })
-        .then((res) => {
-          if (!res) {
-            reject(new Error("error"))
-          }
-          resolve("ok")
-        })
     })
   }
 

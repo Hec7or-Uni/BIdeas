@@ -30,7 +30,12 @@ export default async (req, res) => {
         status: status(401, ""),
       })
     }
-    handlePUT(res, JSON.parse(req.body))
+    const query = JSON.parse(req.body)
+    const updatedUser = await updateUser(token.id, query)
+    res.json({
+      data: { user: updatedUser },
+      status: status(405, ""),
+    })
   } else if (method === "GET") {
     const token = await getToken({ req, secret })
     if (!token) {
@@ -63,13 +68,4 @@ export default async (req, res) => {
       status: status(200, ""),
     })
   }
-}
-
-// PUT /api/user/
-async function handlePUT(res, query) {
-  const updatedUser = await updateUser(query)
-  res.json({
-    data: { user: updatedUser },
-    status: status(405, ""),
-  })
 }

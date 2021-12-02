@@ -20,7 +20,9 @@ export default async (req, res) => {
     res.status(405).end(`Method ${method} Not Allowed`)
   }
 
-  const project = await Project(req.url.substring(11))
+  const id = req.url.substring(11).replace("%20", " ")
+
+  const project = await Project(id)
   const users = await InProgress(undefined, project.id)
   const owner = users
     .filter((item) => item.idUser === item.project.owner)

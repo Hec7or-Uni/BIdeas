@@ -46,6 +46,9 @@ export default function Professionals({ user }) {
   const users = res1.data.data.users
     .filter((item) => item.id !== user.id)
     .filter((item) => !contactedUsersCopy.includes(item.id))
+    .filter((item) => item.av4hire === true)
+
+  console.log(users)
 
   const handleContact = async (e) => {
     mutate(`http://localhost:3000/api/users/lite`)
