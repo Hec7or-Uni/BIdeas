@@ -1,8 +1,11 @@
 import status from "../../../libs/status"
 import { UserLite } from "../../../prisma/queries/SELECT/user"
+import { ProjectId } from "../../../prisma/queries/SELECT/project"
+import { InProgressLite } from "../../../prisma/queries/SELECT/in-progress"
 import { ReqProjectsLite } from "../../../prisma/queries/SELECT/req-projs"
 import { createReqProject } from "../../../prisma/queries/CREATE/req-proj"
 import { deleteReqProject } from "../../../prisma/queries/DELETE/req-proj"
+import { pointsUser, pointsTeam } from "../../../prisma/queries/PUT/puntos"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -26,14 +29,29 @@ export default async (req, res) => {
     const userId = token.id
     const body = JSON.parse(req.body)
 
-    const request = await createReqProject({
-      idUser: userId,
-      idProject: body.id,
-    })
-    res.status(200).json({
-      data: { request: request },
-      status: status(200, ""),
-    })
+    const { maxMembers } = await ProjectId(body.id)
+
+    const members = await InProgressLite(userId.toString(), body.id.toString())
+    console.log(members.length)
+
+    if (maxMembers === members.length - 1) {
+      res.status(400).json({
+        status: status(400, ""),
+      })
+    } else {
+      const request = await createReqProject({
+        idUser: userId,
+        idProject: body.id,
+      })
+
+      await pointsTeam(body.id, 5, 1)
+      await pointsUser(userId, 1, 0)
+
+      res.status(200).json({
+        data: { request: request },
+        status: status(200, ""),
+      })
+    }
   } else if (method === "GET") {
     const userId = req.query.id
     const user = await UserLite(userId)

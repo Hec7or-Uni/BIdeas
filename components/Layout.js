@@ -1,7 +1,6 @@
 import Meta from "./Meta"
 import Navbar from "./Navegation/Navbar"
 import Sidebar from "./Navegation/Sidebar"
-
 import { SidebarProvider } from "../context/SideBarContext"
 import { A4HProvider } from "../context/A4HiredContext"
 

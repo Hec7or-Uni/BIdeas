@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useState } from "react"
 
-export default function ButtonP({ id, func, text, url, className }) {
+export default function ButtonP({ id, func = () => {}, text, url, className }) {
   const [wasClicked, click] = useState(false)
   return (
     <div

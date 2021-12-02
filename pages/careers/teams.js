@@ -34,6 +34,7 @@ export default function Teams({ user, myProjects }) {
   if (!res1.data || !res2.data || !res3.data) {
     return (
       <Preload
+        user={user.id}
         web={"Teams"}
         title={"Lot of Jobs"}
         subtitle={
@@ -124,7 +125,7 @@ export default function Teams({ user, myProjects }) {
         <Careers
           title={"Job Board"}
           text={
-            "you applied for " +
+            "You applied for " +
             appliedJobs.length +
             (appliedJobs.length === 1 ? " job" : " jobs")
           }

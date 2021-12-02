@@ -37,12 +37,23 @@ export default function Team() {
 
   let country = team.country
 
-  if (country!="Spain" && country !="France" && country !="Germany" && 
-      country !="UnitedKingdom" && country !="UnitedStates" && country !="Italy"
-      && country !="China" && country !="Japan" && country !="Russia" && country !="Belgium" 
-      &&  country !="Netherlands" && country !="Sweden" && country !="Canada" && country !="Brazil"){
-
-      country = "DefaultCountry"
+  if (
+    country !== "Spain" &&
+    country !== "France" &&
+    country !== "Germany" &&
+    country !== "UnitedKingdom" &&
+    country !== "UnitedStates" &&
+    country !== "Italy" &&
+    country !== "China" &&
+    country !== "Japan" &&
+    country !== "Russia" &&
+    country !== "Belgium" &&
+    country !== "Netherlands" &&
+    country !== "Sweden" &&
+    country !== "Canada" &&
+    country !== "Brazil"
+  ) {
+    country = "DefaultCountry"
   }
 
   return (

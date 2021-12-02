@@ -20,7 +20,7 @@ export default async (req, res) => {
     res.status(405).end(`Method ${method} Not Allowed`)
   }
 
-  const id = req.url.substring(11)
+  const id = req.url.substring(11).replace("%20", " ")
   const user = await User(id)
   const projects = await InProgress(user.id)
 

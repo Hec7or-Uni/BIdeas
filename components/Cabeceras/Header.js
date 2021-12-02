@@ -1,10 +1,31 @@
 import Link from "next/link"
 
-export default function Header({ avatar, username, id, studies, plan, xp, myProfile, country }) {
-  if (country!="Spain" && country !="France" && country !="Germany" && 
-      country !="UnitedKingdom" && country !="UnitedStates" && country !="Italy"
-      && country !="China" && country !="Japan" && country !="Russia" && country !="Belgium" 
-      &&  country !="Netherlands" && country !="Sweden" && country !="Canada" && country !="Brazil"){
+export default function Header({
+  avatar,
+  username,
+  id,
+  studies,
+  plan,
+  xp,
+  myProfile,
+  country,
+}) {
+  if (
+    country !== "Spain" &&
+    country !== "France" &&
+    country !== "Germany" &&
+    country !== "UnitedKingdom" &&
+    country !== "UnitedStates" &&
+    country !== "Italy" &&
+    country !== "China" &&
+    country !== "Japan" &&
+    country !== "Russia" &&
+    country !== "Belgium" &&
+    country !== "Netherlands" &&
+    country !== "Sweden" &&
+    country !== "Canada" &&
+    country !== "Brazil"
+  ) {
     country = "DefaultCountry"
   }
   return (
@@ -46,12 +67,12 @@ export default function Header({ avatar, username, id, studies, plan, xp, myProf
             rank
           </p>
           <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            {Math.trunc((xp - 49) / 100) === 0 && "Newbie"}
-            {Math.trunc((xp - 49) / 100) === 1 && "Entrepeneur"}
-            {Math.trunc((xp - 49) / 100) === 2 && "Veteran"}
-            {Math.trunc((xp - 49) / 100) === 3 && "Businessman"}
-            {Math.trunc((xp - 49) / 100) === 4 && "Your own Boss"}
-            {Math.trunc((xp - 49) / 100) >= 5 && (
+            {Math.trunc(xp / 100) === 0 && "Newbie"}
+            {Math.trunc(xp / 100) === 1 && "Entrepeneur"}
+            {Math.trunc(xp / 100) === 2 && "Veteran"}
+            {Math.trunc(xp / 100) === 3 && "Businessman"}
+            {Math.trunc(xp / 100) === 4 && "Your own Boss"}
+            {Math.trunc(xp / 100) >= 5 && (
               <span className="text-yellow-500 animate-pulse duration-700">
                 GOAT
               </span>
@@ -80,6 +101,6 @@ export default function Header({ avatar, username, id, studies, plan, xp, myProf
   )
 }
 
-Header.defaultProps = {  
-  myProfile: false
+Header.defaultProps = {
+  myProfile: false,
 }

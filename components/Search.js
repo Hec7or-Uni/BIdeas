@@ -77,7 +77,11 @@ export default function Search(props) {
   })
 
   return (
-    <form ref={formRef} className="ml-8 flex justify-center" {...formProps}>
+    <form
+      ref={formRef}
+      className="hidden md:flex ml-8 justify-center"
+      {...formProps}
+    >
       <div className="flex items-center relative px-3 bg-white rounded-lg">
         <FiSearch className="w-5 h-5" />
         <input

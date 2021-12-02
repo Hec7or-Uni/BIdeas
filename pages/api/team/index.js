@@ -1,5 +1,7 @@
 import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
+import { deleteTeam } from "../../../prisma/queries/DELETE/team"
+import { createUserTeam } from "../../../prisma/queries/CREATE/user-team"
 import { Project } from "prisma/queries/SELECT/project"
 import { InProgress } from "prisma/queries/SELECT/in-progress"
 import { getToken } from "next-auth/jwt"
@@ -25,7 +27,7 @@ export default async (req, res) => {
   if (method === "POST") {
     const query = JSON.parse(req.body)
     const newProject = await prisma.projects.create({ data: query })
-
+    await createUserTeam(newProject.owner, newProject.id)
     data = {
       project: newProject,
     }
@@ -62,7 +64,13 @@ export default async (req, res) => {
       }
     }
   } else if (method === "DELETE") {
-    console.info()
+    const id = req.query.id
+    console.log(id)
+    const deleted = await deleteTeam(id)
+    res.status(200).json({
+      data: { deleted: deleted },
+      status: status(200, ""),
+    })
   }
 
   res.status(200).json({

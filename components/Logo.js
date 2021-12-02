@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { RiBlazeLine } from "react-icons/ri"
 
-export default function Logo({ toggle }) {
+export default function Logo({ url, toggle }) {
   return (
-    <Link href="/">
+    <Link href={url}>
       <a className="flex gap-x-2 absolute left-0 mx-4">
         <RiBlazeLine className="h-6 w-6 text-red-600" />
         {!toggle && (

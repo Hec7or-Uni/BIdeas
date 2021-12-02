@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getSession } from "next-auth/react"
+import { getSession, signOut } from "next-auth/react"
 import Header from "components/Cabeceras/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
@@ -54,11 +54,29 @@ export default function Profile({ user, owns, participates }) {
       delete query.passwd
     }
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/user`, { 
+      fetch(`http://localhost:3000/api/user`, {
         method: "PUT",
-        headers: { "Content-Type": "text/plain" }, 
-        body: JSON.stringify(query), 
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(query),
       }).then((res) => {
+        res.json()
+        if (!res) {
+          reject(new Error("error"))
+        }
+        resolve("ok")
+      })
+    })
+  }
+
+  function handleDelete() {
+    const params2 = new URLSearchParams({ id: user.id })
+    const url = `http://localhost:3000/api/user?${params2.toString()}`
+
+    return new Promise(function (resolve, reject) {
+      fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => {
           return res.json()
         })
         .then((res) => {
@@ -70,15 +88,7 @@ export default function Profile({ user, owns, participates }) {
     })
   }
 
-  function handleDelete() {
-    // url: localhost:3000/api/user
-    // method: Delete
-    // borra toda la informacion del usuario de la base de datos
-    // participaciones, solicitudes, ...
-  }
-
   return (
-    
     <div className="w-full px-8 py-3">
       <Toaster position="top-center" reverseOrder={true} />
       <Meta title="My Profile" />
@@ -115,12 +125,12 @@ export default function Profile({ user, owns, participates }) {
               </div>
               <div>
                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                  {Math.trunc((user.xp) / 100) === 0 && "Newbie"}
-                  {Math.trunc((user.xp) / 100) === 1 && "Entrepeneur"}
-                  {Math.trunc((user.xp) / 100) === 2 && "Veteran"}
-                  {Math.trunc((user.xp) / 100) === 3 && "Businessman"}
-                  {Math.trunc((user.xp) / 100) === 4 && "Your own Boss"}
-                  {Number((user.xp) / 100).toFixed() >= 5 && (
+                  {Math.trunc(user.xp / 100) === 0 && "Newbie"}
+                  {Math.trunc(user.xp / 100) === 1 && "Entrepeneur"}
+                  {Math.trunc(user.xp / 100) === 2 && "Veteran"}
+                  {Math.trunc(user.xp / 100) === 3 && "Businessman"}
+                  {Math.trunc(user.xp / 100) === 4 && "Your own Boss"}
+                  {Number(user.xp / 100).toFixed() >= 5 && (
                     <span className="text-yellow-500 animate-pulse duration-700">
                       GOAT
                     </span>
@@ -197,15 +207,18 @@ export default function Profile({ user, owns, participates }) {
       )}
       {/* Profile Settings */}
       {isActive === 2 && (
-        <form onSubmit={(e) => {
-          toast
-            .promise(handleUpdate(e), {
-              loading: "Saving changes...",
-              success: "Changes succesfully saved",
-              error: "Error while saving changes",
-            })
-            .then(() => window.location.reload(false))
-        }} id="form-profile">
+        <form
+          onSubmit={(e) => {
+            toast
+              .promise(handleUpdate(e), {
+                loading: "Saving changes...",
+                success: "Changes succesfully saved",
+                error: "Error while saving changes",
+              })
+              .then(() => window.location.reload(false))
+          }}
+          id="form-profile"
+        >
           <div className="relative">
             {/* Profile Avatar Edit */}
 
@@ -252,15 +265,26 @@ export default function Profile({ user, owns, participates }) {
                           save changes
                         </div>
                       </button>
-                      <button
+                      <form
                         type="submit"
-                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md"
+                        onClick={() => {
+                          toast
+                            .promise(handleDelete(), {
+                              loading: "Deleting user...",
+                              success: "User succesfully deleted",
+                              error: "Error while deleting user",
+                            })
+                            .then(
+                              () => signOut() && window.location.reload(false)
+                            )
+                        }}
+                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
                       >
                         <div className="flex justify-center gap-x-2 items-center p-2">
                           <FiTrash2 className="h-5 w-5 items-center text-neutral" />
                           delete
                         </div>
-                      </button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -269,145 +293,150 @@ export default function Profile({ user, owns, participates }) {
 
             {/* General Info Edit */}
             <div className="px-8 mt-8 w-4/6">
-              <p className="text-base font-bold dark:text-gray-100">General Information</p>
+              <p className="text-base font-bold dark:text-gray-100">
+                General Information
+              </p>
               <div className="mt-4 px-2">
-                  {/* Name & LastName */}
-                  <div className="flex gap-x-4 w-full">
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        name
-                      </span>
-                      <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        defaultValue={user.name}
-                        className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        last name
-                      </span>
-                      <input
-                        id="lastname"
-                        type="text"
-                        name="lastname"
-                        placeholder="Lastname"
-                        defaultValue={user.lastName}
-                        className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
+                {/* Name & LastName */}
+                <div className="flex gap-x-4 w-full">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      name
+                    </span>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      defaultValue={user.name}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      last name
+                    </span>
+                    <input
+                      id="lastname"
+                      type="text"
+                      name="lastname"
+                      placeholder="Lastname"
+                      defaultValue={user.lastName}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
+                  </div>
+                </div>
 
-                  {/* Username & Country */}
-                  <div className="flex gap-x-4 w-full mt-2">
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        Username
-                      </span>
-                      <input
-                        id="username"
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        defaultValue={user.userName}
-                        className="w-full py-2 px-2 mt-1 text-gray-700 bg-white border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        country
-                      </span>
-                      <select className="w-full px-2 py-2 mt-1 text-gray-700 bg-neutral border rounded-md focus:border-blue-600" id="country">
-                        <option value="">
-                          {user.country || "Select a country"}
+                {/* Username & Country */}
+                <div className="flex gap-x-4 w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      Username
+                    </span>
+                    <input
+                      id="username"
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      defaultValue={user.userName}
+                      className="w-full py-2 px-2 mt-1 text-gray-700 bg-white border rounded-md focus:border-blue-600"
+                    />
+                  </div>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      country
+                    </span>
+                    <select
+                      className="w-full px-2 py-2 mt-1 text-gray-700 bg-neutral border rounded-md focus:border-blue-600"
+                      id="country"
+                    >
+                      <option value="">
+                        {user.country || "Select a country"}
+                      </option>
+                      {Object.entries(countryList).map(([key, value]) => (
+                        <option key={key} value={key}>
+                          {value}
                         </option>
-                        {Object.entries(countryList).map(([key, value]) => (
-                          <option key={key} value={key}>
-                            {value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      ))}
+                    </select>
                   </div>
+                </div>
 
-
-                  {/* Email & Password */}
-                  <div className="flex gap-x-4 w-full mt-2">
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        e-mail
-                      </span>
-                      <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        placeholder="example@example.com"
-                        defaultValue={user.email}
-                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        password
-                      </span>
-                      <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
+                {/* Email & Password */}
+                <div className="flex gap-x-4 w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      e-mail
+                    </span>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder="example@example.com"
+                      defaultValue={user.email}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <div className="flex gap-x-4 w-full mt-2">
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        studies
-                      </span>
-                      <input
-                        id="studies"
-                        type="text"
-                        name="studies"
-                        placeholder="Your studies"
-                        defaultValue={user.studies}
-                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
-                    </div>
-                    <div className="w-full">
-                    </div>
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      password
+                    </span>
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
-                  <div className="flex w-full mt-2">
-                    <div className="w-full">
-                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                        profile description
-                      </span>
-                      <textarea
-                        id="description"
-                        type="textarea"
-                        name="description"
-                        placeholder="Tell us about you!"
-                        defaultValue={user.description}
-                        className="resize-y min-h-32 min h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 align-baseline"
-                      />
-                    </div>
+                </div>
+                <div className="flex gap-x-4 w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      studies
+                    </span>
+                    <input
+                      id="studies"
+                      type="text"
+                      name="studies"
+                      placeholder="Your studies"
+                      defaultValue={user.studies}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
+                  <div className="w-full"></div>
+                </div>
+                <div className="flex w-full mt-2">
+                  <div className="w-full">
+                    <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                      profile description
+                    </span>
+                    <textarea
+                      id="description"
+                      type="textarea"
+                      name="description"
+                      placeholder="Tell us about you!"
+                      defaultValue={user.description}
+                      className="resize-y min-h-32 min h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600 align-baseline"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="px-8 mt-8 w-4/6">
-              <p className="text-base font-bold dark:text-gray-100">Social media</p>
+              <p className="text-base font-bold dark:text-gray-100">
+                Social media
+              </p>
               <div className="mt-4 px-2">
                 <div className="flex gap-x-4 w-full">
                   <div className="w-full">
-                  <div className="flex gap-x-1">
-                        <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
-                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          website
-                        </span>
-                      </div>
+                    <div className="flex gap-x-1">
+                      <CgWebsite className="h-auto w-auto object-fill object-center text-gray-400" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        website
+                      </span>
+                    </div>
                     <input
                       id="website"
                       type="url"
@@ -417,41 +446,40 @@ export default function Profile({ user, owns, participates }) {
                       className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
                   </div>
-                  <div className="w-full">
-                  </div>
+                  <div className="w-full"></div>
                 </div>
                 <div className="flex gap-x-4 w-full">
                   <div className="w-full mt-4">
-                      <div className="flex gap-x-1">
-                        <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
-                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          twitter
-                        </span>
-                      </div>
-                      <input
-                        id="twitter"
-                        type="text"
-                        name="twitter"
-                        placeholder="@TwitterUser"
-                        defaultValue={user.twitter}
-                        className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
+                    <div className="flex gap-x-1">
+                      <BsTwitter className="h-auto w-auto object-fill object-center text-blue-600" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        twitter
+                      </span>
+                    </div>
+                    <input
+                      id="twitter"
+                      type="text"
+                      name="twitter"
+                      placeholder="@TwitterUser"
+                      defaultValue={user.twitter}
+                      className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
                   <div className="w-full mt-4">
-                      <div className="flex gap-x-1">
-                        <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
-                        <span className="text-xs font-semibold uppercase dark:text-gray-100">
-                          facebook
-                        </span>
-                      </div>
-                      <input
-                        id="facebook"
-                        type="text"
-                        name="facebook"
-                        placeholder="FacebookUser"
-                        defaultValue={user.facebook}
-                        className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md focus:border-blue-600"
-                      />
+                    <div className="flex gap-x-1">
+                      <BsFacebook className="h-auto w-auto object-fill object-center text-blue-700" />
+                      <span className="text-xs font-semibold uppercase dark:text-gray-100">
+                        facebook
+                      </span>
+                    </div>
+                    <input
+                      id="facebook"
+                      type="text"
+                      name="facebook"
+                      placeholder="FacebookUser"
+                      defaultValue={user.facebook}
+                      className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md focus:border-blue-600"
+                    />
                   </div>
                   <div className="w-full"></div>
                 </div>

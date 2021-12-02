@@ -74,14 +74,14 @@ export default function Login({ csrfToken }) {
                 <span className="mx-2 text-sm text-gray-600">Remember me</span>
               </label>
             </div>
-            <div>
+            {/* <div>
               <a
                 className="block text-sm text-blue-600 fontme hover:underline"
                 href="#"
               >
                 Forgot your password?
               </a>
-            </div>
+            </div> */}
           </div>
           <div className="mt-6">
             <button
