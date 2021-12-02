@@ -49,8 +49,8 @@ export default function Home({ user, owns, recommended, participates }) {
   const [stat, setStat] = useState(Stats[0])
 
   const finals = () => {
-    const list = new Array()
-    for (let index = 0; index < 5; index++) {
+    const list = []
+    for (let index = 0; index < 3; index++) {
       list.push(recommended[index])
     }
     return list
@@ -140,7 +140,7 @@ export default function Home({ user, owns, recommended, participates }) {
                     )}
                     {Number(user.xp / 100).toFixed() >= 5 && (
                       <div
-                        className="bg-gray-800 h-1 rounded-full dark:bg-gray-100"
+                        className="bg-gray-800 h-1 rounded-full dark:bg-green-400"
                         style={{ width: "100%" }}
                       ></div>
                     )}
@@ -258,8 +258,12 @@ export default function Home({ user, owns, recommended, participates }) {
               img={
                 <GoOrganization className="h-3/5 w-3/5 dark:text-gray-100" />
               }
-              title={"create a team"}
-              desc={"Start developing your new idea now"}
+              title={ownsLength === 0 ? "create a team" : "my team"}
+              desc={
+                ownsLength === 0
+                  ? "Start developing your new idea now"
+                  : "How is your team going?"
+              }
               url={"/my-team"}
             />
             <Shortcut

@@ -3,6 +3,7 @@ import { createUserTeam } from "../../../prisma/queries/CREATE/user-team"
 import { deleteReqProject } from "../../../prisma/queries/DELETE/req-proj"
 import { deleteReqUser } from "../../../prisma/queries/DELETE/req-user"
 import { getToken } from "next-auth/jwt"
+import { pointsUser, pointsTeam } from "../../../prisma/queries/PUT/puntos"
 
 const secret = process.env.SECRET
 
@@ -30,6 +31,11 @@ export default async (req, res) => {
     // Añade a la lista de participantes del team: <idProject> al user: <idUser>
     // Añade al user: <idUser> al team: <idProject>
     const data = await createUserTeam(query.idUser, query.idProject)
+
+    console.log(typeof query.idProject)
+    Number(query.type) === 0
+      ? await pointsUser(query.idUser, 5, 1)
+      : await pointsTeam(query.idProject, 5, 1)
 
     res.json({
       data: { info: data },

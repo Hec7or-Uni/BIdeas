@@ -1,6 +1,6 @@
 import LineMenu from "../../components/Navegation/LineMenu"
 import Meta from "components/Meta"
-import { links4pro } from "data/LineMenu"
+import { links4pro, links4teams } from "data/LineMenu"
 import { useA4Hired } from "../../context/A4HiredContext"
 
 export default function Preload({
@@ -42,7 +42,7 @@ export default function Preload({
       <div className="px-8">
         <LineMenu
           handleMenu={handleMenu}
-          data={links4pro}
+          data={web === "Teams" ? links4teams : links4pro}
           isActive={isActive}
         />
       </div>

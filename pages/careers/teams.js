@@ -124,7 +124,7 @@ export default function Teams({ user, myProjects }) {
         <Careers
           title={"Job Board"}
           text={
-            "you applied for " +
+            "You applied for " +
             appliedJobs.length +
             (appliedJobs.length === 1 ? " job" : " jobs")
           }

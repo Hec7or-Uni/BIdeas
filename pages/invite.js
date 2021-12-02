@@ -40,19 +40,19 @@ export default function Invite() {
     return new Promise(function (resolve, reject) {
       if (!e.target.checkbox.checked) {
         reject(new Error("error"))
+      } else {
+        fetch(`http://localhost:3000/api/user`, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(query),
+        }).then((res) => {
+          res.json()
+          if (!res.ok) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
       }
-
-      fetch(`http://localhost:3000/api/user`, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(query),
-      }).then((res) => {
-        res.json()
-        if (!res) {
-          reject(new Error("error"))
-        }
-        resolve("ok")
-      })
     })
   }
 

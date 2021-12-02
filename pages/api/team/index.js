@@ -1,8 +1,9 @@
 import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
 import { deleteTeam } from "../../../prisma/queries/DELETE/team"
+import { createUserTeam } from "../../../prisma/queries/CREATE/user-team"
 import { Project } from "prisma/queries/SELECT/project"
-import { InProgress, InProgressLite } from "prisma/queries/SELECT/in-progress"
+import { InProgress } from "prisma/queries/SELECT/in-progress"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -26,7 +27,7 @@ export default async (req, res) => {
   if (method === "POST") {
     const query = JSON.parse(req.body)
     const newProject = await prisma.projects.create({ data: query })
-
+    await createUserTeam(newProject.owner, newProject.id)
     data = {
       project: newProject,
     }
@@ -63,8 +64,6 @@ export default async (req, res) => {
       }
     }
   } else if (method === "DELETE") {
-    // para recibir un parametro id en la query hay que usar urlparams para que la url quede de la forma:
-    // http://localhost:3000/api/team?id=<id a eliminar>
     const id = req.query.id
     console.log(id)
     const deleted = await deleteTeam(id)

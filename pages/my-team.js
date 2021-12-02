@@ -14,46 +14,13 @@ import { RiBlazeLine } from "react-icons/ri"
 import { FiAward, FiBriefcase, FiHeart, FiSave, FiTrash2 } from "react-icons/fi"
 import { BsTwitter, BsFacebook } from "react-icons/bs"
 import { FaDiscord } from "react-icons/fa"
-
-const numMaxMembers = {
-  2: 2,
-  3: 3,
-  4: 4,
-  5: 5,
-  6: 6,
-  8: 8,
-  10: 10,
-  12: 12,
-  16: 16,
-  20: 20,
-}
+import { numMaxMembers } from "../data/MaxMembers"
 
 export default function Team({ team, user, workers }) {
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault()
-
-  //   const query = {
-  //     teamName: values.teamName,
-  //     motto: values.motto,
-  //     country: values.country,
-  //     maxMembers: values.maxMembers,
-  //     avatar: values.avatar,
-  //     description: values.description,
-  //     discord: values.discord,
-  //     twitter: values.twitter,
-  //     facebook: values.facebook,
-  //   }
-  //   await fetch(`http://localhost:3000/api/team`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "text/plain" },
-  //     body: JSON.stringify(query),
-  //   }).then((res) => {
-  //     return res.json()
-  //   })
-  // }
+  const createdTeam = Boolean(team.id)
 
   function handleUpdate(e) {
     e.preventDefault()
@@ -73,7 +40,7 @@ export default function Team({ team, user, workers }) {
       owner: user.id,
     }
 
-    if (!team.teamName) {
+    if (!createdTeam) {
       delete query.id
       metodo = "POST"
     }
@@ -85,7 +52,8 @@ export default function Team({ team, user, workers }) {
         body: JSON.stringify(query),
       }).then((res) => {
         res.json()
-        if (!res) {
+        console.log(res)
+        if (!res.ok) {
           reject(new Error("error"))
         }
         resolve("ok")
@@ -94,11 +62,6 @@ export default function Team({ team, user, workers }) {
   }
 
   function handleDelete() {
-    // url: localhost:3000/api/team
-    // method: Delete
-    // borra toda la informacion del usuario de la base de datos
-    // participaciones, solicitudes, usuarios(necesarios)...
-
     const params = new URLSearchParams({ id: team.id })
 
     return new Promise(function (resolve, reject) {
@@ -106,12 +69,32 @@ export default function Team({ team, user, workers }) {
         method: "DELETE",
       }).then((res) => {
         res.json()
-        if (!res) {
+        if (!res.ok) {
           reject(new Error("error"))
         }
         resolve("ok")
       })
     })
+  }
+
+  let country = team.country
+  if (
+    country !== "Spain" &&
+    country !== "France" &&
+    country !== "Germany" &&
+    country !== "UnitedKingdom" &&
+    country !== "UnitedStates" &&
+    country !== "Italy" &&
+    country !== "China" &&
+    country !== "Japan" &&
+    country !== "Russia" &&
+    country !== "Belgium" &&
+    country !== "Netherlands" &&
+    country !== "Sweden" &&
+    country !== "Canada" &&
+    country !== "Brazil"
+  ) {
+    country = "DefaultCountry"
   }
 
   return (
@@ -133,7 +116,7 @@ export default function Team({ team, user, workers }) {
         data={team.teamName ? links4myteam : links4myteamCreate}
         isActive={isActive}
       />
-      {isActive === 1 && team.teamName && (
+      {isActive === 1 && createdTeam && (
         <div className="w-full mt-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-x-6">
@@ -148,7 +131,7 @@ export default function Team({ team, user, workers }) {
                 <div className="flex items-center gap-x-2">
                   <div className="flex gap-x-4 items-center justify-center w-7 h-7 rounded-full">
                     <img
-                      src="/banderas/spain.png"
+                      src={`/banderas/${country}.png`}
                       alt=""
                       className="w-full h-full rounded-full object-cover"
                     />
@@ -203,7 +186,7 @@ export default function Team({ team, user, workers }) {
           </div>
         </div>
       )}
-      {isActive === 1 && !team.teamName && (
+      {isActive === 1 && !createdTeam && (
         <div className="container py-32">
           <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
             <RiBlazeLine className="h-20 w-20 object-fill object-center mb-3 text-red-600" />
@@ -235,6 +218,7 @@ export default function Team({ team, user, workers }) {
                 error: "Error while saving changes",
               })
               .then(() => window.location.reload(false))
+              .catch(() => {})
           }}
           id="form-teamProfile"
         >
@@ -264,7 +248,7 @@ export default function Team({ team, user, workers }) {
                         id="avatar"
                         type="url"
                         name="avatar"
-                        placeholder={team.avatar || "https://avatar..."}
+                        placeholder="https://avatar..."
                         defaultValue={team.avatar}
                         className="w-full px-2 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                       />
@@ -281,27 +265,30 @@ export default function Team({ team, user, workers }) {
                       >
                         <div className="flex justify-center gap-x-2 items-center p-2">
                           <FiSave className="h-5 w-5 items-center text-neutral" />
-                          save changes
+                          {createdTeam ? "save changes" : "create team"}
                         </div>
                       </button>
-                      <form
-                        type="submit"
-                        onClick={() => {
-                          toast
-                            .promise(handleDelete(), {
-                              loading: "Deleting team...",
-                              success: "Team succesfully deleted",
-                              error: "Error while deleting team",
-                            })
-                            .then(() => window.location.reload(false))
-                        }}
-                        className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
-                      >
-                        <div className="flex justify-center gap-x-2 items-center p-2">
-                          <FiTrash2 className="h-5 w-5 items-center text-neutral" />
-                          delete
-                        </div>
-                      </form>
+                      {createdTeam && (
+                        <form
+                          type="submit"
+                          onClick={() => {
+                            toast
+                              .promise(handleDelete(), {
+                                loading: "Deleting team...",
+                                success: "Team succesfully deleted",
+                                error: "Error while deleting team",
+                              })
+                              .then(() => window.location.reload(false))
+                              .catch(() => {})
+                          }}
+                          className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
+                        >
+                          <div className="flex justify-center gap-x-2 items-center p-2">
+                            <FiTrash2 className="h-5 w-5 items-center text-neutral" />
+                            delete
+                          </div>
+                        </form>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -325,7 +312,7 @@ export default function Team({ team, user, workers }) {
                           id="name"
                           type="text"
                           name="name"
-                          placeholder={team.teamName || "Team Name"}
+                          placeholder="Team Name"
                           defaultValue={team.teamName}
                           className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                         />
@@ -387,9 +374,7 @@ export default function Team({ team, user, workers }) {
                       id="motto"
                       type="textarea"
                       name="motto"
-                      placeholder={
-                        team.motto || "Create a brand new motto for your team!"
-                      }
+                      placeholder="Create a brand new motto for your team!"
                       defaultValue={team.motto}
                       className="resize-none w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
@@ -404,7 +389,7 @@ export default function Team({ team, user, workers }) {
                       id="description"
                       type="textarea"
                       name="description"
-                      placeholder={team.description || "Tell us about you!"}
+                      placeholder="Tell us about you!"
                       defaultValue={team.description}
                       className="resize-y min-h-32 w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
@@ -431,7 +416,7 @@ export default function Team({ team, user, workers }) {
                       id="twitter"
                       type="text"
                       name="twitter"
-                      placeholder={team.twitter || "@TwitterUser"}
+                      placeholder="@TwitterUser"
                       defaultValue={team.twitter}
                       className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
                     />
@@ -447,7 +432,7 @@ export default function Team({ team, user, workers }) {
                       id="facebook"
                       type="text"
                       name="facebook"
-                      placeholder={team.facebook || "FacebookUser"}
+                      placeholder="FacebookUser"
                       defaultValue={team.facebook}
                       className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
                     />
@@ -465,7 +450,7 @@ export default function Team({ team, user, workers }) {
                       id="discord"
                       type="text"
                       name="discord"
-                      placeholder={team.discord || "https://discord.gg/"}
+                      placeholder="https://discord.gg/"
                       defaultValue={team.discord}
                       className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />

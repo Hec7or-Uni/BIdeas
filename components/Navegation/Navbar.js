@@ -1,4 +1,4 @@
-import { useState,useRef,useEffect } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
 import { useSidebar } from "../../context/SideBarContext"
@@ -13,15 +13,16 @@ export default function NewNavbar({ avatar, userName, plan }) {
   const [isModal, setModal] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
 
-  const ref = useRef();
   useEffect(() => {
     const checkIfClickedOutside = () => {
-      if (isActive){setActive(false);}
-    };
-    document.addEventListener("click", checkIfClickedOutside);
-    return() => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    } 
+      if (isActive) {
+        setActive(false)
+      }
+    }
+    document.addEventListener("click", checkIfClickedOutside)
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside)
+    }
   }, [isActive])
 
   return (
@@ -33,7 +34,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           ${isToggle ? "min-w-3.5" : "min-w-15 w-48"}`}
           onClick={() => ToggleSidebar(false)}
         >
-          <Logo toggle={isToggle} />
+          <Logo url={"/"} toggle={isToggle} />
         </a>
       </Link>
       <Search />
@@ -56,11 +57,13 @@ export default function NewNavbar({ avatar, userName, plan }) {
           </Link>
         </div>
         {/* User */}
-        <div className="flex items-center gap-x-2.5 h-12 cursor-pointer"
+        <div
+          className="flex items-center gap-x-2.5 h-12 cursor-pointer"
           onClick={() => {
             setActive(!isActive)
             setModal(false)
-          }}>
+          }}
+        >
           <div className="w-10 h-10 rounded-full">
             <img
               src={avatar || "/personas/DefaultAvatar.jpg"}

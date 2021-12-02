@@ -3,6 +3,7 @@ import { ProjectLite } from "../../../prisma/queries/SELECT/project"
 import { ReqUsersLite } from "../../../prisma/queries/SELECT/req-users"
 import { createReqUser } from "../../../prisma/queries/CREATE/req-user"
 import { deleteReqUser } from "../../../prisma/queries/DELETE/req-user"
+import { pointsUser, pointsTeam } from "../../../prisma/queries/PUT/puntos"
 import { getToken } from "next-auth/jwt"
 
 const secret = process.env.SECRET
@@ -31,6 +32,11 @@ export default async (req, res) => {
       idUser: body.id,
       idProject: id,
     })
+
+    console.log(typeof id, typeof body.id)
+    await pointsTeam(id, 1, 0)
+    await pointsUser(body.id, 5, 1)
+
     res.status(200).json({
       data: { request: request },
       status: status(200, ""),
