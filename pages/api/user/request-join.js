@@ -29,9 +29,7 @@ export default async (req, res) => {
     const userId = token.id
     const body = JSON.parse(req.body)
 
-    console.log(typeof userId, typeof body.id)
     const { maxMembers } = await ProjectId(body.id)
-    console.log(maxMembers)
 
     const members = await InProgressLite(userId.toString(), body.id.toString())
     console.log(members.length)

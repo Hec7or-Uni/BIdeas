@@ -33,7 +33,6 @@ export default async (req, res) => {
       idProject: id,
     })
 
-    console.log(typeof id, typeof body.id)
     await pointsTeam(id, 1, 0)
     await pointsUser(body.id, 5, 1)
 
