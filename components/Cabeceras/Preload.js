@@ -2,15 +2,46 @@ import LineMenu from "../../components/Navegation/LineMenu"
 import Meta from "components/Meta"
 import { links4pro, links4teams } from "data/LineMenu"
 import { useA4Hired } from "../../context/A4HiredContext"
+import toast, { Toaster } from "react-hot-toast"
+
 
 export default function Preload({
+  user,
   web,
   title,
   subtitle,
   handleMenu,
   isActive,
 }) {
+
   const [isToggled, Toggle] = useA4Hired()
+
+  function handleUpdate(e) { //Actualizar estado boton
+    e.preventDefault()
+
+    const query = {
+      id: user,
+      av4hire: !isToggled,
+    }
+
+    return new Promise(function (resolve, reject) {
+      fetch(`http://localhost:3000/api/user`, {
+        method: "PUT",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(query),
+      })
+        .then((res) => {
+          return res.json()
+        })
+        .then((res) => {
+          if (!res) {
+            reject(new Error("error"))
+          }
+          resolve("ok")
+        })
+    })
+
+  }
   return (
     <>
       <Meta title={web} />
@@ -24,7 +55,14 @@ export default function Preload({
         ${isToggled ? "bg-green-400" : "bg-red-400"}`}
         >
           <button
-            onClick={() => Toggle(!isToggled)}
+            onClick={(e) => {
+              toast
+                .promise(handleUpdate(e), {
+                  loading: "Saving changes...",
+                  success: "Changes succesfully saved",
+                  error: "Error while saving changes",
+                }).then(() => Toggle(!isToggled))
+            }}
             className={`self-center w-6 h-6 bg-white rounded-full transition duration-500 
           ${isToggled ? "transform translate-x-full" : ""}`}
           />

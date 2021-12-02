@@ -34,6 +34,7 @@ export default function Teams({ user, myProjects }) {
   if (!res1.data || !res2.data || !res3.data) {
     return (
       <Preload
+        user={user.id}
         web={"Teams"}
         title={"Lot of Jobs"}
         subtitle={

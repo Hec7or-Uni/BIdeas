@@ -1,4 +1,3 @@
-import prisma from "../../../libs/prisma"
 import status from "../../../libs/status"
 import { getToken } from "next-auth/jwt"
 import { createUser } from "../../../prisma/queries/CREATE/user"
@@ -6,6 +5,7 @@ import { deleteUser } from "../../../prisma/queries/DELETE/user"
 import { User } from "../../../prisma/queries/SELECT/user"
 import { Projects } from "../../../prisma/queries/SELECT/projects"
 import { InProgress } from "../../../prisma/queries/SELECT/in-progress"
+import { updateUser } from "prisma/queries/PUT/user"
 
 const secret = process.env.SECRET
 
@@ -67,11 +67,7 @@ export default async (req, res) => {
 
 // PUT /api/user/
 async function handlePUT(res, query) {
-  const updatedUser = await prisma.users.update({
-    data: query,
-    where: { id: query.id },
-  })
-
+  const updatedUser = await updateUser(query)
   res.json({
     data: { user: updatedUser },
     status: status(405, ""),

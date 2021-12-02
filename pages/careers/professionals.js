@@ -29,6 +29,7 @@ export default function Professionals({ user }) {
   if (!res1.data || !res2.data) {
     return (
       <Preload
+        user={user}
         web={"Professionals"}
         title={"Lot of Professionals"}
         subtitle={
