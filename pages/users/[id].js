@@ -4,7 +4,7 @@ import useSWR from "swr"
 import Header from "../../components/Cabeceras/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
-import Layout from "../../components/layout"
+import Layout from "../../components/Layout"
 import Meta from "components/Meta"
 import {
   FiHexagon,
