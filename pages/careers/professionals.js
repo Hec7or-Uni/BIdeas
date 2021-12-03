@@ -2,10 +2,10 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { getSession } from "next-auth/react"
 import useSWR, { mutate } from "swr"
-import Layout from "../../components/layout"
+import Layout from "../../components/Layout"
 import Preview from "../../components/Cards/Preview"
 import Preload from "components/Cabeceras/Preload"
-import Careers from "components/Content/careers"
+import Careers from "components/Content/Careers"
 import toast, { Toaster } from "react-hot-toast"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
