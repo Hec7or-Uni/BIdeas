@@ -4,7 +4,6 @@ import { links4pro, links4teams } from "data/LineMenu"
 import { useA4Hired } from "../../context/A4HiredContext"
 import toast, { Toaster } from "react-hot-toast"
 
-
 export default function Preload({
   user,
   web,
@@ -13,10 +12,9 @@ export default function Preload({
   handleMenu,
   isActive,
 }) {
-
   const [isToggled, Toggle] = useA4Hired()
 
-  function handleUpdate(e) { //Actualizar estado boton
+  function handleUpdate(e) {
     e.preventDefault()
 
     const query = {
@@ -40,10 +38,10 @@ export default function Preload({
           resolve("ok")
         })
     })
-
   }
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Meta title={web} />
       <div className="px-8">
         <p className="text-lg font-bold dark:text-gray-100">{title}</p>
@@ -61,7 +59,8 @@ export default function Preload({
                   loading: "Saving changes...",
                   success: "Changes succesfully saved",
                   error: "Error while saving changes",
-                }).then(() => Toggle(!isToggled))
+                })
+                .then(() => Toggle(!isToggled))
             }}
             className={`self-center w-6 h-6 bg-white rounded-full transition duration-500 
           ${isToggled ? "transform translate-x-full" : ""}`}

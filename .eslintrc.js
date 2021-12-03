@@ -2,7 +2,7 @@ const RULES = {
   OFF: "off",
   WARN: "warn",
   ERROR: "error",
-};
+}
 
 module.exports = {
   env: {
@@ -23,4 +23,4 @@ module.exports = {
     "react/prop-types": RULES.OFF,
     "react/react-in-jsx-scope": RULES.OFF,
   },
-};
+}
