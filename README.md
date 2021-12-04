@@ -11,23 +11,36 @@ BIdeas is a platform where people from all over the world can come together to c
 * [Algolia Autocomplete](https://github.com/algolia/autocomplete)
 
 ## Getting Started
-#### 0. Prerequisites
-* You will need [node.js](https://nodejs.org/es/) & [npm](https://www.npmjs.com/)
-
-#### 1. Clone the repository
+#### Without Docker
+Prerequisites
+You will need [node.js](https://nodejs.org/es/) & [npm](https://www.npmjs.com/)
 ```
+# 1. Clone the repository
 git clone https://github.com/Hec7or-Uni/CoGS.git
-```
-
-#### 2. Install the dependencies with:
-```
+# 2. Install the dependencies with:
 npm install
+# 3. Run the project:
+npm run start -p 3000
+```
+#### Docker Compose
+```
+docker-compose up
+```
+#### Without Docker Compose
+```
+# Build images
+docker build --tag nextjs-image .
+docker build --tag nginx-image ./nginx
+
+# Create shared network
+docker network create my-network
+
+# Run containers
+docker run --network my-network --name nextjs-container nextjs-image
+docker run --network my-network --link nextjs-container:nextjs --publish 80:80 nginx-image
 ```
 
-#### 3. Run the project:
-```
-npm run dev
-```
+
 
 ## Features
 #### Find people as motivated as you are
