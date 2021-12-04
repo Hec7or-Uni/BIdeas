@@ -16,11 +16,10 @@ export default function Professionals({ user }) {
   const handleMenu = (id) => setActive(id)
 
   const params = new URLSearchParams({ id: user.id })
-  const res1 = useSWR(`http://localhost:3000/api/users/lite`, { fetcher })
-  const res2 = useSWR(
-    `http://localhost:3000/api/user/request-member?${params.toString()}`,
-    { fetcher }
-  )
+  const res1 = useSWR(`/api/users/lite`, { fetcher })
+  const res2 = useSWR(`/api/user/request-member?${params.toString()}`, {
+    fetcher,
+  })
 
   if (res1.error || res2.error) {
     return router.push("/404")
@@ -48,12 +47,10 @@ export default function Professionals({ user }) {
     .filter((item) => !contactedUsersCopy.includes(item.id))
     .filter((item) => item.av4hire === true)
 
-  console.log(users)
-
   const handleContact = async (e) => {
-    mutate(`http://localhost:3000/api/users/lite`)
+    mutate(`/api/users/lite`)
     const id = Number(e.target.id)
-    const url = `http://localhost:3000/api/user/request-member`
+    const url = `/api/user/request-member`
     await fetch(url, {
       method: "POST",
       headers: {
@@ -64,19 +61,19 @@ export default function Professionals({ user }) {
       return res.json()
     })
     toast.success("Request successfully submitted!")
-    mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
+    mutate(`/api/user/request-member?${params.toString()}`)
   }
 
   const handleRemove = async (e) => {
-    mutate(`http://localhost:3000/api/users/lite`)
+    mutate(`/api/users/lite`)
     const id = Number(e.target.id)
     const params2 = new URLSearchParams({ id: id })
-    const url = `http://localhost:3000/api/user/request-member?${params2.toString()}`
+    const url = `/api/user/request-member?${params2.toString()}`
     await fetch(url, { method: "DELETE" }).then((res) => {
       return res.json()
     })
     toast.success("Request successfully deleted!")
-    mutate(`http://localhost:3000/api/user/request-member?${params.toString()}`)
+    mutate(`/api/user/request-member?${params.toString()}`)
   }
 
   return (
@@ -166,7 +163,7 @@ export async function getServerSideProps({ req }) {
   }
 
   const params = new URLSearchParams({ id: session.token.id })
-  const urlUser = `http://localhost:3000/api/user?${params.toString()}`
+  const urlUser = `${process.env.BASE_URL}/api/user?${params.toString()}`
 
   const resUser = await fetch(urlUser, {
     method: "GET",

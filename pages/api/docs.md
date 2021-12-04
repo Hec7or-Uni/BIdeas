@@ -1,5 +1,5 @@
 ## REST API - V1
-You can access the REST API of the server directly. It is running on the same host machine and port and can be accessed via the `/api` route (in this case that is `localhost:3000/api/`, so you can e.g. reach the API with `localhost:3000/api/user`).
+You can access the REST API of the server directly. It is running on the same host machine and port and can be accessed via the `/api` route (in this case that is `localhost/api/`, so you can e.g. reach the API with `localhost/api/user`).
 
 ### `User`
 * **`POST`** `/api/user` Register a new user

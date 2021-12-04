@@ -38,8 +38,8 @@ export default function Login({ csrfToken }) {
                 success: "Successfully logged in",
                 error: "Error when logging in",
               })
-              .then(() => router.push("http://localhost:3000/home"))
-              .catch(() => router.push("http://localhost:3000/login"))
+              .then(() => router.push("/home"))
+              .catch(() => router.push("/login"))
           }}
           className="mt-4"
         >

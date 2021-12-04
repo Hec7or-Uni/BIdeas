@@ -22,10 +22,7 @@ export default function Profile() {
   let ownsCli = null
   let participatesCli = null
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/users/${router.query.id}`,
-    fetcher
-  )
+  const { data, error } = useSWR(`/api/users/${router.query.id}`, fetcher)
 
   if (error) {
     // return router.push("/404")
@@ -166,7 +163,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/user?${params.toString()}`
+    const url = `${process.env.BASE_URL}/api/user?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",
