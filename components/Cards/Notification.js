@@ -15,7 +15,7 @@ export default function Notification({
   subtitle,
 }) {
   async function accept() {
-    const url = `http://localhost:3000/api/team/member`
+    const url = `/api/team/member`
     await fetch(url, {
       method: "POST",
       headers: {
@@ -30,19 +30,19 @@ export default function Notification({
     }).then((res) => {
       return res.json()
     })
-    mutate(`http://localhost:3000/api/user/requested-member`)
-    mutate(`http://localhost:3000/api/user/requested-join`)
+    mutate(`/api/user/requested-member`)
+    mutate(`/api/user/requested-join`)
   }
 
   async function reject() {
     const params = new URLSearchParams({ type: type, id: id })
-    const url = `http://localhost:3000/api/team/member?${params.toString()}`
+    const url = `/api/team/member?${params.toString()}`
 
     await fetch(url, { method: "DELETE" }).then((res) => {
       return res.json()
     })
-    mutate(`http://localhost:3000/api/user/requested-member`)
-    mutate(`http://localhost:3000/api/user/requested-join`)
+    mutate(`/api/user/requested-member`)
+    mutate(`/api/user/requested-join`)
   }
 
   return (

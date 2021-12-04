@@ -24,7 +24,7 @@ export default function Preview({
   const createdAtFormated = useDateTimeFormat(createdAt)
 
   return (
-    <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
+    <Link href={`/${isUser ? "users" : "teams"}/${url}`}>
       <a
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -69,9 +69,7 @@ export default function Preview({
           <div className="absolute right-0 mr-4">
             <div className="flex items-center space-x-3">
               <ButtonS
-                url={`http://localhost:3000/${
-                  isUser ? "users" : "teams"
-                }/${url}`}
+                url={`/${isUser ? "users" : "teams"}/${url}`}
                 text={accion1}
               />
               <ButtonP

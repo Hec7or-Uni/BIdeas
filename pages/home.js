@@ -350,7 +350,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `${process.env.BASE_URL}/api/user?${params.toString()}`
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/user?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",

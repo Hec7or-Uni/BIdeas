@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
 import toast, { Toaster } from "react-hot-toast"
 import { getSession } from "next-auth/react"
 import Link from "next/link"
@@ -17,6 +18,7 @@ import { FaDiscord } from "react-icons/fa"
 import { numMaxMembers } from "../data/MaxMembers"
 
 export default function Team({ team, user, workers }) {
+  const router = useRouter()
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
 
@@ -216,7 +218,7 @@ export default function Team({ team, user, workers }) {
                 success: "Changes succesfully saved",
                 error: "Error while saving changes",
               })
-              .then(() => window.location.reload(false))
+              .then(() => router.reload())
               .catch(() => {})
           }}
           id="form-teamProfile"
@@ -277,7 +279,7 @@ export default function Team({ team, user, workers }) {
                                 success: "Team succesfully deleted",
                                 error: "Error while deleting team",
                               })
-                              .then(() => window.location.reload(false))
+                              .then(() => router.reload())
                               .catch(() => {})
                           }}
                           className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
@@ -482,7 +484,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `${process.env.BASE_URL}/api/team?${params.toString()}`
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/team?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",
@@ -500,7 +502,9 @@ export async function getServerSideProps({ req }) {
 
   if (!user) {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `${process.env.BASE_URL}/api/user/lite?${params.toString()}`
+    const url = `${
+      process.env.NEXT_PUBLIC_URL
+    }/api/user/lite?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",

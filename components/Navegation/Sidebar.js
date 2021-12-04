@@ -50,7 +50,10 @@ export default function Sidebar() {
         <div className="mx-auto w-full">
           {!isToggle ? (
             <button
-              onClick={() => signOut()}
+              onClick={async () => {
+                await signOut({ redirect: false })
+                router.push("/")
+              }}
               className="px-3 py-1.5 bg-red-100 hover:bg-red-200 rounded-lg w-full mb-2"
             >
               <p className="text-base font-semibold text-red-600 hover:text-red-700 capitalize  ml-1.5 max-w-40 text-center truncate overflow-clip overflow-hidden tracking-tight">

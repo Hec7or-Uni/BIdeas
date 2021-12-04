@@ -41,7 +41,7 @@ export default function Invite() {
       if (!e.target.checkbox.checked) {
         reject(new Error("error"))
       } else {
-        fetch(`${process.env.BASE_URL}/api/user`, {
+        fetch(`/api/user`, {
           method: "POST",
           headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(query),
@@ -75,7 +75,7 @@ export default function Invite() {
                 error: "Error while registering the user",
               })
               .then(() => router.push("/login"))
-              .catch(() => router.push("/invite"))
+              .catch(() => router.reload())
           }}
           className="mt-4"
         >

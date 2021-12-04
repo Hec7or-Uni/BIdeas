@@ -23,7 +23,7 @@ export default function Preload({
     }
 
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/user`, {
+      fetch(`/api/user`, {
         method: "PUT",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
