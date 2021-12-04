@@ -46,13 +46,12 @@ export default function Team({ team, user, workers }) {
     }
 
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/team`, {
+      fetch(`/api/team`, {
         method: metodo,
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
       }).then((res) => {
         res.json()
-        console.log(res)
         if (!res.ok) {
           reject(new Error("error"))
         }
@@ -65,7 +64,7 @@ export default function Team({ team, user, workers }) {
     const params = new URLSearchParams({ id: team.id })
 
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/team?${params.toString()}`, {
+      fetch(`/api/team?${params.toString()}`, {
         method: "DELETE",
       }).then((res) => {
         res.json()
@@ -483,7 +482,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/team?${params.toString()}`
+    const url = `${process.env.BASE_URL}/api/team?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",
@@ -501,7 +500,7 @@ export async function getServerSideProps({ req }) {
 
   if (!user) {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/user/lite?${params.toString()}`
+    const url = `${process.env.BASE_URL}/api/user/lite?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",

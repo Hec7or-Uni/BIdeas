@@ -54,7 +54,7 @@ export default function Profile({ user, owns, participates }) {
       delete query.passwd
     }
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/user`, {
+      fetch(`/api/user`, {
         method: "PUT",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
@@ -70,7 +70,7 @@ export default function Profile({ user, owns, participates }) {
 
   function handleDelete() {
     const params2 = new URLSearchParams({ id: user.id })
-    const url = `http://localhost:3000/api/user?${params2.toString()}`
+    const url = `/api/user?${params2.toString()}`
 
     return new Promise(function (resolve, reject) {
       fetch(url, {
@@ -508,7 +508,7 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
-    const url = `http://localhost:3000/api/users/${session.token.id}`
+    const url = `${process.env.BASE_URL}/api/users/${session.token.id}`
 
     res = await fetch(url, {
       method: "GET",
