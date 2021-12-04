@@ -18,7 +18,7 @@ export default NextAuth({
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         const query = { id: credentials.id }
-        const res = await fetch(`${process.env.BASE_URL}/api/user/login`, {
+        const res = await fetch(`/api/user/login`, {
           method: "POST",
           headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(query),
