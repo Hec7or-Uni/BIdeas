@@ -10,11 +10,10 @@ export default function tos() {
 
         <p className="text-justify ">
           <span className="website_name">cogs</span> provides the{" "}
-          <span className="website_url">http://localhost:3000/</span> website
-          and various related services to you, the User, subject to your
-          compliance with all the terms, conditions, and notices contained or
-          referenced herein, as well as any other written agreement between us
-          and you.
+          <span className="website_url">http://localhost/</span> website and
+          various related services to you, the User, subject to your compliance
+          with all the terms, conditions, and notices contained or referenced
+          herein, as well as any other written agreement between us and you.
         </p>
 
         <p className="text-justify">

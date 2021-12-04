@@ -1,10 +1,11 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
 import { getSession, signOut } from "next-auth/react"
 import Header from "components/Cabeceras/Header"
 import Statistics from "../components/Cards/Statistics"
 import TeUsCard from "../components/Cards/TeUsCard"
 import LineMenu from "../components/Navegation/LineMenu"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import Meta from "components/Meta"
 import crypto from "crypto"
 import CryptoJS from "crypto-js"
@@ -25,6 +26,7 @@ import { BsTwitter, BsFacebook } from "react-icons/bs"
 import { CgWebsite } from "react-icons/cg"
 
 export default function Profile({ user, owns, participates }) {
+  const router = useRouter()
   const [isActive, setActive] = useState(1)
   const handleMenu = (id) => setActive(id)
 
@@ -54,7 +56,7 @@ export default function Profile({ user, owns, participates }) {
       delete query.passwd
     }
     return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:3000/api/user`, {
+      fetch(`/api/user`, {
         method: "PUT",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(query),
@@ -70,7 +72,7 @@ export default function Profile({ user, owns, participates }) {
 
   function handleDelete() {
     const params2 = new URLSearchParams({ id: user.id })
-    const url = `http://localhost:3000/api/user?${params2.toString()}`
+    const url = `/api/user?${params2.toString()}`
 
     return new Promise(function (resolve, reject) {
       fetch(url, {
@@ -215,7 +217,8 @@ export default function Profile({ user, owns, participates }) {
                 success: "Changes succesfully saved",
                 error: "Error while saving changes",
               })
-              .then(() => window.location.reload(false))
+              .then(() => router.reload())
+              .catch(() => router.reload())
           }}
           id="form-profile"
         >
@@ -274,9 +277,10 @@ export default function Profile({ user, owns, participates }) {
                               success: "User succesfully deleted",
                               error: "Error while deleting user",
                             })
-                            .then(
-                              () => signOut() && window.location.reload(false)
-                            )
+                            .then(async () => {
+                              await signOut({ redirect: false })
+                              router.push("/")
+                            })
                         }}
                         className="px-7 py-1 bg-red-600 hover:bg-red-500 text-white text-bold font-medium uppercase rounded-md cursor-pointer"
                       >
@@ -508,7 +512,7 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
-    const url = `http://localhost:3000/api/users/${session.token.id}`
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/users/${session.token.id}`
 
     res = await fetch(url, {
       method: "GET",

@@ -7,11 +7,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Modal() {
   const router = useRouter()
 
-  const res1 = useSWR(
-    `http://localhost:3000/api/user/requested-member`,
-    fetcher
-  )
-  const res2 = useSWR(`http://localhost:3000/api/user/requested-join`, fetcher)
+  const res1 = useSWR(`/api/user/requested-member`, fetcher)
+  const res2 = useSWR(`/api/user/requested-join`, fetcher)
 
   if (res1.error || res2.error) {
     return router.push("/404")

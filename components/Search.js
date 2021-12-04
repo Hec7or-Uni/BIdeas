@@ -54,6 +54,7 @@ export default function Search(props) {
           {
             sourceId: "offers-next-api",
             getItems: ({ query }) => {
+              // eslint-disable-next-line no-extra-boolean-cast
               if (!!query) {
                 return fetch(`/api/search?q=${query}`).then((res) => res.json())
               }

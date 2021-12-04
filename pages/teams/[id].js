@@ -4,7 +4,7 @@ import useSWR from "swr"
 import Header from "../../components/Cabeceras/Header"
 import Statistics from "../../components/Cards/Statistics"
 import TeUsCard from "../../components/Cards/TeUsCard"
-import Layout from "../../components/layout"
+import Layout from "../../components/Layout"
 import Meta from "components/Meta"
 import { FiAward, FiBriefcase, FiHeart } from "react-icons/fi"
 
@@ -16,10 +16,7 @@ export default function Team() {
   let ownerCli = null
   let workersCli = null
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/teams/${router.query.id}`,
-    fetcher
-  )
+  const { data, error } = useSWR(`/api/teams/${router.query.id}`, fetcher)
 
   if (error) {
     return router.push("/404")
@@ -156,7 +153,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/user?${params.toString()}`
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/user?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",

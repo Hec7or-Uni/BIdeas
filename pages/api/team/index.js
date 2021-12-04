@@ -67,10 +67,9 @@ export default async (req, res) => {
     const id = req.query.id
     console.log(id)
     const deleted = await deleteTeam(id)
-    res.status(200).json({
-      data: { deleted: deleted },
-      status: status(200, ""),
-    })
+    data = {
+      deleted: deleted,
+    }
   }
 
   res.status(200).json({

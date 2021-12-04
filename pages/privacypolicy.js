@@ -8,10 +8,10 @@ export default function privacypolicy() {
           Privacy Policy for cogs
         </h1>
         <p className="text-justify">
-          At cogs, accessible from http://localhost:3000/, one of our main
-          priorities is the privacy of our visitors. This Privacy Policy
-          document contains types of information that is collected and recorded
-          by cogs and how we use it.
+          At cogs, accessible from http://localhost/, one of our main priorities
+          is the privacy of our visitors. This Privacy Policy document contains
+          types of information that is collected and recorded by cogs and how we
+          use it.
         </p>
         <p className="text-justify">
           If you have additional questions or require more information about our

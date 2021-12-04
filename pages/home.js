@@ -4,7 +4,7 @@ import Link from "next/link"
 import LineMenu from "../components/Navegation/LineMenu"
 import Shortcut from "../components/Cards/Shortcut"
 import Info from "components/Cabeceras/Info"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import Meta from "../components/Meta"
 import { links4home } from "data/LineMenu"
 import { GoOrganization, GoTelescope } from "react-icons/go"
@@ -350,7 +350,7 @@ export async function getServerSideProps({ req }) {
     }
   } else {
     const params = new URLSearchParams({ id: session.token.id })
-    const url = `http://localhost:3000/api/user?${params.toString()}`
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/user?${params.toString()}`
 
     res = await fetch(url, {
       method: "GET",

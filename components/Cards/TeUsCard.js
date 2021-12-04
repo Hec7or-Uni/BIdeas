@@ -7,7 +7,7 @@ export default function TeUsCard({ id, img, title, desc, url, isUser, owns }) {
     e.preventDefault()
     const id = e.target.id
     const params = new URLSearchParams({ id: id })
-    const url = `http://localhost:3000/api/user/participates?${params.toString()}`
+    const url = `/api/user/participates?${params.toString()}`
     return new Promise(function (resolve, reject) {
       fetch(url, { method: "DELETE" })
         .then((res) => {
@@ -25,7 +25,7 @@ export default function TeUsCard({ id, img, title, desc, url, isUser, owns }) {
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
-      <Link href={`http://localhost:3000/${isUser ? "users" : "teams"}/${url}`}>
+      <Link href={`/${isUser ? "users" : "teams"}/${url}`}>
         <a className="flex items-center gap-x-4 w-1/2 rounded-xl bg-color-light-neutral-1 dark:bg-color-neutral-1 shadow relative">
           <div className="w-24 h-24 rounded-xl">
             <img

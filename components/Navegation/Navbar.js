@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
 import { useSidebar } from "../../context/SideBarContext"
@@ -9,6 +10,7 @@ import Modal from "../Modals/Modal"
 import Search from "components/Search"
 
 export default function NewNavbar({ avatar, userName, plan }) {
+  const router = useRouter()
   const [isActive, setActive] = useState(false)
   const [isModal, setModal] = useState(false)
   const [isToggle, ToggleSidebar] = useSidebar()
@@ -94,7 +96,10 @@ export default function NewNavbar({ avatar, userName, plan }) {
                   )
                 })}
                 <button
-                  onClick={() => signOut()}
+                  onClick={async () => {
+                    await signOut({ redirect: false })
+                    router.push("/")
+                  }}
                   className="px-3 py-1.5 bg-white hover:bg-red-200 rounded-lg"
                 >
                   <p className="text-base font-semibold text-red-600 capitalize">
