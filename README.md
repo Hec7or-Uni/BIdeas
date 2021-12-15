@@ -30,8 +30,8 @@ docker-compose up
 #### Without Docker Compose
 ```
 # Build images
-docker build --tag nextjs-image .
-docker build --tag nginx-image ./nginx
+docker build . --tag nextjs-image
+docker build ./nginx --tag nginx-image
 
 # Create shared network
 docker network create my-network
