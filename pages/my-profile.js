@@ -103,6 +103,10 @@ export default function Profile({ user, owns, participates }) {
         xp={user.xp}
         myProfile={true}
         country={user.country}
+        isTeam={false}
+        website={user.website}
+        facebook={user.facebook}
+        twitter={user.twitter}
       />
       <LineMenu
         handleMenu={handleMenu}

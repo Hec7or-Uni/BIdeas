@@ -47,6 +47,10 @@ export default function Profile() {
         plan={user.plan}
         xp={user.xp}
         country={user.country}
+        isTeam={false}
+        website={user.website}
+        facebook={user.facebook}
+        twitter={user.twitter}
       />
       <div className="container mt-6">
         <div className="flex gap-x-5">

@@ -64,6 +64,10 @@ export default function Team() {
         plan={ownerCli.plan}
         xp={ownerCli.xp}
         country={ownerCli.country}
+        isTeam={true}
+        discord={team.discord}
+        facebook={team.facebook}
+        twitter={team.twitter}
       />
       <div className="w-full mt-16">
         <div className="flex items-start justify-between">

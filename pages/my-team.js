@@ -98,6 +98,7 @@ export default function Team({ team, user, workers }) {
     country = "DefaultCountry"
   }
 
+  console.log(team)
   return (
     <div className="px-8 py-3">
       <Toaster position="top-center" reverseOrder={true} />
@@ -111,6 +112,10 @@ export default function Team({ team, user, workers }) {
         xp={user.xp}
         myProfile={true}
         country={user.country}
+        isTeam={true}
+        discord={team.discord}
+        facebook={team.facebook}
+        twitter={team.twitter}
       />
       <LineMenu
         handleMenu={handleMenu}

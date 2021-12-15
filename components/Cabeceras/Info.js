@@ -13,7 +13,7 @@ export default function Info() {
         <div className="flex flex-col w-1/2 text-left pl-6 text-gray-900 dark:text-gray-100">
           <p className="text-xs font-medium uppercase truncate">changelog</p>
           <p className="mt-2 text-base font-bold capitalize truncate">
-            version 1.0
+            version beta
           </p>
         </div>
       </div>
