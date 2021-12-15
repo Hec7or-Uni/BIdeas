@@ -103,6 +103,10 @@ export default function Profile({ user, owns, participates }) {
         xp={user.xp}
         myProfile={true}
         country={user.country}
+        isTeam={false}
+        website={user.website}
+        facebook={user.facebook}
+        twitter={user.twitter}
       />
       <LineMenu
         handleMenu={handleMenu}
@@ -464,7 +468,7 @@ export default function Profile({ user, owns, participates }) {
                       id="twitter"
                       type="text"
                       name="twitter"
-                      placeholder="@TwitterUser"
+                      placeholder="https://www.twitter.com/..."
                       defaultValue={user.twitter}
                       className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:border-blue-600"
                     />
@@ -480,7 +484,7 @@ export default function Profile({ user, owns, participates }) {
                       id="facebook"
                       type="text"
                       name="facebook"
-                      placeholder="FacebookUser"
+                      placeholder="https://www.facebook.com/..."
                       defaultValue={user.facebook}
                       className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md focus:border-blue-600"
                     />

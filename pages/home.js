@@ -277,17 +277,33 @@ export default function Home({ user, owns, recommended, participates }) {
         )}
         {isActive === 2 && (
           <div className="flex gap-x-4 overflow-x-auto pb-6">
-            {finals().map((item, idx) => {
-              return (
-                <Shortcut
-                  key={item.id}
-                  img={item.avatar}
-                  title={item.teamName}
-                  desc={item.description}
-                  url={"/teams/" + item.teamName}
-                />
-              )
-            })}
+            {finals.length !== 0 ? (
+              <>
+                {finals().map((item, idx) => {
+                  return (
+                    <Shortcut
+                      key={item.id}
+                      img={item.avatar}
+                      title={item.teamName}
+                      desc={item.description}
+                      url={"/teams/" + item.teamName}
+                    />
+                  )
+                })}
+              </>
+            ) : (
+              <div className="container pb-32 py-3">
+                <div className="mx-auto flex flex-col items-center justify-center w-1/2 space-y-1 pb-10">
+                  <RiBlazeLine className="h-14 w-14 object-fill object-center mb-3 text-red-600" />
+                  <p className="text-base font-semibold text-justify dark:text-gray-100">
+                    Oops! Looks like there aren&apos;t any teams yet!
+                  </p>
+                  <p className="text-sm font-normal text-justify dark:text-gray-100">
+                    Try it later...
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
         {isActive === 3 && (
@@ -298,7 +314,7 @@ export default function Home({ user, owns, recommended, participates }) {
                   key={item.project.id}
                   img={item.project.avatar}
                   title={item.project.teamName}
-                  desc={item.project.description}
+                  desc={item.project.motto}
                   url={"/"}
                 />
               )

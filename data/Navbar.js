@@ -14,9 +14,4 @@ export const links = [
     name: "view team",
     url: "/my-team",
   },
-  {
-    id: 4,
-    name: "subscriptions",
-    url: "",
-  },
 ]
