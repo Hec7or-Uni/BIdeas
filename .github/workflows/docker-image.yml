@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    runs-on: windows-2019
+    runs-on: alpine
 
     steps:
     - uses: actions/checkout@v2
