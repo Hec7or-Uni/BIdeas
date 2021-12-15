@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint . --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@algolia/autocomplete-core": "1.5.0",
