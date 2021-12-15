@@ -17,4 +17,4 @@ jobs:
     - name: Build the Next JS Docker image
       run: docker build . --file Dockerfile --tag nextjs-image
     - name: Build the Ngingx Docker image
-      run: docker build ./nginx --file Dockerfile --tag nginx-image 
+      run: docker build ./nginx --file ./nginx/Dockerfile --tag nginx-image 
