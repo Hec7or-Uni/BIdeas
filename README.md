@@ -20,6 +20,7 @@ git clone https://github.com/Hec7or-Uni/CoGS.git
 # 2. Install the dependencies with:
 npm install
 # 3. Run the project:
+npm run build
 npm run start -p 3000
 ```
 #### Docker Compose

@@ -16,7 +16,6 @@ export default function Root() {
   const { timerDays, timerHours, timerMinutes, timerSeconds } = useClock(
     new Date("December 25, 2021 12:00").getTime()
   )
-
   return (
     <>
       <div className="w-full">

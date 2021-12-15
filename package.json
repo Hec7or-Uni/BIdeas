@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p ${PORT:=3000}"
+    "start": "next start"
   },
   "dependencies": {
     "@algolia/autocomplete-core": "1.5.0",
