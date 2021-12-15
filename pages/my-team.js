@@ -358,6 +358,9 @@ export default function Team({ team, user, workers }) {
                             id="maxMembers"
                             className="w-24 px-3 py-2 mt-1  text-gray-700 border rounded-md focus:border-blue-600 text-opacity-75"
                           >
+                            <option value="">
+                              {team.maxMembers || "Select a num"}
+                            </option>
                             {Object.entries(numMaxMembers).map(
                               ([key, value]) => (
                                 <option key={key} value={key}>
@@ -422,7 +425,7 @@ export default function Team({ team, user, workers }) {
                       id="twitter"
                       type="text"
                       name="twitter"
-                      placeholder="@TwitterUser"
+                      placeholder="https://twitter.com/..."
                       defaultValue={team.twitter}
                       className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
                     />
@@ -438,7 +441,7 @@ export default function Team({ team, user, workers }) {
                       id="facebook"
                       type="text"
                       name="facebook"
-                      placeholder="FacebookUser"
+                      placeholder="https://www.facebook.com/..."
                       defaultValue={team.facebook}
                       className="block w-full px-3 py-2 mt-1 mb-5 text-gray-700 border rounded-md form-inpu focus:border-blue-600"
                     />

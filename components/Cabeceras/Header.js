@@ -43,18 +43,22 @@ export default function Header({
       <div className="flex justify-between items-center gap-4 tracking-normal mb-4 relative">
         {/* Profile */}
         <div className="flex items-center">
-          <div className="w-16 h-16 rounded-full relative">
-            <img
-              src={avatar || "/personas/DefaultAvatar.jpg"}
-              className="w-full h-full rounded-full object-cover center"
-            />
-            <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
-              <img
-                src={`/banderas/${country}.png`}
-                className="rounded-full object-cover center"
-              />
-            </div>
-          </div>
+          <Link href={`/users/${username}`}>
+            <a>
+              <div className="w-16 h-16 rounded-full relative">
+                <img
+                  src={avatar || "/personas/DefaultAvatar.jpg"}
+                  className="w-full h-full rounded-full object-cover center"
+                />
+                <div className="flex w-5 h-5 mb-0.5 ml-0.5 rounded-full absolute right-0 bottom-0">
+                  <img
+                    src={`/banderas/${country}.png`}
+                    className="rounded-full object-cover center"
+                  />
+                </div>
+              </div>
+            </a>
+          </Link>
 
           <div className="ml-8">
             <div className="flex items-end">

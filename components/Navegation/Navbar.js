@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
 import { useSidebar } from "../../context/SideBarContext"
-import { FiChevronUp, FiHelpCircle, FiMail } from "react-icons/fi"
+import { FiChevronUp, FiHelpCircle, FiBell } from "react-icons/fi"
 import { links } from "../../data/Navbar"
 import Logo from "../Logo"
 import Modal from "../Modals/Modal"
@@ -50,7 +50,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
               setActive(false)
             }}
           >
-            <FiMail className="h-5 w-5 hover:text-blue-500 dark:text-white" />
+            <FiBell className="h-5 w-5 hover:text-blue-500 dark:text-white" />
           </button>
           <Link href="/faq">
             <a>

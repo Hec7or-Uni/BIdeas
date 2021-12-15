@@ -40,7 +40,7 @@ export default function TeUsCard({ id, img, title, desc, url, isUser, owns }) {
             />
           </div>
           <div className="self-start w-3/5 overflow-ellipsis overflow-hidden mt-2">
-            <p className="text-xl font-bold text-gray-900 dark:text-white">
+            <p className="text-xl font-bold text-gray-900 dark:text-white capitalize">
               {title}
             </p>
             <p className="text-base font-normal h-16 leading-5 text-gray-900 dark:text-white">
