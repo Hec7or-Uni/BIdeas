@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import ButtonP from "../Buttons/ButtonP"
 import ButtonPM from "../Buttons/ButtonPM"
 import ButtonS from "../Buttons/ButtonS"
 import { signOut } from "next-auth/react"
@@ -12,7 +13,7 @@ export default function Navbar({ session }) {
         <Logo url={"/home"} />
         <div className="flex gap-x-3 absolute right-0 mx-4">
           {session ? (
-            <ButtonPM
+            <ButtonP
               func={async () => {
                 await signOut({ redirect: false })
                 router.push("/")
