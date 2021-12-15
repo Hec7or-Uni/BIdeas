@@ -315,7 +315,7 @@ export default function Home({ user, owns, recommended, participates }) {
                   img={item.project.avatar}
                   title={item.project.teamName}
                   desc={item.project.motto}
-                  url={"/"}
+                  url={"/teams/" + item.project.teamName}
                 />
               )
             })}
