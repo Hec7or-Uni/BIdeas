@@ -44,7 +44,6 @@ model Projects {
   id          Int      @id @default(autoincrement())
   teamName    String   @unique @db.VarChar(50)
   avatar      String?  
-  cover       String?  
   motto       String?  @db.VarChar(80)
   description String?  @db.VarChar(500)
   xp          Int      @default(0)
