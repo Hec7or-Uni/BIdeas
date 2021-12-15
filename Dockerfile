@@ -14,7 +14,6 @@ COPY --from=deps /cogs/node_modules ./node_modules
 RUN npm run build && npm install --production --ignore-scripts --prefer-offline
 RUN npx prisma generate
 
-
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
 WORKDIR /cogs
