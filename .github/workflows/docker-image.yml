@@ -6,13 +6,21 @@ on:
   pull_request:
     branches: [ main ]
 
+
+
 jobs:
 
   build:
-
-    runs-on: alpine
-
+    runs-on: ubuntu-latest
     steps:
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.5.0
+      with:
+        # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
+        cache: npm
+        # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
+        cache-dependency-path: package-lock.json
+    
     - uses: actions/checkout@v2
     - name: Build the Next JS Docker image
       run: docker build ./ --tag nextjs-image
