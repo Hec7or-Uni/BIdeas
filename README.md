@@ -6,11 +6,23 @@ BIdeas is a platform where people from all over the world can come together to c
 ## Docs Reference
 * [Next.js](https://nextjs.org/)
 * [Prisma.io](https://www.prisma.io/)
-* [Tailwindcss](https://tailwindcss.com/docs)
+* [Tailwindcss](https://tailwindcss.com/)
 * [React Hot Toast](https://react-hot-toast.com/)
 * [Algolia Autocomplete](https://github.com/algolia/autocomplete)
+* [SWR](https://github.com/vercel/swr)
+* [NGINX](https://www.nginx.com/)
+* [Docker](https://www.docker.com/)
 
 ## Getting Started
+#### `.env`
+All the following methods need this file.
+```env
+NEXT_PUBLIC_URL=
+SECRET=
+DATABASE_URL=
+```
+To create the secret you can run the following command in linux `openssl rand -hex 32` or visit the following [page](https://generate-secret.now.sh/32).
+
 #### Without Docker
 Prerequisites
 You will need [node.js](https://nodejs.org/es/) & [npm](https://www.npmjs.com/)
@@ -30,8 +42,8 @@ docker-compose up
 #### Without Docker Compose
 ```
 # Build images
-docker build . --tag nextjs-image
-docker build ./nginx --tag nginx-image
+docker build --tag nextjs-image .
+docker build --tag nginx-image ./nginx
 
 # Create shared network
 docker network create my-network
@@ -40,8 +52,6 @@ docker network create my-network
 docker run --network my-network --name nextjs-container nextjs-image
 docker run --network my-network --link nextjs-container:nextjs --publish 80:80 nginx-image
 ```
-
-
 
 ## Features
 #### Find people as motivated as you are

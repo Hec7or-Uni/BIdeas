@@ -25,7 +25,7 @@ export default function Profile() {
   const { data, error } = useSWR(`/api/users/${router.query.id}`, fetcher)
 
   if (error) {
-    // return router.push("/404")
+    return router.push("/404")
   } else {
     if (!data) {
       return <>loading</>
