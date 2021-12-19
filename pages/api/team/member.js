@@ -32,7 +32,6 @@ export default async (req, res) => {
     // Añade al user: <idUser> al team: <idProject>
     const data = await createUserTeam(query.idUser, query.idProject)
 
-    console.log(typeof query.idProject)
     Number(query.type) === 0
       ? await pointsUser(query.idUser, 5, 1)
       : await pointsTeam(query.idProject, 5, 1)

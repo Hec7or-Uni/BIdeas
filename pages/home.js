@@ -365,7 +365,6 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
-    console.log(session.token.id)
     const params = new URLSearchParams({ id: session.token.id })
     const url = `${process.env.NEXT_PUBLIC_URL}/api/user?${params.toString()}`
 
@@ -380,8 +379,6 @@ export async function getServerSideProps({ req }) {
       })
       .catch(() => new Error("error"))
   }
-
-  console.log(res)
 
   const { user, projects } = res.data
   let { owns, recommended, participates } = projects

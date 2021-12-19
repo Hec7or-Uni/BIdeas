@@ -65,7 +65,6 @@ export default async (req, res) => {
     }
   } else if (method === "DELETE") {
     const id = req.query.id
-    console.log(id)
     const deleted = await deleteTeam(id)
     data = {
       deleted: deleted,

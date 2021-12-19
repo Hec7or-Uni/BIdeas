@@ -32,7 +32,6 @@ export default async (req, res) => {
     const { maxMembers } = await ProjectId(body.id)
 
     const members = await InProgressLite(userId.toString(), body.id.toString())
-    console.log(members.length)
 
     if (maxMembers === members.length - 1) {
       res.status(400).json({

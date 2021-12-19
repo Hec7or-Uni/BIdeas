@@ -98,7 +98,6 @@ export default function Team({ team, user, workers }) {
     country = "DefaultCountry"
   }
 
-  console.log(team)
   return (
     <div className="px-8 py-3">
       <Toaster position="top-center" reverseOrder={true} />
