@@ -38,7 +38,6 @@ export default async (req, res) => {
     })
   } else if (method === "GET") {
     const token = await getToken({ req, secret, raw: true })
-    console.log(token)
     if (!token) {
       res.status(401).json({
         status: status(401, ""),

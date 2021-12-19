@@ -1,4 +1,4 @@
-Sitemap: http://localhost/api/sitemap
+Sitemap: https://bideas.herokuapp.com/api/sitemap
 
 User-agent: *
 Disallow: /*

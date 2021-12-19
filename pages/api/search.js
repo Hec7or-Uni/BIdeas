@@ -8,7 +8,7 @@ export default async (req, res) => {
   const allowedMethods = ["GET"]
   const method = req.method
   const { q } = req.query
-  const token = await getToken({ req, secret })
+  const token = await getToken({ req, secret, raw: true })
 
   if (!token) {
     res.status(401).json({
