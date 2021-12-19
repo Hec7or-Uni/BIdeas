@@ -12,6 +12,7 @@ export default function Layout({ children }) {
       <Meta />
       <SidebarProvider>
         <Navbar
+          id={user.id}
           avatar={user.avatar}
           userName={user.userName}
           plan={user.plan}

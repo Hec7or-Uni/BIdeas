@@ -9,7 +9,7 @@ import Logo from "../Logo"
 import Modal from "../Modals/Modal"
 import Search from "components/Search"
 
-export default function NewNavbar({ avatar, userName, plan }) {
+export default function NewNavbar({ id, avatar, userName, plan }) {
   const router = useRouter()
   const [isActive, setActive] = useState(false)
   const [isModal, setModal] = useState(false)
@@ -111,7 +111,7 @@ export default function NewNavbar({ avatar, userName, plan }) {
           </div>
         </div>
       </div>
-      {isModal && <Modal />}
+      {isModal && <Modal id={id} />}
     </div>
   )
 }

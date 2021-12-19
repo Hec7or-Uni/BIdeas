@@ -8,7 +8,7 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   const allowedMethods = ["GET"]
   const method = req.method
-  const token = await getToken({ req, secret })
+  const token = await getToken({ req, secret, raw: true })
   if (!token) {
     res.status(401).json({
       status: status(401, ""),
@@ -20,11 +20,11 @@ export default async (req, res) => {
     res.status(405).end(`Method ${method} Not Allowed`)
   }
 
-  const ownerId = token.id.toString()
+  const query = req.query
   let team = {}
   let users = []
   try {
-    const { id } = await ProjectLite(ownerId)
+    const { id } = await ProjectLite(query)
     const data = await ReqProjectLite(id)
 
     if (data.length !== 0) {

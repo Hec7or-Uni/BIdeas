@@ -4,11 +4,15 @@ import Notification from "../Cards/Notification"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Modal() {
+export default function Modal({ id }) {
   const router = useRouter()
 
-  const res1 = useSWR(`/api/user/requested-member`, fetcher)
-  const res2 = useSWR(`/api/user/requested-join`, fetcher)
+  const params = new URLSearchParams({ id: id })
+  const res1 = useSWR(
+    `/api/user/requested-member?${params.toString()}`,
+    fetcher
+  )
+  const res2 = useSWR(`/api/user/requested-join?${params.toString()}`, fetcher)
 
   if (res1.error || res2.error) {
     return router.push("/404")
