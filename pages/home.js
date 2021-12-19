@@ -365,6 +365,7 @@ export async function getServerSideProps({ req }) {
       },
     }
   } else {
+    console.log(session.token.id)
     const params = new URLSearchParams({ id: session.token.id })
     const url = `${process.env.NEXT_PUBLIC_URL}/api/user?${params.toString()}`
 
@@ -373,9 +374,11 @@ export async function getServerSideProps({ req }) {
       headers: {
         Authorization: `Bearer ${req.cookies["next-auth.session-token"]}`,
       },
-    }).then((res) => {
-      return res.json()
     })
+      .then((res) => {
+        return res.json()
+      })
+      .catch(() => new Error("error"))
   }
 
   const { user, projects } = res.data
