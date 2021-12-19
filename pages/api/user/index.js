@@ -37,7 +37,7 @@ export default async (req, res) => {
       status: status(405, ""),
     })
   } else if (method === "GET") {
-    const token = await getToken({ req, secret })
+    const token = await getToken({ req, secret, raw: true })
     console.log(token)
     if (!token) {
       res.status(401).json({
