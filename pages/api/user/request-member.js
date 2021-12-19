@@ -11,7 +11,7 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   const allowedMethods = ["POST", "GET", "DELETE"]
   const method = req.method
-  const token = await getToken({ req, secret })
+  const token = await getToken({ req, secret, raw: true })
   if (!token) {
     res.status(401).json({
       status: status(401, ""),
@@ -24,17 +24,17 @@ export default async (req, res) => {
   }
 
   if (method === "POST") {
-    const userId = token.id.toString()
     const body = JSON.parse(req.body)
-    const { id } = await ProjectLite(userId)
+    const client = body.idCli.toString()
+    const { id } = await ProjectLite(client)
 
     const request = await createReqUser({
-      idUser: body.id,
+      idUser: body.idReq,
       idProject: id,
     })
 
     await pointsTeam(id, 1, 0)
-    await pointsUser(body.id, 5, 1)
+    await pointsUser(body.idReq, 5, 1)
 
     res.status(200).json({
       data: { request: request },

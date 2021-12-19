@@ -28,7 +28,7 @@ export default function Professionals({ user }) {
   if (!res1.data || !res2.data) {
     return (
       <Preload
-        user={user}
+        user={user.id}
         web={"Professionals"}
         title={"Lot of Professionals"}
         subtitle={
@@ -56,7 +56,7 @@ export default function Professionals({ user }) {
       headers: {
         "Content-Type": "text/plain",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ idReq: id, idCli: user.id }),
     }).then((res) => {
       return res.json()
     })
@@ -80,6 +80,7 @@ export default function Professionals({ user }) {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Preload
+        user={user.id}
         web={"Professionals"}
         title={"Lot of Professionals"}
         subtitle={

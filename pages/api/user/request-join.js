@@ -13,7 +13,7 @@ const secret = process.env.SECRET
 export default async (req, res) => {
   const allowedMethods = ["POST", "GET", "DELETE"]
   const method = req.method
-  const token = await getToken({ req, secret })
+  const token = await getToken({ req, secret, raw: true })
   if (!token) {
     res.status(401).json({
       status: status(401, ""),
@@ -26,12 +26,14 @@ export default async (req, res) => {
   }
 
   if (method === "POST") {
-    const userId = token.id
-    const body = JSON.parse(req.body)
+    const query = JSON.parse(req.body)
 
-    const { maxMembers } = await ProjectId(body.id)
+    const { maxMembers } = await ProjectId(query.idProject)
 
-    const members = await InProgressLite(userId.toString(), body.id.toString())
+    const members = await InProgressLite(
+      query.idUser.toString(),
+      query.idProject.toString()
+    )
 
     if (maxMembers === members.length - 1) {
       res.status(400).json({
@@ -39,12 +41,12 @@ export default async (req, res) => {
       })
     } else {
       const request = await createReqProject({
-        idUser: userId,
-        idProject: body.id,
+        idUser: query.idUser,
+        idProject: query.idProject,
       })
 
-      await pointsTeam(body.id, 5, 1)
-      await pointsUser(userId, 1, 0)
+      await pointsTeam(query.idProject, 5, 1)
+      await pointsUser(query.idUser, 1, 0)
 
       res.status(200).json({
         data: { request: request },

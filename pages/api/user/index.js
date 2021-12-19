@@ -24,14 +24,14 @@ export default async (req, res) => {
       status: status(200, ""),
     })
   } else if (method === "PUT") {
-    const token = await getToken({ req, secret })
+    const token = await getToken({ req, secret, raw: true })
     if (!token) {
       res.status(401).json({
         status: status(401, ""),
       })
     }
     const query = JSON.parse(req.body)
-    const updatedUser = await updateUser(token.id, query)
+    const updatedUser = await updateUser(query.id, query)
     res.json({
       data: { user: updatedUser },
       status: status(405, ""),

@@ -48,14 +48,14 @@ export default function Teams({ user }) {
 
   const handleApplyJob = async (e) => {
     mutate(`/api/teams/lite`)
-    const id = Number(e.target.id)
+    const idProject = Number(e.target.id)
     const url = `/api/user/request-join`
     await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ idProject: idProject, idUser: user.id }),
     }).then((res) => {
       return res.json()
     })
@@ -80,6 +80,7 @@ export default function Teams({ user }) {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Preload
+        user={user.id}
         web={"Teams"}
         title={"Lot of Jobs"}
         subtitle={
