@@ -381,6 +381,8 @@ export async function getServerSideProps({ req }) {
       .catch(() => new Error("error"))
   }
 
+  console.log(res)
+
   const { user, projects } = res.data
   let { owns, recommended, participates } = projects
   const participatesCopy = participates.map((item) => item.idProject)
