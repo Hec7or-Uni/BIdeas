@@ -37,5 +37,9 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "engines": {
+    "node": "14.17.5",
+    "npm":"8.2.0"
   }
 }
