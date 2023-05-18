@@ -1,8 +1,25 @@
 version: '3'
 services:
-  nextjs: 
+  nextjs:
     build: ./
-  nginx: 
+  nginx:
     build: ./nginx
     ports:
       - 80:80
+  db:
+    container_name: bideas_db
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: bideas
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  postgresql:
+  postgresql_data:
